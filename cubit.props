@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <BoostDiIncludeDir>$(SolutionDir)boost-di/include</BoostDiIncludeDir>
+    <CubitIncludeDir>$(SolutionDir)cubit/include</CubitIncludeDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate</IntDir>
+    <IncludePath>$(BoostDiIncludeDir);$(CubitIncludeDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="BoostDiIncludeDir">
+      <Value>$(BoostDiIncludeDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CubitIncludeDir">
+      <Value>$(CubitIncludeDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
