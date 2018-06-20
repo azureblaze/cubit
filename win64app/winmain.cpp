@@ -5,5 +5,8 @@ int __stdcall WinMain(
     void *hPrevInstance,
     const char *lpCmdLine,
     int nCmdShow) {
-  return cubit::createWin64Application(hInstance, lpCmdLine)->start();
+  auto application =
+      cubit::createWin64Application((intptr_t)hInstance, lpCmdLine);
+  application->initialize();
+  return application->start();
 }

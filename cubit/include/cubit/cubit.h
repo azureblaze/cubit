@@ -10,5 +10,7 @@
 #include <string_view>
 
 namespace cubit {
-CUBIT_EXPORT std::shared_ptr<Application> createWin64Application(void *instance, std::string_view commandLine);
+CUBIT_EXPORT std::shared_ptr<Application> createWin64Application(
+    intptr_t instance,
+    std::string_view commandLine);
 }

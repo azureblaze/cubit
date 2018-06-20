@@ -126,15 +126,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="impl\common\core\CommonCoreComponent.h" />
+    <ClInclude Include="impl\common\core\ConstMapConfig.h" />
+    <ClInclude Include="impl\common\core\FrameRateGovernor.h" />
+    <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
+    <ClInclude Include="impl\win64\core\QPCTimer.h" />
+    <ClInclude Include="impl\win64\core\VCDebugLogger.h" />
+    <ClInclude Include="impl\win64\core\WaitableTimerSleepFuture.h" />
     <ClInclude Include="impl\win64\core\Win64CoreComponent.h" />
+    <ClInclude Include="impl\win64\core\Win64Util.h" />
+    <ClInclude Include="impl\win64\core\Win64Window.h" />
+    <ClInclude Include="include\cubit\core\config.h" />
+    <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h" />
+    <ClInclude Include="include\cubit\core\Logger.h" />
+    <ClInclude Include="include\cubit\core\os.h" />
+    <ClInclude Include="include\cubit\core\SleepFuture.h" />
+    <ClInclude Include="include\cubit\core\Timer.h" />
+    <ClInclude Include="include\cubit\core\Window.h" />
     <ClInclude Include="include\cubit\core\application.h" />
     <ClInclude Include="include\cubit\cubit.h" />
     <ClInclude Include="impl\win64\core\Win64Application.h" />
+    <ClInclude Include="include\cubit\graphics\Renderer.h" />
+    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="impl\common\core\ConstMapConfig.cpp" />
+    <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
+    <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
     <ClCompile Include="impl\common\cubit.cpp" />
+    <ClCompile Include="impl\win64\core\QPCTimer.cpp" />
+    <ClCompile Include="impl\win64\core\VCDebugLogger.cpp" />
+    <ClCompile Include="impl\win64\core\WaitableTimerSleepFuture.cpp" />
     <ClCompile Include="impl\win64\core\Win64Applilcation.cpp" />
     <ClCompile Include="impl\win64\core\Win64CoreComponent.cpp" />
+    <ClCompile Include="impl\win64\core\Win64Util.cpp" />
+    <ClCompile Include="impl\win64\core\Win64Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
