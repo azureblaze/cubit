@@ -8,11 +8,9 @@ SleepFutureGovernor::SleepFutureGovernor(
     std::shared_ptr<Config> config,
     const SleepFutureFactory& sleepFutureFactory,
     const TimerFactory& timerFactory,
-    std::shared_ptr<Logger> logger,
     std::unique_ptr<FrameUpdateMetrics> metrics)
     : config(config),
       timer(timerFactory.create()),
-      logger(logger),
       metrics(move(metrics)),
       nextFuture(sleepFutureFactory.create()),
       framePeriod(1.0f / config->get<float>("max_fps")) {}
@@ -27,6 +25,12 @@ void SleepFutureGovernor::nextFrame() {
 
   float frameTime = timer->get();
   targetTime -= frameTime;
+
+  // clamp catchup from a slow frame to 1 frame.
+  if (targetTime < -framePeriod) {
+    targetTime = -framePeriod;
+  }
+
   metrics->addFrameData({updateTime, frameTime});
   queueFuture();
 }

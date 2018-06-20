@@ -15,7 +15,6 @@ class SleepFutureGovernor : public FrameRateGovernor {
       std::shared_ptr<Config> config,
       const SleepFutureFactory& sleepFutureFactory,
       const TimerFactory& timerFactory,
-      std::shared_ptr<Logger> logger,
       std::unique_ptr<FrameUpdateMetrics> metrics);
   virtual void start();
   virtual void nextFrame();
@@ -26,7 +25,6 @@ class SleepFutureGovernor : public FrameRateGovernor {
 
   std::unique_ptr<SleepFuture> nextFuture;
   std::unique_ptr<Timer> timer;
-  std::shared_ptr<Logger> logger;
   std::unique_ptr<FrameUpdateMetrics> metrics;
   float targetTime = 0.0f;
 
