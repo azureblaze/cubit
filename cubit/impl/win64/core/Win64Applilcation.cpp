@@ -76,9 +76,6 @@ int Win64Application::start() {
   timeBeginPeriod(1);
   frameRateGovernor->start();
   while (isRunning) {
-    auto timer = timerFactory.create();
-    timer->start();
-
     while (PeekMessage(&message, 0, 0, 0, PM_REMOVE)) {
       TranslateMessage(&message);
       DispatchMessage(&message);
