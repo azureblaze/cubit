@@ -9,8 +9,8 @@ class Logger {
 
   class Stream {
     friend class Logger;
-    Logger* logger;
-    Stream(Logger* logger) : logger(logger) {}
+    Logger& logger;
+    Stream(Logger& logger) : logger(logger) {}
 
    public:
     Stream(Stream&& m) = default;
@@ -20,11 +20,11 @@ class Logger {
     Stream& operator<<(const T& in) {
       std::stringstream stringStream;
       stringStream << in;
-      logger->log(stringStream.str());
+      logger.log(stringStream.str());
       return *this;
     }
   };
 
-  Stream stream() { return std::move(Stream(this)); }
+  Stream stream() { return std::move(Stream(*this)); }
 };
 }  // namespace cubit

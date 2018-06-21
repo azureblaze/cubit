@@ -17,7 +17,7 @@ using namespace std;
 
 namespace cubit {
 namespace impl {
-const di::injector<std::shared_ptr<Application>> getWin64CoreInjector(
+di::injector<Application&, Logger&> getWin64CoreInjector(
     intptr_t applicationInstance,
     string_view commandLineArgs) {
   return di::make_injector(

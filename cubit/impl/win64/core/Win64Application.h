@@ -24,12 +24,12 @@ class Win64Application : public Application {
       const Spec& spec,
       const boost::di::extension::ifactory<Win64Window, Win64Window::Spec>&
           windowFactory,
-      std::shared_ptr<Config> config,
-      std::shared_ptr<Logger> logger,
+      Config& config,
+      Logger& logger,
       const cubit::TimerFactory& timerFactory,
       std::unique_ptr<FrameRateGovernor> frameRateGovernor);
   void initialize() override;
-  int start() override;
+  int start(std::function<void()> update) override;
   void quit() override { isRunning = false; };
   std::unique_ptr<Window> createWindow();
 
@@ -39,8 +39,8 @@ class Win64Application : public Application {
   const Spec spec;
   const boost::di::extension::ifactory<Win64Window, Win64Window::Spec>&
       windowFactory;
-  const std::shared_ptr<Config> config;
-  std::shared_ptr<Logger> logger;
+  const Config& config;
+  Logger& logger;
   const cubit::TimerFactory& timerFactory;
   std::unique_ptr<FrameRateGovernor> frameRateGovernor;
 

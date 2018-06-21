@@ -1,11 +1,12 @@
-#pragma once
+﻿#pragma once
 #include <cubit/core/application.h>
 #include <boost/di.hpp>
 #include <string_view>
 
 namespace cubit {
+class Logger;
 namespace impl {
-const boost::di::injector<std::shared_ptr<Application>> getWin64CoreInjector(
+boost::di::injector<Application&, Logger&> getWin64CoreInjector(
     intptr_t applicationInstance,
     std::string_view commandLineArgs);
 }

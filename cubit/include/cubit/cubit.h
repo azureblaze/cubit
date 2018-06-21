@@ -1,16 +1,18 @@
-#pragma once
+﻿#pragma once
 #ifdef EXPORT_CUBIT_DLL
 #define CUBIT_EXPORT __declspec(dllexport)
 #else
 #define CUBIT_EXPORT
 #endif
-
-#include <cubit/core/application.h>
+#include <boost/di.hpp>
 #include <memory>
 #include <string_view>
 
 namespace cubit {
-CUBIT_EXPORT std::shared_ptr<Application> createWin64Application(
+class Application;
+class Logger;
+
+CUBIT_EXPORT boost::di::injector<Application&, Logger&> getCubitInjector(
     intptr_t instance,
     std::string_view commandLine);
-}
+}  // namespace cubit

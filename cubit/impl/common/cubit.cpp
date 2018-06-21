@@ -1,12 +1,13 @@
-#include <cubit/cubit.h>
+﻿#include <cubit/cubit.h>
 
+#include <cubit/core/application.h>
+#include <memory>
 #include "win64/core/Win64CoreComponent.h"
-
 namespace cubit {
-std::shared_ptr<Application> createWin64Application(
+boost::di::injector<Application&, Logger&> getCubitInjector(
     intptr_t instance,
     std::string_view commandLine) {
-  return cubit::impl::getWin64CoreInjector(instance, commandLine)
-      .create<std::shared_ptr<Application>>();
+  return boost::di::make_injector(
+      cubit::impl::getWin64CoreInjector(instance, commandLine));
 }
 }  // namespace cubit

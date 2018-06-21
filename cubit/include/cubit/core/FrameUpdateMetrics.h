@@ -10,15 +10,13 @@ class FrameUpdateMetrics {
     float updateTime;
     float frameTime;
   };
-  FrameUpdateMetrics(
-      std::shared_ptr<Config> config,
-      std::shared_ptr<Logger> logger);
+  FrameUpdateMetrics(Config& config, Logger& logger);
 
   void addFrameData(const Metric& metric);
 
  private:
-  std::shared_ptr<Config> config;
-  std::shared_ptr<Logger> logger;
+  Config& config;
+  Logger& logger;
   std::vector<Metric> metrics;
 
   int period;

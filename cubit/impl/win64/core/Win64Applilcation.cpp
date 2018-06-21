@@ -27,8 +27,8 @@ Win64Application::Win64Application(
     const Spec& spec,
     const di::extension::ifactory<Win64Window, Win64Window::Spec>&
         windowFactory,
-    std::shared_ptr<Config> config,
-    std::shared_ptr<Logger> logger,
+    Config& config,
+    Logger& logger,
     const TimerFactory& timerFactory,
     std::unique_ptr<FrameRateGovernor> frameRateGovernor)
     : spec(spec),
@@ -68,7 +68,7 @@ void Win64Application::registerWindowClass() {
   RegisterClassEx(&windowClass);
 }
 
-int Win64Application::start() {
+int Win64Application::start(std::function<void()> update) {
   auto window = createWindow();
   window->show();
 
@@ -84,7 +84,7 @@ int Win64Application::start() {
         quit();
       }
     }
-
+    update();
     frameRateGovernor->nextFrame();
   }
   timeEndPeriod(1);

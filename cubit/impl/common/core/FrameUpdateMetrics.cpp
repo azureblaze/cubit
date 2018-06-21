@@ -5,12 +5,10 @@
 
 using namespace std;
 namespace cubit {
-FrameUpdateMetrics ::FrameUpdateMetrics(
-    std::shared_ptr<Config> config,
-    std::shared_ptr<Logger> logger)
+FrameUpdateMetrics ::FrameUpdateMetrics(Config& config, Logger& logger)
     : config(config),
       logger(logger),
-      period(config->get<int>("frame_update_metrics_period")) {
+      period(config.get<int>("frame_update_metrics_period")) {
   metrics.reserve(period);
 }
 
@@ -25,7 +23,7 @@ void FrameUpdateMetrics::logMetrics() {
   ss << "UPS: " << fixed << setw(5) << setprecision(1)
      << (float)period / frameSum << " Load: " << fixed << setw(5)
      << setprecision(2) << (updateSum / frameSum * 100.f) << "%\n";
-  logger->log(ss.str());
+  logger.log(ss.str());
 }
 
 void FrameUpdateMetrics::addFrameData(const Metric& metric) {

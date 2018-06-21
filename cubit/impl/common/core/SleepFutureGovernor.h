@@ -12,7 +12,7 @@ namespace impl {
 class SleepFutureGovernor : public FrameRateGovernor {
  public:
   SleepFutureGovernor(
-      std::shared_ptr<Config> config,
+      Config& config,
       const SleepFutureFactory& sleepFutureFactory,
       const TimerFactory& timerFactory,
       std::unique_ptr<FrameUpdateMetrics> metrics);
@@ -20,7 +20,7 @@ class SleepFutureGovernor : public FrameRateGovernor {
   virtual void nextFrame();
 
  private:
-  std::shared_ptr<Config> config;
+  Config& config;
   const float framePeriod;
 
   std::unique_ptr<SleepFuture> nextFuture;
