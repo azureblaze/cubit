@@ -1,22 +1,18 @@
-﻿#include "Dx11RenderEngine.h"
+﻿#include "Dx11Renderer.h"
 
 #include <stdexcept>
 
 #include <d3d11.h>
-#include <d3dx10.h>
-#include <d3dx11.h>
 
 #include <cubit/os/Logger.h>
 
 #include "win64/core/Win64Window.h"
 
 #pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dx11.lib")
-#pragma comment(lib, "d3dx10.lib")
 
 namespace cubit {
 namespace impl {
-Dx11RenderEngine::Dx11RenderEngine(Logger& logger, Win64Window* window)
+Dx11Renderer::Dx11Renderer(Logger& logger, Win64Window* window)
     : logger(logger), window(window) {
   DXGI_SWAP_CHAIN_DESC swapChainDescription;
 
@@ -42,7 +38,7 @@ Dx11RenderEngine::Dx11RenderEngine(Logger& logger, Win64Window* window)
       &deviceContext);
 }
 
-void Dx11RenderEngine::present() {
+void Dx11Renderer::present() {
   logger.stream() << "present"
                   << "\n";
 }

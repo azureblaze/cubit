@@ -36,12 +36,6 @@
     <ClCompile Include="impl\win64\cubit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\common\graphics\DirectRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="impl\win64\os\QPCTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -64,6 +58,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="impl\common\core\CommonCoreComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,19 +101,7 @@
     <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="impl\win64\graphics\dx11\dx11GraphicComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\win64\graphics\Win64RenderEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\common\graphics\DirectRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\common\graphics\RenderEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="impl\win64\os\QPCTimer.h">
@@ -153,6 +138,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="impl\win64\os\Win64Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\Win64Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

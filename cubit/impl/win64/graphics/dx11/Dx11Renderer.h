@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "win64/graphics/Win64RenderEngine.h"
+#include "win64/graphics/Win64Renderer.h"
 
 #include <boost/di/extension/injections/assisted_injection.hpp>
 #include <memory>
@@ -16,10 +16,10 @@ namespace cubit {
 class Logger;
 namespace impl {
 class Win64Window;
-class Dx11RenderEngine : public Win64RenderEngine {
+class Dx11Renderer : public Win64Renderer {
  public:
   BOOST_DI_INJECT(
-      Dx11RenderEngine,
+      Dx11Renderer,
       Logger& logger,
       (named = di::extension::assisted) Win64Window* window);
 

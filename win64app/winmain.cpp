@@ -20,7 +20,7 @@ class Game {
     window->show();
   }
   void update() {
-    window->getRenderer().render();
+    window->getRenderer().present();
     logger.stream() << i++ << "\n";
   }
 };

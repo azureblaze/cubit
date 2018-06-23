@@ -134,7 +134,6 @@
     <ClInclude Include="impl\common\config\ConstMapConfig.h" />
     <ClInclude Include="impl\common\core\FrameRateGovernor.h" />
     <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
-    <ClInclude Include="impl\common\graphics\DirectRenderer.h" />
     <ClInclude Include="impl\win64\os\QPCTimer.h" />
     <ClInclude Include="impl\win64\os\VCDebugLogger.h" />
     <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h" />
@@ -142,9 +141,8 @@
     <ClInclude Include="impl\win64\os\Win64Util.h" />
     <ClInclude Include="impl\win64\core\Win64Window.h" />
     <ClInclude Include="impl\win64\graphics\dx11\dx11GraphicComponent.h" />
-    <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderEngine.h" />
-    <ClInclude Include="impl\common\graphics\RenderEngine.h" />
-    <ClInclude Include="impl\win64\graphics\Win64RenderEngine.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Renderer.h" />
+    <ClInclude Include="impl\win64\graphics\Win64Renderer.h" />
     <ClInclude Include="impl\win64\os\Win64OsComponent.h" />
     <ClInclude Include="include\cubit\config\config.h" />
     <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h" />
@@ -166,7 +164,6 @@
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
     <ClCompile Include="impl\win64\cubit.cpp" />
-    <ClCompile Include="impl\common\graphics\DirectRenderer.cpp" />
     <ClCompile Include="impl\win64\os\QPCTimer.cpp" />
     <ClCompile Include="impl\win64\os\VCDebugLogger.cpp" />
     <ClCompile Include="impl\win64\os\WaitableTimerSleepFuture.cpp" />
@@ -175,7 +172,7 @@
     <ClCompile Include="impl\win64\os\Win64Util.cpp" />
     <ClCompile Include="impl\win64\core\Win64Window.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\dx11GraphicComponent.cpp" />
-    <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderEngine.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Renderer.cpp" />
     <ClCompile Include="impl\win64\os\Win64OsComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

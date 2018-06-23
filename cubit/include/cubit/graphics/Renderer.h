@@ -11,7 +11,7 @@ class RenderEngine;
 class Renderer {
  public:
   virtual ~Renderer() = default;
-  virtual void render() = 0;
+  virtual void present() = 0;
 };
 
 using RendererFactory =

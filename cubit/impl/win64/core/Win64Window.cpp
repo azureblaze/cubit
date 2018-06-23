@@ -8,7 +8,7 @@
 #include <Windows.h>
 
 #include "Win64Application.h"
-#include "win64/graphics/Win64RenderEngine.h "
+#include "win64/graphics/Win64Renderer.h "
 #include "win64/os/Win64Util.h"
 
 using namespace std;
@@ -18,11 +18,8 @@ namespace impl {
 Win64Window::Win64Window(
     const Spec& spec,
     Config& config,
-    RendererFactory rendererFactory,
-    Win64RenderEngineFactory win64RenderEngineFactory)
-    : spec(spec),
-      rendererFactory(rendererFactory),
-      win64RenderEngineFactory(win64RenderEngineFactory) {
+    Win64RendererFactory win64RendererFactory)
+    : spec(spec), win64RendererFactory(win64RendererFactory) {
   width = config.get<int>("default_window_width");
   height = config.get<int>("default_window_height");
 }
@@ -53,7 +50,7 @@ void Win64Window::show() { ShowWindow((HWND)handle, SW_SHOW); }
 
 cubit::Renderer& Win64Window::getRenderer() {
   if (renderer.get() == nullptr) {
-    renderer = rendererFactory(win64RenderEngineFactory(this).release());
+    renderer = win64RendererFactory(this);
   }
   return *renderer;
 }

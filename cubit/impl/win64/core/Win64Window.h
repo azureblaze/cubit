@@ -8,7 +8,7 @@
 #include <boost/di.hpp>
 #include <boost/di/extension/injections/assisted_injection.hpp>
 
-#include "win64/graphics/Win64RenderEngine.h"
+#include "win64/graphics/Win64Renderer.h"
 #include "win64/graphics/dx11/dx11GraphicComponent.h"
 
 using namespace std;
@@ -18,7 +18,6 @@ class Config;
 class Renderer;
 namespace impl {
 class Win64Application;
-class Win64RenderEngine;
 class Win64Window : public Window {
  public:
   struct Spec {
@@ -31,8 +30,7 @@ class Win64Window : public Window {
       Win64Window,
       (named = boost::di::extension::assisted) const Spec& spec,
       Config& config,
-      RendererFactory rendererFactory,
-      Win64RenderEngineFactory win64RenderEngineFactory);
+      Win64RendererFactory win64RendererFactory);
   ~Win64Window();
 
   virtual void setSize(int width, int height) override {
@@ -48,8 +46,7 @@ class Win64Window : public Window {
  private:
   friend Win64Application;
   const Spec spec;
-  RendererFactory rendererFactory;
-  Win64RenderEngineFactory win64RenderEngineFactory;
+  Win64RendererFactory win64RendererFactory;
 
   intptr_t handle;
   std::unique_ptr<Renderer> renderer;

@@ -9,8 +9,8 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate\</IntDir>
-    <IncludePath>$(DxSdk)Include\;$(BoostDi)extension/include;$(BoostDi)include/;$(CubitIncludeDir);$(IncludePath)</IncludePath>
-    <LibraryPath>$(DxSdk)Lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(BoostDi)extension/include;$(BoostDi)include/;$(CubitIncludeDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
