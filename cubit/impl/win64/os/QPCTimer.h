@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <cubit/core/Timer.h>
+#include <cubit/os/Timer.h>
 #include <stdint.h>
 namespace cubit {
 namespace impl {

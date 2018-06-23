@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <cubit/core/config.h>
+#include <cubit/config/config.h>
 #include <map>
 #include <memory>
 

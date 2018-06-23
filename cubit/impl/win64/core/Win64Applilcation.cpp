@@ -3,14 +3,15 @@
 #include <cassert>
 #include <sstream>
 
+#include <boost/di/extension/injections/factory.hpp>
+
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
 #include <Mmsystem.h>
 
-#include <cubit/core/Logger.h>
-#include <boost/di/extension/injections/factory.hpp>
-#include "Win64Util.h"
+#include <cubit/os/Logger.h>
+#include "win64/os/Win64Util.h"
 
 using namespace std;
 using namespace cubit;
@@ -25,8 +26,7 @@ static Win64Application* instance = nullptr;
 
 Win64Application::Win64Application(
     const Spec& spec,
-    const di::extension::ifactory<Win64Window, Win64Window::Spec>&
-        windowFactory,
+    Win64WindowFactory windowFactory,
     Config& config,
     Logger& logger,
     const TimerFactory& timerFactory,
@@ -39,7 +39,7 @@ Win64Application::Win64Application(
       frameRateGovernor(move(frameRateGovernor)) {}
 
 void Win64Application::initialize() {
-  assert(instance == nullptr);
+  assert(instance == nullptr || instance == this);
   instance = this;
   registerWindowClass();
 }
@@ -69,9 +69,6 @@ void Win64Application::registerWindowClass() {
 }
 
 int Win64Application::start(std::function<void()> update) {
-  auto window = createWindow();
-  window->show();
-
   MSG message;
   timeBeginPeriod(1);
   frameRateGovernor->start();
@@ -92,7 +89,7 @@ int Win64Application::start(std::function<void()> update) {
 }
 
 unique_ptr<Window> Win64Application::createWindow() {
-  unique_ptr<Win64Window> window = windowFactory.create(
+  unique_ptr<Win64Window> window = windowFactory(
       Win64Window::Spec{windowClassName, spec.applicationInstance, this});
   windows[window->initialize()] = window.get();
   return window;

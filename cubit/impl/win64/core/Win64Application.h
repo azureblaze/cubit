@@ -1,12 +1,13 @@
 ﻿#pragma once
-#include <cubit/core/Timer.h>
-#include <cubit/core/application.h>
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/factory.hpp>
 #include <map>
 #include <memory>
 #include <string_view>
 
+#include <boost/di.hpp>
+#include <boost/di/extension/injections/factory.hpp>
+
+#include <cubit/core/application.h>
+#include <cubit/os/Timer.h>
 #include "Win64Window.h"
 #include "common/core/FrameRateGovernor.h"
 
@@ -22,8 +23,7 @@ class Win64Application : public Application {
 
   Win64Application(
       const Spec& spec,
-      const boost::di::extension::ifactory<Win64Window, Win64Window::Spec>&
-          windowFactory,
+      Win64WindowFactory windowFactory,
       Config& config,
       Logger& logger,
       const cubit::TimerFactory& timerFactory,
@@ -37,8 +37,7 @@ class Win64Application : public Application {
 
  private:
   const Spec spec;
-  const boost::di::extension::ifactory<Win64Window, Win64Window::Spec>&
-      windowFactory;
+  Win64WindowFactory windowFactory;
   const Config& config;
   Logger& logger;
   const cubit::TimerFactory& timerFactory;

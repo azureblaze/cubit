@@ -12,7 +12,7 @@ class ConstMapConfigEntry {
     assert(false);
     return 0;
   }
-  virtual int getFloat() {
+  virtual float getFloat() {
     assert(false);
     return 0;
   };
@@ -36,7 +36,7 @@ class FloatEntry : public ConstMapConfigEntry {
  public:
   FloatEntry(float value) : value(value) {}
 
-  virtual int getFloat() override { return value; }
+  virtual float getFloat() override { return value; }
 
  private:
   float value;

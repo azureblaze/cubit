@@ -1,14 +1,24 @@
 ﻿#pragma once
 #include <cubit/core/Window.h>
+#include <cubit/graphics/renderer.h>
+
 #include <memory>
 #include <string>
+
+#include <boost/di.hpp>
+#include <boost/di/extension/injections/assisted_injection.hpp>
+
+#include "win64/graphics/Win64RenderEngine.h"
+#include "win64/graphics/dx11/dx11GraphicComponent.h"
+
 using namespace std;
 
 namespace cubit {
 class Config;
+class Renderer;
 namespace impl {
 class Win64Application;
-
+class Win64RenderEngine;
 class Win64Window : public Window {
  public:
   struct Spec {
@@ -17,20 +27,32 @@ class Win64Window : public Window {
     Win64Application* application;
   };
 
-  Win64Window(const Spec& spec, shared_ptr<Config> config);
+  BOOST_DI_INJECT(
+      Win64Window,
+      (named = boost::di::extension::assisted) const Spec& spec,
+      Config& config,
+      RendererFactory rendererFactory,
+      Win64RenderEngineFactory win64RenderEngineFactory);
   ~Win64Window();
 
   virtual void setSize(int width, int height) override {
     this->width = width;
     this->height = height;
   }
-
   virtual void show() override;
+
+  virtual Renderer& getRenderer() override;
+
+  intptr_t getHandle() { return handle; }
 
  private:
   friend Win64Application;
   const Spec spec;
+  RendererFactory rendererFactory;
+  Win64RenderEngineFactory win64RenderEngineFactory;
+
   intptr_t handle;
+  std::unique_ptr<Renderer> renderer;
 
   int width;
   int height;
@@ -39,5 +61,7 @@ class Win64Window : public Window {
 
   intptr_t onWindowProc(uint32_t message, intptr_t wParam, intptr_t lParam);
 };
+using Win64WindowFactory =
+    std::function<std::unique_ptr<Win64Window>(Win64Window::Spec)>;
 }  // namespace impl
 }  // namespace cubit

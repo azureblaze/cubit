@@ -4,11 +4,13 @@
   <PropertyGroup Label="UserMacros">
     <CubitIncludeDir>$(SolutionDir)cubit/include</CubitIncludeDir>
     <BoostDi>$(SolutionDir)boost-di/</BoostDi>
+    <DxSdk>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\</DxSdk>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate</IntDir>
-    <IncludePath>$(BoostDi)extension/include;$(BoostDi)include/;$(CubitIncludeDir);$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate\</IntDir>
+    <IncludePath>$(DxSdk)Include\;$(BoostDi)extension/include;$(BoostDi)include/;$(CubitIncludeDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(DxSdk)Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -21,6 +23,9 @@
     </BuildMacro>
     <BuildMacro Include="BoostDi">
       <Value>$(BoostDi)</Value>
+    </BuildMacro>
+    <BuildMacro Include="DxSdk">
+      <Value>$(DxSdk)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

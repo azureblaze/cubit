@@ -6,7 +6,7 @@
 namespace cubit {
 class Logger;
 namespace impl {
-boost::di::injector<Application&, Logger&> getWin64CoreInjector(
+boost::di::injector<Application&> getWin64CoreInjector(
     intptr_t applicationInstance,
     std::string_view commandLineArgs);
 }

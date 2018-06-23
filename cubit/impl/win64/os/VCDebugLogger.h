@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <cubit/core/Logger.h>
+#include <cubit/os/Logger.h>
 namespace cubit {
 namespace impl {
 class VCDebugLogger : public Logger {

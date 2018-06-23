@@ -1,17 +1,28 @@
-﻿#include <cubit/core/application.h>
-#include <cubit/core/logger.h>
-#include <cubit/cubit.h>
-#include <boost/di.hpp>
+﻿#include <boost/di.hpp>
+
 #include <memory>
+
+#include <cubit/core/application.h>
+#include <cubit/core/window.h>
+#include <cubit/cubit.h>
+#include <cubit/graphics/renderer.h>
+#include <cubit/os/logger.h>
 using namespace cubit;
 namespace di = boost::di;
 class Game {
   Logger &logger;
   int i = 0;
+  std::unique_ptr<Window> window;
 
  public:
-  Game(Logger &logger) : logger(logger) {}
-  void update() { logger.stream() << i++ << "\n"; }
+  Game(Application &application, Logger &logger) : logger(logger) {
+    window = application.createWindow();
+    window->show();
+  }
+  void update() {
+    window->getRenderer().render();
+    logger.stream() << i++ << "\n";
+  }
 };
 
 int __stdcall WinMain(
@@ -24,5 +35,5 @@ int __stdcall WinMain(
   cubit.create<Application &>().initialize();
 
   Game game = cubit.create<Game>();
-  return cubit.create<Application &>().start(std::bind(&Game::update, game));
+  return cubit.create<Application &>().start(std::bind(&Game::update, &game));
 }

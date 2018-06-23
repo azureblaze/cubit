@@ -74,10 +74,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)/impl;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)impl;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)/impl;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)impl;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,22 +129,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="impl\common\config\CommonConfigComponent.h" />
     <ClInclude Include="impl\common\core\CommonCoreComponent.h" />
-    <ClInclude Include="impl\common\core\ConstMapConfig.h" />
+    <ClInclude Include="impl\common\config\ConstMapConfig.h" />
     <ClInclude Include="impl\common\core\FrameRateGovernor.h" />
     <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
-    <ClInclude Include="impl\win64\core\QPCTimer.h" />
-    <ClInclude Include="impl\win64\core\VCDebugLogger.h" />
-    <ClInclude Include="impl\win64\core\WaitableTimerSleepFuture.h" />
+    <ClInclude Include="impl\common\graphics\DirectRenderer.h" />
+    <ClInclude Include="impl\win64\os\QPCTimer.h" />
+    <ClInclude Include="impl\win64\os\VCDebugLogger.h" />
+    <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h" />
     <ClInclude Include="impl\win64\core\Win64CoreComponent.h" />
-    <ClInclude Include="impl\win64\core\Win64Util.h" />
+    <ClInclude Include="impl\win64\os\Win64Util.h" />
     <ClInclude Include="impl\win64\core\Win64Window.h" />
-    <ClInclude Include="include\cubit\core\config.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\dx11GraphicComponent.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderEngine.h" />
+    <ClInclude Include="impl\common\graphics\RenderEngine.h" />
+    <ClInclude Include="impl\win64\graphics\Win64RenderEngine.h" />
+    <ClInclude Include="impl\win64\os\Win64OsComponent.h" />
+    <ClInclude Include="include\cubit\config\config.h" />
     <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h" />
-    <ClInclude Include="include\cubit\core\Logger.h" />
-    <ClInclude Include="include\cubit\core\os.h" />
-    <ClInclude Include="include\cubit\core\SleepFuture.h" />
-    <ClInclude Include="include\cubit\core\Timer.h" />
+    <ClInclude Include="include\cubit\os\Logger.h" />
+    <ClInclude Include="include\cubit\os\os.h" />
+    <ClInclude Include="include\cubit\os\SleepFuture.h" />
+    <ClInclude Include="include\cubit\os\Timer.h" />
     <ClInclude Include="include\cubit\core\Window.h" />
     <ClInclude Include="include\cubit\core\application.h" />
     <ClInclude Include="include\cubit\cubit.h" />
@@ -150,17 +160,23 @@
     <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="impl\common\core\ConstMapConfig.cpp" />
+    <ClCompile Include="impl\common\config\CommonConfigComponent.cpp" />
+    <ClCompile Include="impl\common\config\ConstMapConfig.cpp" />
+    <ClCompile Include="impl\common\core\CommonCoreComponent.cpp" />
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
-    <ClCompile Include="impl\common\cubit.cpp" />
-    <ClCompile Include="impl\win64\core\QPCTimer.cpp" />
-    <ClCompile Include="impl\win64\core\VCDebugLogger.cpp" />
-    <ClCompile Include="impl\win64\core\WaitableTimerSleepFuture.cpp" />
+    <ClCompile Include="impl\win64\cubit.cpp" />
+    <ClCompile Include="impl\common\graphics\DirectRenderer.cpp" />
+    <ClCompile Include="impl\win64\os\QPCTimer.cpp" />
+    <ClCompile Include="impl\win64\os\VCDebugLogger.cpp" />
+    <ClCompile Include="impl\win64\os\WaitableTimerSleepFuture.cpp" />
     <ClCompile Include="impl\win64\core\Win64Applilcation.cpp" />
     <ClCompile Include="impl\win64\core\Win64CoreComponent.cpp" />
-    <ClCompile Include="impl\win64\core\Win64Util.cpp" />
+    <ClCompile Include="impl\win64\os\Win64Util.cpp" />
     <ClCompile Include="impl\win64\core\Win64Window.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\dx11GraphicComponent.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderEngine.cpp" />
+    <ClCompile Include="impl\win64\os\Win64OsComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,11 @@
 ﻿#pragma once
-#include <cubit/core/Logger.h>
-#include <cubit/core/SleepFuture.h>
-#include <cubit/core/Timer.h>
-#include <memory>
 #include "FrameRateGovernor.h"
+
+#include <memory>
+
+#include <cubit/os/Logger.h>
+#include <cubit/os/SleepFuture.h>
+#include <cubit/os/Timer.h>
 
 namespace cubit {
 class Config;

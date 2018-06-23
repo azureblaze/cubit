@@ -1,7 +1,8 @@
-﻿#include <cubit/core/Config.h>
+﻿#include <iomanip>
+
+#include <cubit/config/Config.h>
 #include <cubit/core/FrameUpdateMetrics.h>
-#include <cubit/core/Logger.h>
-#include <iomanip>
+#include <cubit/os/Logger.h>
 
 using namespace std;
 namespace cubit {

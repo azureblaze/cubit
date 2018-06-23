@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="impl\common\cubit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="impl\win64\core\Win64Applilcation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -27,25 +24,46 @@
     <ClCompile Include="impl\win64\core\Win64Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="impl\win64\core\Win64Util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\common\core\ConstMapConfig.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\win64\core\VCDebugLogger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\win64\core\QPCTimer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\win64\core\WaitableTimerSleepFuture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\dx11GraphicComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\cubit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\common\graphics\DirectRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\os\QPCTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\os\VCDebugLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\os\WaitableTimerSleepFuture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\common\config\ConstMapConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\common\config\CommonConfigComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\os\Win64OsComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\os\Win64Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\common\core\CommonCoreComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,13 +83,7 @@
     <ClInclude Include="include\cubit\core\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\cubit\core\os.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="impl\win64\core\Win64Window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\win64\core\Win64Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
@@ -80,31 +92,7 @@
     <ClInclude Include="include\cubit\graphics\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\cubit\core\config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\common\core\ConstMapConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="impl\common\core\CommonCoreComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\cubit\core\Logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\win64\core\VCDebugLogger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\cubit\core\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\win64\core\QPCTimer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\cubit\core\SleepFuture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\win64\core\WaitableTimerSleepFuture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="impl\common\core\FrameRateGovernor.h">
@@ -114,6 +102,57 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\dx11GraphicComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\Win64RenderEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\common\graphics\DirectRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\common\graphics\RenderEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\os\QPCTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\os\VCDebugLogger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\os\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\os\os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\os\SleepFuture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\os\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\config\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\common\config\ConstMapConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\common\config\CommonConfigComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\os\Win64OsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\os\Win64Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

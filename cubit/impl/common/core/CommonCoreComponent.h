@@ -1,17 +1,16 @@
 ﻿#pragma once
 #include <boost/di.hpp>
 #include <memory>
-#include "ConstMapConfig.h"
+
 #include "FrameRateGovernor.h"
 #include "SleepFutureGovernor.h"
+#include "common/config/CommonConfigComponent.h"
+#include "win64/os/Win64OsComponent.h"
+
 namespace cubit {
 class Config;
 namespace impl {
 class ConstMapConfig;
-inline auto getCommonCoreInjector() {
-  return boost::di::make_injector(
-      boost::di::bind<Config>().to<ConstMapConfig>().in(boost::di::singleton),
-      boost::di::bind<FrameRateGovernor>().to<SleepFutureGovernor>());
-}
+boost::di::injector<std::unique_ptr<FrameRateGovernor>> getCommonCoreInjector();
 }  // namespace impl
 }  // namespace cubit

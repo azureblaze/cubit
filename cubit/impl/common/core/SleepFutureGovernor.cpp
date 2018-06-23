@@ -1,7 +1,10 @@
-﻿#include <cubit/core/FrameUpdateMetrics.h>
-#include <cubit/core/config.h>
+﻿#include "SleepFutureGovernor.h"
+
 #include <deque>
-#include "SleepFutureGovernor.h"
+
+#include <cubit/config/config.h>
+#include <cubit/core/FrameUpdateMetrics.h>
+
 namespace cubit {
 namespace impl {
 SleepFutureGovernor::SleepFutureGovernor(
