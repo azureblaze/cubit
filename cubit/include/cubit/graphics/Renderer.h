@@ -5,12 +5,17 @@
 #include <memory>
 
 namespace cubit {
+class RenderTarget;
 namespace impl {
 class RenderEngine;
 }  // namespace impl
+class Texture2D;
 class Renderer {
  public:
   virtual ~Renderer() = default;
+
+  virtual RenderTarget& getBackBufferTarget() = 0;
+
   virtual void present() = 0;
 };
 

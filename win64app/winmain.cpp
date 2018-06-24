@@ -5,7 +5,9 @@
 #include <cubit/core/application.h>
 #include <cubit/core/window.h>
 #include <cubit/cubit.h>
-#include <cubit/graphics/renderer.h>
+#include <cubit/graphics/Color.h>
+#include <cubit/graphics/RenderTarget.h>
+#include <cubit/graphics/Renderer.h>
 #include <cubit/os/logger.h>
 using namespace cubit;
 namespace di = boost::di;
@@ -20,8 +22,10 @@ class Game {
     window->show();
   }
   void update() {
+    window->getRenderer().getBackBufferTarget().clear(
+        Color{0, 0, sinf(i / 60.0f) / 2.f + 0.5f, 1});
     window->getRenderer().present();
-    logger.stream() << i++ << "\n";
+    i++;
   }
 };
 

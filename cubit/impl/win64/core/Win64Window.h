@@ -37,6 +37,9 @@ class Win64Window : public Window {
     this->width = width;
     this->height = height;
   }
+
+  virtual int getWidth() override { return width; };
+  virtual int getHeight() override { return height; };
   virtual void show() override;
 
   virtual Renderer& getRenderer() override;
