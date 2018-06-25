@@ -75,9 +75,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)impl;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\build\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)impl;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\build\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate\</IntDir>
@@ -98,6 +100,14 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>EXPORT_CUBIT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -127,6 +137,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="impl\common\config\CommonConfigComponent.h" />
@@ -135,8 +153,11 @@
     <ClInclude Include="impl\common\core\FrameRateGovernor.h" />
     <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderTarget.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexShader.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Texture2D.h" />
     <ClInclude Include="impl\win64\graphics\dx11\DxResult.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11PixelShader.h" />
     <ClInclude Include="impl\win64\os\QPCTimer.h" />
     <ClInclude Include="impl\win64\os\VCDebugLogger.h" />
     <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h" />
@@ -148,10 +169,14 @@
     <ClInclude Include="impl\win64\graphics\Win64Renderer.h" />
     <ClInclude Include="impl\win64\os\Win64OsComponent.h" />
     <ClInclude Include="include\cubit\config\config.h" />
+    <ClInclude Include="include\cubit\core\exception.h" />
     <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h" />
     <ClInclude Include="include\cubit\graphics\Color.h" />
+    <ClInclude Include="include\cubit\graphics\PixelShader.h" />
     <ClInclude Include="include\cubit\graphics\RenderTarget.h" />
+    <ClInclude Include="include\cubit\graphics\Shader.h" />
     <ClInclude Include="include\cubit\graphics\Texture2D.h" />
+    <ClInclude Include="include\cubit\graphics\VertexShader.h" />
     <ClInclude Include="include\cubit\os\Logger.h" />
     <ClInclude Include="include\cubit\os\os.h" />
     <ClInclude Include="include\cubit\os\SleepFuture.h" />
@@ -169,8 +194,11 @@
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
     <ClCompile Include="impl\win64\cubit.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11PixelShader.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderTarget.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Texture2D.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11VertexShader.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\DxResult.cpp" />
     <ClCompile Include="impl\win64\os\QPCTimer.cpp" />
     <ClCompile Include="impl\win64\os\VCDebugLogger.cpp" />
@@ -182,6 +210,11 @@
     <ClCompile Include="impl\win64\graphics\dx11\dx11GraphicComponent.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Renderer.cpp" />
     <ClCompile Include="impl\win64\os\Win64OsComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\build\Debug\data\default.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

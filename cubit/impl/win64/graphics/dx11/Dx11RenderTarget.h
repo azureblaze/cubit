@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <cubit/graphics/RenderTarget.h>
 
+#include <wrl/client.h>
+
 struct ID3D11DeviceContext;
 struct ID3D11RenderTargetView;
 
@@ -11,7 +13,7 @@ class Dx11RenderTarget : public RenderTarget {
   friend class Dx11Renderer;
 
   ID3D11DeviceContext *deviceContext;
-  ID3D11RenderTargetView *target;
+  Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target;
 
   virtual void clear(Color color) override;
 

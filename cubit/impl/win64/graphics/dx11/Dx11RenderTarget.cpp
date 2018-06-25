@@ -8,9 +8,9 @@ namespace cubit {
 namespace impl {
 
 void Dx11RenderTarget::clear(Color color) {
-  deviceContext->ClearRenderTargetView(target, (float*)&color);
+  deviceContext->ClearRenderTargetView(target.Get(), (float*)&color);
 }
 
-Dx11RenderTarget::~Dx11RenderTarget() { target->Release(); }
+Dx11RenderTarget::~Dx11RenderTarget() {}
 }  // namespace impl
 }  // namespace cubit

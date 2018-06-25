@@ -10,6 +10,7 @@
 
 #include <Mmsystem.h>
 
+#include <cubit/core/Exception.h>
 #include <cubit/os/Logger.h>
 #include "win64/os/Win64Util.h"
 
@@ -72,19 +73,22 @@ int Win64Application::start(std::function<void()> update) {
   MSG message;
   timeBeginPeriod(1);
   frameRateGovernor->start();
-  while (isRunning) {
-    while (PeekMessage(&message, 0, 0, 0, PM_REMOVE)) {
-      TranslateMessage(&message);
-      DispatchMessage(&message);
+  try {
+    while (isRunning) {
+      while (PeekMessage(&message, 0, 0, 0, PM_REMOVE)) {
+        TranslateMessage(&message);
+        DispatchMessage(&message);
 
-      if (message.message == WM_QUIT) {
-        quit();
+        if (message.message == WM_QUIT) {
+          quit();
+        }
       }
+      update();
+      frameRateGovernor->nextFrame();
     }
-    update();
-    frameRateGovernor->nextFrame();
+    timeEndPeriod(1);
+  } catch (Exception e) {
   }
-  timeEndPeriod(1);
   return (int)message.wParam;
 }
 
