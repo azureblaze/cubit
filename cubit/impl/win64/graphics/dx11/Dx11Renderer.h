@@ -26,6 +26,9 @@ class Dx11RenderTarget;
 class Dx11VertexShader;
 class Dx11PixelShader;
 class Dx11Renderer : public Win64Renderer {
+  struct Impl;
+  std::unique_ptr<Impl> impl;
+
  public:
   BOOST_DI_INJECT(
       Dx11Renderer,
@@ -38,19 +41,6 @@ class Dx11Renderer : public Win64Renderer {
   virtual RenderTarget& getBackBufferTarget() override;
 
   virtual void present() override;
-
- private:
-  Logger& logger;
-  Win64Window* window;
-
-  Microsoft::WRL::ComPtr<IDXGISwapChain> swapChain;
-  Microsoft::WRL::ComPtr<ID3D11Device> device;
-  Microsoft::WRL::ComPtr<ID3D11DeviceContext> deviceContext;
-
-  std::unique_ptr<Dx11RenderTarget> backbufferTarget;
-
-  std::unique_ptr<Dx11VertexShader> vertexShader;
-  std::unique_ptr<Dx11PixelShader> pixelShader;
 };
 }  // namespace impl
 }  // namespace cubit

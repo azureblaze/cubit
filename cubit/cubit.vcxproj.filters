@@ -81,6 +81,9 @@
     <ClCompile Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11InternalComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cubit\cubit.h">
@@ -198,6 +201,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\cubit\core\exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11InternalComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

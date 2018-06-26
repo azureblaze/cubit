@@ -10,8 +10,11 @@
 using namespace Microsoft::WRL;
 namespace cubit {
 namespace impl {
-Dx11PixelShader::Dx11PixelShader(const Shader::Spec& spec, ID3D11Device* device)
-    : device(device) {
+Dx11PixelShader::Dx11PixelShader(
+    Dx11Device device,
+    Dx11DeviceContext deviceContext,
+    const Shader::Spec& spec)
+    : device(device), deviceContext(deviceContext) {
   ComPtr<ID3DBlob> blob =
       Dx11ShaderCompiler::compile(spec.file, spec.entryPoint, "ps_4_0");
 
@@ -22,8 +25,10 @@ Dx11PixelShader::Dx11PixelShader(const Shader::Spec& spec, ID3D11Device* device)
       shader.GetAddressOf());
 }
 
+Dx11PixelShader::~Dx11PixelShader() {}
+
 void Dx11PixelShader::activate() {
-  throw std::logic_error("The method or operation is not implemented.");
+  deviceContext->PSSetShader(shader.Get(), 0, 0);
 }
 
 }  // namespace impl

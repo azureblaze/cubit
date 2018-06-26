@@ -10,6 +10,7 @@
 #include "dxresult.h"
 #include "win64/core/Win64Window.h"
 
+#include "Dx11InternalComponent.h"
 #include "Dx11PixelShader.h"
 #include "Dx11RenderTarget.h"
 #include "Dx11Texture2D.h"
@@ -24,8 +25,29 @@ using namespace Microsoft::WRL;
 namespace cubit {
 namespace impl {
 
-Dx11Renderer::Dx11Renderer(Win64Window* window, Config& config, Logger& logger)
-    : logger(logger), window(window) {
+struct Dx11Renderer::Impl {
+  Logger& logger;
+  Win64Window* window;
+
+  Dx11InternalComponent component;
+
+  Microsoft::WRL::ComPtr<IDXGISwapChain> swapChain;
+  Microsoft::WRL::ComPtr<ID3D11Device> device;
+  Microsoft::WRL::ComPtr<ID3D11DeviceContext> deviceContext;
+
+  std::unique_ptr<Dx11RenderTarget> backbufferTarget;
+
+  std::unique_ptr<Dx11VertexShader> vertexShader;
+  std::unique_ptr<Dx11PixelShader> pixelShader;
+
+  Impl(Logger& logger, Win64Window* window, Dx11InternalComponent component)
+      : logger(logger), window(window), component(move(component)) {}
+};
+
+Dx11Renderer::Dx11Renderer(
+    Win64Window* window,
+    Config& config,
+    Logger& logger) {
   int width = config.get<int>("default_window_width");
   int height = config.get<int>("default_window_height");
   DXGI_SWAP_CHAIN_DESC swapChainDescription{};
@@ -38,6 +60,10 @@ Dx11Renderer::Dx11Renderer(Win64Window* window, Config& config, Logger& logger)
   swapChainDescription.SampleDesc.Count = 1;
   swapChainDescription.SampleDesc.Quality = 0;
   swapChainDescription.Windowed = TRUE;
+
+  IDXGISwapChain* swapChain;
+  ID3D11Device* device;
+  ID3D11DeviceContext* deviceContext;
 
   checkResult(D3D11CreateDeviceAndSwapChain(
       NULL,
@@ -53,35 +79,53 @@ Dx11Renderer::Dx11Renderer(Win64Window* window, Config& config, Logger& logger)
       NULL,
       &deviceContext));
 
+  impl = make_unique<Impl>(
+      logger,
+      window,
+      getDx11InternalComponent(
+          Dx11Device(device), Dx11DeviceContext(deviceContext)));
+  impl->swapChain = swapChain;
+  impl->device = device;
+  impl->deviceContext = deviceContext;
+
   ComPtr<ID3D11Texture2D> backBufferTexture;
-  checkResult(swapChain->GetBuffer(
+  checkResult(impl->swapChain->GetBuffer(
       0, __uuidof(ID3D11Texture2D), (void**)backBufferTexture.GetAddressOf()));
-  backbufferTarget = make_unique<Dx11RenderTarget>(deviceContext.Get());
-  checkResult(device->CreateRenderTargetView(
-      backBufferTexture.Get(), NULL, backbufferTarget->target.GetAddressOf()));
-  deviceContext->OMSetRenderTargets(
-      1, backbufferTarget->target.GetAddressOf(), NULL);
+  impl->backbufferTarget =
+      make_unique<Dx11RenderTarget>(impl->deviceContext.Get());
+  checkResult(impl->device->CreateRenderTargetView(
+      backBufferTexture.Get(),
+      NULL,
+      impl->backbufferTarget->target.GetAddressOf()));
+  impl->deviceContext->OMSetRenderTargets(
+      1, impl->backbufferTarget->target.GetAddressOf(), NULL);
 
   D3D11_VIEWPORT viewport{};
   viewport.Width = (float)window->getWidth();
   viewport.Height = (float)window->getHeight();
 
-  deviceContext->RSSetViewports(1, &viewport);
+  impl->deviceContext->RSSetViewports(1, &viewport);
 
-  vertexShader = make_unique<Dx11VertexShader>(
-      Shader::Spec{"data/default.hlsl", "vertexMain"}, device.Get());
+  auto vertexShaderFactory = impl->component.create<Dx11VertexShaderFactory>();
+  auto pixelShaderFactory = impl->component.create<Dx11PixelShaderFactory>();
 
-  pixelShader = make_unique<Dx11PixelShader>(
-      Shader::Spec{"data/default.hlsl", "pixelMain"}, device.Get());
+  impl->vertexShader =
+      vertexShaderFactory(Shader::Spec{"data/default.hlsl", "vertexMain"});
+
+  impl->pixelShader =
+      pixelShaderFactory(Shader::Spec{"data/default.hlsl", "pixelMain"});
+
+  impl->vertexShader->activate();
+  impl->pixelShader->activate();
 }
 
 Dx11Renderer::~Dx11Renderer() {}
 
 cubit::RenderTarget& Dx11Renderer::getBackBufferTarget() {
-  return *backbufferTarget;
+  return *impl->backbufferTarget;
 }
 
-void Dx11Renderer::present() { swapChain->Present(0, 0); }
+void Dx11Renderer::present() { impl->swapChain->Present(0, 0); }
 
 }  // namespace impl
 }  // namespace cubit

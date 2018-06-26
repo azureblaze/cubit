@@ -152,6 +152,8 @@
     <ClInclude Include="impl\common\config\ConstMapConfig.h" />
     <ClInclude Include="impl\common\core\FrameRateGovernor.h" />
     <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Device.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11InternalComponent.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderTarget.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexShader.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
     <ClCompile Include="impl\win64\cubit.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11InternalComponent.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11PixelShader.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderTarget.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.cpp" />
