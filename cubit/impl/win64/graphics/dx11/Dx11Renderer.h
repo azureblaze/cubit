@@ -25,6 +25,7 @@ class Win64Window;
 class Dx11RenderTarget;
 class Dx11VertexShader;
 class Dx11PixelShader;
+class Dx11VertexBuffer;
 class Dx11Renderer : public Win64Renderer {
   struct Impl;
   std::unique_ptr<Impl> impl;
@@ -39,6 +40,8 @@ class Dx11Renderer : public Win64Renderer {
   ~Dx11Renderer();
 
   virtual RenderTarget& getBackBufferTarget() override;
+
+  void drawTriangles(Dx11VertexBuffer& buffer);
 
   virtual void present() override;
 };

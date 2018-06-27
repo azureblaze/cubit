@@ -4,6 +4,7 @@
 #include <d3dcompiler.h>
 
 #include "Dx11ShaderCompiler.h"
+#include "Dx11VertexBuffer.h"
 #include "DxResult.h"
 #include "win64/os/Win64Util.h"
 
@@ -27,10 +28,19 @@ Dx11VertexShader::Dx11VertexShader(
       blob->GetBufferSize(),
       NULL,
       shader.GetAddressOf());
+
+  Dx11InputLayout vertexLayout = Dx11Vertex::getLayout();
+  device->CreateInputLayout(
+      vertexLayout.desc,
+      vertexLayout.size,
+      blob->GetBufferPointer(),
+      blob->GetBufferSize(),
+      layout.GetAddressOf());
 }
 
 void Dx11VertexShader::activate() {
   deviceContext->VSSetShader(shader.Get(), 0, 0);
+  deviceContext->IASetInputLayout(layout.Get());
 }
 
 Dx11VertexShader::~Dx11VertexShader() {}

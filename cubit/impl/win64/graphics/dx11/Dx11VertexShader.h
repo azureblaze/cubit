@@ -12,12 +12,15 @@
 #include "Dx11Device.h"
 
 struct ID3D11VertexShader;
+struct ID3D11InputLayout;
+
 struct ID3D11Device;
 
 namespace cubit {
 namespace impl {
 class Dx11VertexShader : public VertexShader {
   Microsoft::WRL::ComPtr<ID3D11VertexShader> shader;
+  Microsoft::WRL::ComPtr<ID3D11InputLayout> layout;
   Dx11Device device;
   Dx11DeviceContext deviceContext;
 

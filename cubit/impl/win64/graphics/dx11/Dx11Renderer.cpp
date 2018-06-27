@@ -16,6 +16,8 @@
 #include "Dx11Texture2D.h"
 #include "Dx11VertexShader.h"
 
+#include "Dx11VertexBuffer.h"
+
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
@@ -39,6 +41,8 @@ struct Dx11Renderer::Impl {
 
   std::unique_ptr<Dx11VertexShader> vertexShader;
   std::unique_ptr<Dx11PixelShader> pixelShader;
+
+  std::unique_ptr<Dx11VertexBuffer> vertexBuffer;
 
   Impl(Logger& logger, Win64Window* window, Dx11InternalComponent component)
       : logger(logger), window(window), component(move(component)) {}
@@ -117,6 +121,15 @@ Dx11Renderer::Dx11Renderer(
 
   impl->vertexShader->activate();
   impl->pixelShader->activate();
+
+  impl->vertexBuffer = impl->component.create<Dx11VertexBufferFactory>()(3);
+  impl->vertexBuffer->set(
+      0, Dx11Vertex{{0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}});
+  impl->vertexBuffer->set(
+      1, Dx11Vertex{{0.45f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}});
+  impl->vertexBuffer->set(
+      2, Dx11Vertex{{-0.45f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}});
+  impl->vertexBuffer->map();
 }
 
 Dx11Renderer::~Dx11Renderer() {}
@@ -125,7 +138,20 @@ cubit::RenderTarget& Dx11Renderer::getBackBufferTarget() {
   return *impl->backbufferTarget;
 }
 
-void Dx11Renderer::present() { impl->swapChain->Present(0, 0); }
+void Dx11Renderer::drawTriangles(Dx11VertexBuffer& buffer) {
+  ID3D11Buffer* d3dBuffer = buffer.getBuffer();
+  uint32_t size = sizeof(Dx11Vertex);
+  uint32_t offset = 0;
+  impl->deviceContext->IASetVertexBuffers(0, 1, &d3dBuffer, &size, &offset);
+  impl->deviceContext->IASetPrimitiveTopology(
+      D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  impl->deviceContext->Draw(buffer.getSize(), 0);
+}
+
+void Dx11Renderer::present() {
+  drawTriangles(*impl->vertexBuffer);
+  impl->swapChain->Present(0, 0);
+}
 
 }  // namespace impl
 }  // namespace cubit

@@ -18,7 +18,9 @@ Dx11InternalComponent getDx11InternalComponent(
       di::bind<Dx11VertexShaderFactory>().to(
           di::extension::assisted_injection<Dx11VertexShader>{}),
       di::bind<Dx11PixelShaderFactory>().to(
-          di::extension::assisted_injection<Dx11PixelShader>{}));
+          di::extension::assisted_injection<Dx11PixelShader>{}),
+      di::bind<Dx11VertexBufferFactory>().to(
+          di::extension::assisted_injection<Dx11VertexBuffer>{}));
 }
 }  // namespace impl
 }  // namespace cubit

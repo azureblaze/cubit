@@ -160,6 +160,7 @@
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Texture2D.h" />
     <ClInclude Include="impl\win64\graphics\dx11\DxResult.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11PixelShader.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexBuffer.h" />
     <ClInclude Include="impl\win64\os\QPCTimer.h" />
     <ClInclude Include="impl\win64\os\VCDebugLogger.h" />
     <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="impl\win64\graphics\dx11\Dx11RenderTarget.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Texture2D.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11VertexBuffer.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11VertexShader.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\DxResult.cpp" />
     <ClCompile Include="impl\win64\os\QPCTimer.cpp" />
