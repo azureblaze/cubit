@@ -124,11 +124,11 @@ Dx11Renderer::Dx11Renderer(
 
   impl->vertexBuffer = impl->component.create<Dx11VertexBufferFactory>()(3);
   impl->vertexBuffer->set(
-      0, Dx11Vertex{{0.0f, 0.5f, 0.0f}, {1.0f, 0.0f, 0.0f, 1.0f}});
+      0, Dx11Vertex{{-1.f, 1.f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f}});
   impl->vertexBuffer->set(
-      1, Dx11Vertex{{0.45f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f, 1.0f}});
+      1, Dx11Vertex{{1.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 1.0f, 1.0f}});
   impl->vertexBuffer->set(
-      2, Dx11Vertex{{-0.45f, -0.5f, 0.0f}, {0.0f, 0.0f, 1.0f, 1.0f}});
+      2, Dx11Vertex{{1.f, -1.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}});
   impl->vertexBuffer->map();
 }
 

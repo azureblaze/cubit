@@ -2,7 +2,7 @@
 #ifdef EXPORT_CUBIT_DLL
 #define CUBIT_EXPORT __declspec(dllexport)
 #else
-#define CUBIT_EXPORT
+#define CUBIT_EXPORT __declspec(dllimport)
 #endif
 #include <boost/di.hpp>
 #include <memory>
