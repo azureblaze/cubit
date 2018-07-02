@@ -242,6 +242,12 @@
     <ClInclude Include="include\cubit\math\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cubit\math\Quaternion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\math\Operations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\build\Debug\data\default.hlsl" />

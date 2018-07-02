@@ -116,9 +116,9 @@ TEST(Vector3Test, dot) {
 }
 
 TEST(Vector3Test, cross) {
-  Vector3 v = Vector3(1, 0, 0).cross(Vector3(0, 1, 0));
+  Vector3 v = Vector3(1, 2, 3).cross(Vector3(4, 5, 6));
 
-  EXPECT_VECTOR3_EQ(Vector3(0, 0, 1), v);
+  EXPECT_VECTOR3_EQ(Vector3(-3, 6, -3), v);
 }
 
 TEST(Vector3Test, length) {
@@ -141,14 +141,21 @@ TEST(Vector3Test, normalize) {
 
 TEST(Vector3Test, transformAsVector) {
   Vector3 v = Vector3(1, 2, 3).transformAsVector(
-      Matrix4::rotateX(pi_2) * Matrix4::translate(Vector3(1, 2, 3)));
+      Matrix4::rotateX(PI_2) * Matrix4::translate(Vector3(1, 2, 3)));
 
   EXPECT_VECTOR3_EQ(Vector3(1, -3, 2), v);
 }
 
 TEST(Vector3Test, transformAsPoint) {
   Vector3 v = Vector3(1, 2, 3).transformAsPoint(
-      Matrix4::rotateX(pi_2) * Matrix4::translate(Vector3(1, 2, 3)));
+      Matrix4::rotateX(PI_2) * Matrix4::translate(Vector3(1, 2, 3)));
 
   EXPECT_VECTOR3_EQ(Vector3(2, -1, 5), v);
+}
+
+TEST(Vector3Test, rotate) {
+  Vector3 v =
+      Vector3(1, 2, 3).rotate(Quaternion::fromAxis(Vector3(1, 0, 0), PI_2));
+
+  EXPECT_VECTOR3_EQ(Vector3(1, -3, 2), v);
 }

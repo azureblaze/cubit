@@ -4,6 +4,7 @@
 namespace cubit {
 class Vector3;
 class Matrix4;
+class Quaternion;
 
 class alignas(16) Vector3 {
   float u[3];
@@ -60,7 +61,7 @@ class alignas(16) Vector3 {
   Vector3 cross(const Vector3& v) const {
     return Vector3(
         u[1] * v[2] - u[2] * v[1],
-        u[0] * v[2] - u[2] * v[0],
+        u[2] * v[0] - u[0] * v[2],
         u[0] * v[1] - u[1] * v[0]);
   }
   float length() const { return std::sqrtf(this->dot(*this)); }
@@ -70,6 +71,8 @@ class alignas(16) Vector3 {
 
   inline Vector3 transformAsVector(const Matrix4& matrix) const;
   inline Vector3 transformAsPoint(const Matrix4& matrix) const;
+
+  inline Vector3 rotate(const Quaternion& q) const;
 };  // namespace cubit
 
 inline Vector3 operator*(float scale, const Vector3& v) { return v * scale; }

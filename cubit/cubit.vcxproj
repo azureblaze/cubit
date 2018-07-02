@@ -186,6 +186,8 @@
     <ClInclude Include="include\cubit\math\Constants.h" />
     <ClInclude Include="include\cubit\math\math.h" />
     <ClInclude Include="include\cubit\math\Matrix4.h" />
+    <ClInclude Include="include\cubit\math\Operations.h" />
+    <ClInclude Include="include\cubit\math\Quaternion.h" />
     <ClInclude Include="include\cubit\math\Vector3.h" />
     <ClInclude Include="include\cubit\math\Vector4.h" />
     <ClInclude Include="include\cubit\os\Logger.h" />

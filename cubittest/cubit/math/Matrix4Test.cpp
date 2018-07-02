@@ -95,19 +95,19 @@ TEST(Matrix4Test, translate) {
 }
 
 TEST(Matrix4Test, rotateX) {
-  Matrix4 m = Matrix4::rotateX(pi_2);
+  Matrix4 m = Matrix4::rotateX(PI_2);
   Vector3 v = Vector3(0, 1, 0).transformAsPoint(m);
   EXPECT_VECTOR3_EQ(Vector3(0, 0, 1), v);
 }
 
 TEST(Matrix4Test, rotateY) {
-  Matrix4 m = Matrix4::rotateY(pi_2);
+  Matrix4 m = Matrix4::rotateY(PI_2);
   Vector3 v = Vector3(1, 0, 0).transformAsPoint(m);
   EXPECT_VECTOR3_EQ(Vector3(0, 0, -1), v);
 }
 
 TEST(Matrix4Test, rotateZ) {
-  Matrix4 m = Matrix4::rotateZ(pi_2);
+  Matrix4 m = Matrix4::rotateZ(PI_2);
   Vector3 v = Vector3(0, 1, 0).transformAsPoint(m);
   EXPECT_VECTOR3_EQ(Vector3(-1, 0, 0), v);
 }
