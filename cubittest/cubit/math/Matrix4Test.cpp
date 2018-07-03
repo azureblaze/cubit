@@ -117,3 +117,10 @@ TEST(Matrix4Test, scaleTransform) {
   Vector3 v = Vector3(1, 2, 3).transformAsPoint(m);
   EXPECT_VECTOR3_EQ(Vector3(2, 6, 12), v);
 }
+
+TEST(Matrix4Test, lookAt) {
+  Matrix4 m =
+      Matrix4::lookAt(Vector3(1, 2, 3), Vector3(2, 4, 6), Vector3(0, 1, 0));
+  Vector3 v = Vector3(1, 0, 0).transformAsPoint(m);
+  EXPECT_VECTOR3_EQ(Vector3(1, 2, 3) + Vector3(1, 2, 3).normalize(), v);
+}
