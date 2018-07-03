@@ -68,3 +68,16 @@ TEST(QuaternionTest, slerp) {
 
   EXPECT_QUATERNION_EQ(Quaternion::fromAxis(Vector3(1, 0, 0), PI / 4), q);
 }
+
+TEST(QuaternionTest, fromRotationMatrix) {
+  Quaternion q = Quaternion::fromRotationMatrix(Matrix4::rotateX(1));
+
+  EXPECT_MATRIX4_EQ(Matrix4::rotateX(1), q.toMatrix());
+}
+
+TEST(QuaternionTest, lookAt) {
+  Quaternion q = Quaternion::lookAt(Vector3(1, 2, 3), Vector3(0, 1, 0));
+
+  Vector3 v = Vector3(1, 0, 0).rotate(q);
+  EXPECT_VECTOR3_EQ(Vector3(1, 2, 3).normalize(), v);
+}

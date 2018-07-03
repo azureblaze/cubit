@@ -94,6 +94,18 @@ class alignas(16) Matrix4 {
   static Matrix4 scale(const Vector3& s) {
     return {{s[0], 0, 0, 0}, {0, s[1], 0, 0}, {0, 0, s[2], 0}, {0, 0, 0, 1}};
   }
+
+  static Matrix4 lookAt(
+      const Vector3& eyePosition,
+      const Vector3& targetPosition,
+      const Vector3& up) {
+    Vector3 x = (targetPosition - eyePosition).normalize();
+    Vector3 z = x.cross(up).normalize();
+    Vector3 y = z.cross(x);
+
+    return Matrix4(
+        Vector4(x, 0), Vector4(y, 0), Vector4(z, 0), Vector4(eyePosition, 1));
+  }
 };
 
 inline Matrix4 operator*(float scale, const Matrix4& matrix) {

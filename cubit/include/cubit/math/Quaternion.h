@@ -11,6 +11,7 @@ namespace cubit {
 class Quaternion {
   Vector3 v;
   float s;
+  Quaternion(){};
 
  public:
   Quaternion(const Vector3& v, float s) : v(v), s(s) {}
@@ -64,7 +65,49 @@ class Quaternion {
       {0,                 0,                 0,               1}};
     // clang-format on
   }
-  static Quaternion slerp(const Quaternion& a, const Quaternion& b) {}
+
+  static Quaternion fromRotationMatrix(const Matrix4& r) {
+    float t;
+    Quaternion q;
+    if (r[2][2] < 0) {
+      if (r[0][0] > r[1][1]) {
+        t = 1.0f + r[0][0] - r[1][1] - r[2][2];
+        q = Quaternion(
+            Vector3(t, r[0][1] + r[1][0], r[2][0] + r[0][2]),
+            r[1][2] - r[2][1]);
+      } else {
+        t = 1.0f - r[0][0] + r[1][1] - r[2][2];
+        q = Quaternion(
+            Vector3(r[0][1] + r[1][0], t, r[1][2] + r[2][1]),
+            r[2][0] - r[0][2]);
+      }
+    } else {
+      if (r[0][0] < -r[1][1]) {
+        t = 1.0f - r[0][0] - r[1][1] + r[2][2];
+        q = Quaternion(
+            Vector3(r[0][1] + r[1][0], r[1][2] + r[2][1], t),
+            r[0][1] - r[1][0]);
+      } else {
+        t = 1.0f + r[0][0] + r[1][1] + r[2][2];
+        q = Quaternion(
+            Vector3(r[1][2] - r[2][1], r[2][0] - r[0][2], r[0][1] - r[1][0]),
+            t);
+      }
+    }
+    float s = 0.5 / std::sqrtf(t);
+    q.vector() *= s;
+    q.scaler() *= s;
+    return q;
+  }
+
+  static Quaternion lookAt(const Vector3& forward, const Vector3& upward) {
+    Vector3 x = forward.normalize();
+    Vector3 z = x.cross(upward).normalize();
+    Vector3 y = z.cross(x);
+
+    return fromRotationMatrix(Matrix4(
+        Vector4(x, 0), Vector4(y, 0), Vector4(z, 0), Vector4(0, 0, 0, 1)));
+  }
 };
 
 inline Quaternion lerp(const Quaternion& a, const Quaternion& b, float beta) {
