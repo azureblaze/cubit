@@ -3,9 +3,11 @@
 
 #include <functional>
 #include <memory>
+#include <string>
 
 namespace cubit {
 class RenderTarget;
+class Model;
 namespace impl {
 class RenderEngine;
 }  // namespace impl
@@ -15,6 +17,8 @@ class Renderer {
   virtual ~Renderer() = default;
 
   virtual RenderTarget& getBackBufferTarget() = 0;
+
+  virtual Model* loadModel(const std::string& name) = 0;
 
   virtual void present() = 0;
 };

@@ -40,6 +40,7 @@ Dx11VertexShader::Dx11VertexShader(
 
 void Dx11VertexShader::activate() {
   deviceContext->VSSetShader(shader.Get(), 0, 0);
+
   deviceContext->IASetInputLayout(layout.Get());
 }
 

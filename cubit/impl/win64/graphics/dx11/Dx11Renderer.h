@@ -41,9 +41,9 @@ class Dx11Renderer : public Win64Renderer {
 
   virtual RenderTarget& getBackBufferTarget() override;
 
-  void drawTriangles(Dx11VertexBuffer& buffer);
-
   virtual void present() override;
+
+  virtual Model* loadModel(const std::string& name) override;
 };
 }  // namespace impl
 }  // namespace cubit

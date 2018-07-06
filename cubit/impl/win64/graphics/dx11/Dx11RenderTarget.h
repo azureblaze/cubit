@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <cubit/graphics/RenderTarget.h>
 
+#include <functional>
+
 #include <wrl/client.h>
 
 struct ID3D11DeviceContext;
@@ -22,5 +24,6 @@ class Dx11RenderTarget : public RenderTarget {
       : deviceContext(deviceContext){};
   ~Dx11RenderTarget();
 };
+
 }  // namespace impl
 }  // namespace cubit

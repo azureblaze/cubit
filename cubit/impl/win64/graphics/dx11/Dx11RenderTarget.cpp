@@ -12,5 +12,6 @@ void Dx11RenderTarget::clear(Color color) {
 }
 
 Dx11RenderTarget::~Dx11RenderTarget() {}
+
 }  // namespace impl
 }  // namespace cubit

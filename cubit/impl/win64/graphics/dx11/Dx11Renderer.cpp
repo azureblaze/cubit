@@ -1,5 +1,6 @@
 ﻿#include "Dx11Renderer.h"
 
+#include <map>
 #include <stdexcept>
 
 #include <d3d11.h>
@@ -43,6 +44,8 @@ struct Dx11Renderer::Impl {
   std::unique_ptr<Dx11PixelShader> pixelShader;
 
   std::unique_ptr<Dx11VertexBuffer> vertexBuffer;
+
+  std::map<std::string, unique_ptr<Model>> models;
 
   Impl(Logger& logger, Win64Window* window, Dx11InternalComponent component)
       : logger(logger), window(window), component(move(component)) {}
@@ -105,31 +108,11 @@ Dx11Renderer::Dx11Renderer(
       1, impl->backbufferTarget->target.GetAddressOf(), NULL);
 
   D3D11_VIEWPORT viewport{};
-  viewport.Width = (float)window->getWidth();
-  viewport.Height = (float)window->getHeight();
+  viewport.Width = width;
+  viewport.Height = height;
+  viewport.MaxDepth = 1.0f;
 
   impl->deviceContext->RSSetViewports(1, &viewport);
-
-  auto vertexShaderFactory = impl->component.create<Dx11VertexShaderFactory>();
-  auto pixelShaderFactory = impl->component.create<Dx11PixelShaderFactory>();
-
-  impl->vertexShader =
-      vertexShaderFactory(Shader::Spec{"data/default.hlsl", "vertexMain"});
-
-  impl->pixelShader =
-      pixelShaderFactory(Shader::Spec{"data/default.hlsl", "pixelMain"});
-
-  impl->vertexShader->activate();
-  impl->pixelShader->activate();
-
-  impl->vertexBuffer = impl->component.create<Dx11VertexBufferFactory>()(3);
-  impl->vertexBuffer->set(
-      0, Dx11Vertex{{-1.f, 1.f, 0.0f}, {1.0f, 0.0f, 1.0f, 1.0f}});
-  impl->vertexBuffer->set(
-      1, Dx11Vertex{{1.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 1.0f, 1.0f}});
-  impl->vertexBuffer->set(
-      2, Dx11Vertex{{1.f, -1.0f, 0.0f}, {1.0f, 1.0f, 0.0f, 1.0f}});
-  impl->vertexBuffer->map();
 }
 
 Dx11Renderer::~Dx11Renderer() {}
@@ -138,19 +121,17 @@ cubit::RenderTarget& Dx11Renderer::getBackBufferTarget() {
   return *impl->backbufferTarget;
 }
 
-void Dx11Renderer::drawTriangles(Dx11VertexBuffer& buffer) {
-  ID3D11Buffer* d3dBuffer = buffer.getBuffer();
-  uint32_t size = sizeof(Dx11Vertex);
-  uint32_t offset = 0;
-  impl->deviceContext->IASetVertexBuffers(0, 1, &d3dBuffer, &size, &offset);
-  impl->deviceContext->IASetPrimitiveTopology(
-      D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-  impl->deviceContext->Draw(buffer.getSize(), 0);
-}
+void Dx11Renderer::present() { impl->swapChain->Present(0, 0); }
 
-void Dx11Renderer::present() {
-  drawTriangles(*impl->vertexBuffer);
-  impl->swapChain->Present(0, 0);
+cubit::Model* Dx11Renderer::loadModel(const std::string& name) {
+  Dx11Device device = impl->component.create<Dx11Device>();
+
+  if (!impl->models.count(name)) {
+    if (name == "debug:axis") {
+      impl->models[name] = impl->component.create<std::unique_ptr<DebugAxis>>();
+    }
+  }
+  return impl->models[name].get();
 }
 
 }  // namespace impl

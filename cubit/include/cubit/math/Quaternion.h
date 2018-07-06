@@ -11,9 +11,9 @@ namespace cubit {
 class Quaternion {
   Vector3 v;
   float s;
-  Quaternion(){};
 
  public:
+  Quaternion() : v(Vector3(0, 0, 0)), s(0){};
   Quaternion(const Vector3& v, float s) : v(v), s(s) {}
 
   static Quaternion fromAxis(const Vector3& axis, float theta) {
@@ -94,7 +94,7 @@ class Quaternion {
             t);
       }
     }
-    float s = 0.5 / std::sqrtf(t);
+    float s = 0.5f / std::sqrtf(t);
     q.vector() *= s;
     q.scaler() *= s;
     return q;

@@ -6,9 +6,9 @@ namespace cubit {
 namespace impl {
 
 struct Dx11Device {
-  Dx11Device(ID3D11Device* device) : device(device) {}
+  Dx11Device(ID3D11Device* rd) : device(rd) {}
 
-  Dx11Device(Dx11Device& d) : device(d.device){};
+  Dx11Device(const Dx11Device& d) : device(d.device){};
 
   ID3D11Device* device = nullptr;
 
@@ -18,15 +18,16 @@ struct Dx11Device {
 };
 
 struct Dx11DeviceContext {
-  Dx11DeviceContext(ID3D11DeviceContext* device) : device(device) {}
+  Dx11DeviceContext(ID3D11DeviceContext* deviceContext)
+      : deviceContext(deviceContext) {}
 
-  Dx11DeviceContext(Dx11DeviceContext& d) : device(d.device){};
+  Dx11DeviceContext(Dx11DeviceContext& d) : deviceContext(d.deviceContext){};
 
-  ID3D11DeviceContext* device = nullptr;
+  ID3D11DeviceContext* deviceContext = nullptr;
 
-  ID3D11DeviceContext* operator->() const { return device; };
+  ID3D11DeviceContext* operator->() const { return deviceContext; };
 
-  operator ID3D11DeviceContext*() const { return device; }
+  operator ID3D11DeviceContext*() const { return deviceContext; }
 };
 
 }  // namespace impl

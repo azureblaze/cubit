@@ -90,6 +90,18 @@
     <ClCompile Include="include\cubit\math\Vector4.inl">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\models\DebugAxis.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\common\graphics\SceneImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cubit\cubit.h">
@@ -246,6 +258,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\cubit\math\Operations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\graphics\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\graphics\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\graphics\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\models\DebugAxis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

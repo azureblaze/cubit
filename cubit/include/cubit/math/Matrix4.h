@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Vector4.h"
 
-#include <emmintrin.h>
 #include <cmath>
 #include <cstring>
 
@@ -105,6 +104,14 @@ class alignas(16) Matrix4 {
 
     return Matrix4(
         Vector4(x, 0), Vector4(y, 0), Vector4(z, 0), Vector4(eyePosition, 1));
+  }
+
+  static Matrix4
+  perspectiveProjection(float width, float height, float near, float far) {
+    return Matrix4{{2.0f * near / width, 0, 0, 0},
+                   {0, 2.0f * near / height, 0, 0},
+                   {0, 0, far / (far - near), 1},
+                   {0, 0, -(near * far / (far - near)), 0}};
   }
 };
 

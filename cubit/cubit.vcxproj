@@ -154,6 +154,7 @@
     <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Device.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11InternalComponent.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Model.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderTarget.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexShader.h" />
@@ -161,6 +162,8 @@
     <ClInclude Include="impl\win64\graphics\dx11\DxResult.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11PixelShader.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexBuffer.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\models\DebugAxis.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Material.h" />
     <ClInclude Include="impl\win64\os\QPCTimer.h" />
     <ClInclude Include="impl\win64\os\VCDebugLogger.h" />
     <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h" />
@@ -174,14 +177,17 @@
     <ClInclude Include="include\cubit\config\config.h" />
     <ClInclude Include="include\cubit\core\exception.h" />
     <ClInclude Include="include\cubit\core\FrameUpdateMetrics.h" />
+    <ClInclude Include="include\cubit\graphics\Camera.h" />
     <ClInclude Include="include\cubit\graphics\Color.h" />
     <ClInclude Include="include\cubit\graphics\Instance.h" />
+    <ClInclude Include="include\cubit\graphics\Material.h" />
     <ClInclude Include="include\cubit\graphics\Model.h" />
     <ClInclude Include="include\cubit\graphics\PixelShader.h" />
     <ClInclude Include="include\cubit\graphics\RenderTarget.h" />
     <ClInclude Include="include\cubit\graphics\Scene.h" />
     <ClInclude Include="include\cubit\graphics\Shader.h" />
     <ClInclude Include="include\cubit\graphics\Texture2D.h" />
+    <ClInclude Include="include\cubit\graphics\Transform.h" />
     <ClInclude Include="include\cubit\graphics\VertexShader.h" />
     <ClInclude Include="include\cubit\math\Constants.h" />
     <ClInclude Include="include\cubit\math\math.h" />
@@ -206,6 +212,10 @@
     <ClCompile Include="impl\common\core\CommonCoreComponent.cpp" />
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
+    <ClCompile Include="impl\common\graphics\SceneImpl.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Material.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Model.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\models\DebugAxis.cpp" />
     <ClCompile Include="include\cubit\math\Vector4.inl" />
     <ClCompile Include="impl\win64\cubit.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11InternalComponent.cpp" />
