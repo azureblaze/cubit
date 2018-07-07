@@ -7,7 +7,7 @@
 
 namespace cubit {
 class RenderTarget;
-class Model;
+class Resources;
 namespace impl {
 class RenderEngine;
 }  // namespace impl
@@ -18,7 +18,7 @@ class Renderer {
 
   virtual RenderTarget& getBackBufferTarget() = 0;
 
-  virtual Model* loadModel(const std::string& name) = 0;
+  virtual Resources& resources() = 0;
 
   virtual void present() = 0;
 };

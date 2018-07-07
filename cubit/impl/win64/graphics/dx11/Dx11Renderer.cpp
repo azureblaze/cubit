@@ -14,6 +14,7 @@
 #include "Dx11InternalComponent.h"
 #include "Dx11PixelShader.h"
 #include "Dx11RenderTarget.h"
+#include "Dx11Resources.h"
 #include "Dx11Texture2D.h"
 #include "Dx11VertexShader.h"
 
@@ -44,6 +45,8 @@ struct Dx11Renderer::Impl {
   std::unique_ptr<Dx11PixelShader> pixelShader;
 
   std::unique_ptr<Dx11VertexBuffer> vertexBuffer;
+
+  std::unique_ptr<Dx11Resources> resources;
 
   std::map<std::string, unique_ptr<Model>> models;
 
@@ -94,6 +97,7 @@ Dx11Renderer::Dx11Renderer(
   impl->swapChain = swapChain;
   impl->device = device;
   impl->deviceContext = deviceContext;
+  impl->resources = impl->component.create<unique_ptr<Dx11Resources>>();
 
   ComPtr<ID3D11Texture2D> backBufferTexture;
   checkResult(impl->swapChain->GetBuffer(
@@ -123,16 +127,7 @@ cubit::RenderTarget& Dx11Renderer::getBackBufferTarget() {
 
 void Dx11Renderer::present() { impl->swapChain->Present(0, 0); }
 
-cubit::Model* Dx11Renderer::loadModel(const std::string& name) {
-  Dx11Device device = impl->component.create<Dx11Device>();
-
-  if (!impl->models.count(name)) {
-    if (name == "debug:axis") {
-      impl->models[name] = impl->component.create<std::unique_ptr<DebugAxis>>();
-    }
-  }
-  return impl->models[name].get();
-}
+cubit::Resources& Dx11Renderer::resources() { return *(impl->resources.get()); }
 
 }  // namespace impl
 }  // namespace cubit

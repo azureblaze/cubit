@@ -102,6 +102,9 @@
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cubit\cubit.h">
@@ -276,6 +279,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\graphics\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

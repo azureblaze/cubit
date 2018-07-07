@@ -156,6 +156,7 @@
     <ClInclude Include="impl\win64\graphics\dx11\Dx11InternalComponent.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Model.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11RenderTarget.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\Dx11Resources.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11ShaderCompiler.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexShader.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Texture2D.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="include\cubit\graphics\Model.h" />
     <ClInclude Include="include\cubit\graphics\PixelShader.h" />
     <ClInclude Include="include\cubit\graphics\RenderTarget.h" />
+    <ClInclude Include="include\cubit\graphics\Resources.h" />
     <ClInclude Include="include\cubit\graphics\Scene.h" />
     <ClInclude Include="include\cubit\graphics\Shader.h" />
     <ClInclude Include="include\cubit\graphics\Texture2D.h" />
@@ -215,6 +217,7 @@
     <ClCompile Include="impl\common\graphics\SceneImpl.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Material.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Model.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Resources.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\models\DebugAxis.cpp" />
     <ClCompile Include="include\cubit\math\Vector4.inl" />
     <ClCompile Include="impl\win64\cubit.cpp" />

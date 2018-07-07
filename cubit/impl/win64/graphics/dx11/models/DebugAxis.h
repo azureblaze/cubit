@@ -9,6 +9,7 @@ namespace cubit {
 namespace impl {
 
 class Dx11Material;
+class Dx11Resources;
 
 class DebugAxis : public Dx11Model {
   Dx11Device device;
@@ -16,7 +17,8 @@ class DebugAxis : public Dx11Model {
   std::unique_ptr<Dx11Material> material;
 
  public:
-  DebugAxis(
+  BOOST_DI_INJECT(
+      DebugAxis,
       Dx11VertexBufferFactory vertexBufferfactory,
       Dx11Device device,
       Dx11DeviceContext deviceContext,
@@ -31,5 +33,7 @@ class DebugAxis : public Dx11Model {
 
   virtual std::unique_ptr<Instance> createInstance() const override;
 };
+
+using DebugAxisFactory = std::function<std::unique_ptr<DebugAxis>()>;
 }  // namespace impl
 }  // namespace cubit

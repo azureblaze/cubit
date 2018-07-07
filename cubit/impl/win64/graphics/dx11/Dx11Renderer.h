@@ -43,7 +43,7 @@ class Dx11Renderer : public Win64Renderer {
 
   virtual void present() override;
 
-  virtual Model* loadModel(const std::string& name) override;
+  virtual Resources& resources() override;
 };
 }  // namespace impl
 }  // namespace cubit

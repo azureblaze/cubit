@@ -13,12 +13,15 @@
 namespace cubit {
 namespace impl {
 
+class Dx11Resources;
+
 using Dx11InternalComponent = boost::di::injector<
     Dx11VertexShaderFactory,
     Dx11PixelShaderFactory,
     Dx11VertexBufferFactory,
     Dx11Device,
-    std::unique_ptr<DebugAxis>>;
+    std::unique_ptr<Dx11Resources>,
+    DebugAxisFactory>;
 
 Dx11InternalComponent getDx11InternalComponent(
     Dx11Device device,

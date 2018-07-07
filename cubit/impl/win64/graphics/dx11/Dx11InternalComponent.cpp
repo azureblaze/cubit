@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Dx11Material.h"
+#include "Dx11Resources.h"
 
 namespace di = boost::di;
 using namespace std;
@@ -26,7 +27,9 @@ Dx11InternalComponent getDx11InternalComponent(
       di::bind<Dx11PixelShaderFactory>().to(
           di::extension::assisted_injection<Dx11PixelShader>{}),
       di::bind<Dx11VertexBufferFactory>().to(
-          di::extension::assisted_injection<Dx11VertexBuffer>{}));
+          di::extension::assisted_injection<Dx11VertexBuffer>{}),
+      di::bind<DebugAxisFactory>().to(
+          di::extension::assisted_injection<DebugAxis>{}));
 }
 }  // namespace impl
 }  // namespace cubit

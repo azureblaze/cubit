@@ -4,6 +4,7 @@
 
 #include "../Dx11Device.h"
 #include "../Dx11Material.h"
+#include "../Dx11Resources.h"
 #include "../Dx11VertexBuffer.h"
 
 #include <d3d11.h>
