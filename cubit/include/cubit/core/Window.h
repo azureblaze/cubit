@@ -1,6 +1,6 @@
 ﻿#pragma once
 namespace cubit {
-class Renderer;
+class RenderTarget;
 class Window {
  public:
   virtual ~Window() = default;
@@ -12,6 +12,8 @@ class Window {
   virtual int getWidth() = 0;
   virtual int getHeight() = 0;
 
-  virtual Renderer& getRenderer() = 0;
+  virtual RenderTarget& getRenderTarget() = 0;
+
+  virtual void present() = 0;
 };
 }  // namespace cubit

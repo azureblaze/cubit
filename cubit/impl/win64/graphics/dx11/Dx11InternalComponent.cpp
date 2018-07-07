@@ -29,7 +29,9 @@ Dx11InternalComponent getDx11InternalComponent(
       di::bind<Dx11VertexBufferFactory>().to(
           di::extension::assisted_injection<Dx11VertexBuffer>{}),
       di::bind<DebugAxisFactory>().to(
-          di::extension::assisted_injection<DebugAxis>{}));
+          di::extension::assisted_injection<DebugAxis>{}),
+      di::bind<Dx11RenderTargetFactory>().to(
+          di::extension::assisted_injection<Dx11RenderTarget>{}));
 }
 }  // namespace impl
 }  // namespace cubit

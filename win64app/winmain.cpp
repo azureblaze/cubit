@@ -22,6 +22,7 @@ using namespace std;
 namespace di = boost::di;
 class Game {
   Logger &logger;
+  Renderer &renderer;
   int i = 0;
   unique_ptr<Window> window;
 
@@ -31,16 +32,16 @@ class Game {
   Instance *instance;
 
  public:
-  Game(Application &application, Logger &logger) : logger(logger) {
+  Game(Application &application, Logger &logger, Renderer &renderer)
+      : logger(logger), renderer(renderer) {
     window = application.createWindow();
     window->show();
 
-    const Model *model =
-        window->getRenderer().resources().getModel("debug:axis");
+    const Model *model = renderer.resources().getModel("debug:axis");
     instance = scene.addInstance(*model);
   }
   void update() {
-    window->getRenderer().getBackBufferTarget().clear(Color{0, 0, 0, 0});
+    window->getRenderTarget().clear(Color{0, 0, 0, 0});
 
     float t = (1.0f * PI * i / 60.0f);
     Vector3 p(5.0f * sinf(t), 5, 5.0f * cos(t));
@@ -51,9 +52,9 @@ class Game {
 
     scene.setCamera(camera);
 
-    scene.render(window->getRenderer().getBackBufferTarget());
+    scene.render(window->getRenderTarget());
 
-    window->getRenderer().present();
+    window->present();
     i++;
   }
 };

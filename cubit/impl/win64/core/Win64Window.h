@@ -15,7 +15,7 @@ using namespace std;
 
 namespace cubit {
 class Config;
-class Renderer;
+class Win64Renderer;
 namespace impl {
 class Win64Application;
 class Win64Window : public Window {
@@ -30,7 +30,7 @@ class Win64Window : public Window {
       Win64Window,
       (named = boost::di::extension::assisted) const Spec& spec,
       Config& config,
-      Win64RendererFactory win64RendererFactory);
+      Win64Renderer& renderer);
   ~Win64Window();
 
   virtual void setSize(int width, int height) override {
@@ -42,17 +42,21 @@ class Win64Window : public Window {
   virtual int getHeight() override { return height; };
   virtual void show() override;
 
-  virtual Renderer& getRenderer() override;
-
   intptr_t getHandle() { return handle; }
+
+  virtual RenderTarget& getRenderTarget() override;
+
+  virtual void present() override;
 
  private:
   friend Win64Application;
   const Spec spec;
-  Win64RendererFactory win64RendererFactory;
+
+  Win64Renderer& renderer;
 
   intptr_t handle;
-  std::unique_ptr<Renderer> renderer;
+
+  std::unique_ptr<RenderTarget> renderTarget;
 
   int width;
   int height;

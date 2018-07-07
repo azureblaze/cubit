@@ -16,11 +16,7 @@ class Renderer {
  public:
   virtual ~Renderer() = default;
 
-  virtual RenderTarget& getBackBufferTarget() = 0;
-
   virtual Resources& resources() = 0;
-
-  virtual void present() = 0;
 };
 
 using RendererFactory =

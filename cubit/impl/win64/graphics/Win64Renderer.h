@@ -10,9 +10,9 @@ namespace impl {
 class Win64Window;
 class Win64Renderer : public Renderer {
  public:
-};
+  virtual std::unique_ptr<RenderTarget> createTarget(Win64Window& window) = 0;
 
-using Win64RendererFactory =
-    std::function<std::unique_ptr<Renderer>(Win64Window*)>;
+  virtual void present(Win64Window& window) = 0;
+};
 }  // namespace impl
 }  // namespace cubit

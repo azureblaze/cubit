@@ -21,6 +21,7 @@ class alignas(16) Vector3 {
     u[0] = other[0];
     u[1] = other[1];
     u[2] = other[2];
+    return *this;
   }
 
   float* data() { return u; }

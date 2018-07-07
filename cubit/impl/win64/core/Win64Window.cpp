@@ -1,6 +1,7 @@
 ﻿#include "Win64Window.h"
 
 #include <cubit/config/config.h>
+#include <cubit/graphics/RenderTarget.h>
 #include <cubit/graphics/Renderer.h>
 #include <sstream>
 
@@ -18,8 +19,8 @@ namespace impl {
 Win64Window::Win64Window(
     const Spec& spec,
     Config& config,
-    Win64RendererFactory win64RendererFactory)
-    : spec(spec), win64RendererFactory(win64RendererFactory) {
+    Win64Renderer& renderer)
+    : spec(spec), renderer(renderer) {
   width = config.get<int>("default_window_width");
   height = config.get<int>("default_window_height");
 }
@@ -41,6 +42,7 @@ intptr_t Win64Window::initialize() {
       nullptr,
       (HINSTANCE)spec.applicationInstance,
       nullptr);
+  renderTarget = move(renderer.createTarget(*this));
   return handle;
 }
 
@@ -48,12 +50,11 @@ Win64Window::~Win64Window() { spec.application->removeWindow(handle); }
 
 void Win64Window::show() { ShowWindow((HWND)handle, SW_SHOW); }
 
-cubit::Renderer& Win64Window::getRenderer() {
-  if (renderer.get() == nullptr) {
-    renderer = win64RendererFactory(this);
-  }
-  return *renderer;
+cubit::RenderTarget& Win64Window::getRenderTarget() {
+  return *renderTarget.get();
 }
+
+void Win64Window::present() { renderer.present(*this); }
 
 intptr_t
 Win64Window::onWindowProc(uint32_t message, intptr_t wParam, intptr_t lParam) {

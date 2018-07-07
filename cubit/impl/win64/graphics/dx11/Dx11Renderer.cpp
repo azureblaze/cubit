@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include <d3d11.h>
+#include <dxgi1_3.h>
 
 #include <cubit/config/Config.h>
 #include <cubit/os/Logger.h>
@@ -22,6 +23,7 @@
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
+#pragma comment(lib, "Dxgi.lib")
 
 using namespace std;
 using namespace Microsoft::WRL;
@@ -31,51 +33,26 @@ namespace impl {
 
 struct Dx11Renderer::Impl {
   Logger& logger;
-  Win64Window* window;
+  Config& config;
 
   Dx11InternalComponent component;
 
-  Microsoft::WRL::ComPtr<IDXGISwapChain> swapChain;
   Microsoft::WRL::ComPtr<ID3D11Device> device;
   Microsoft::WRL::ComPtr<ID3D11DeviceContext> deviceContext;
 
-  std::unique_ptr<Dx11RenderTarget> backbufferTarget;
-
-  std::unique_ptr<Dx11VertexShader> vertexShader;
-  std::unique_ptr<Dx11PixelShader> pixelShader;
-
-  std::unique_ptr<Dx11VertexBuffer> vertexBuffer;
-
   std::unique_ptr<Dx11Resources> resources;
 
-  std::map<std::string, unique_ptr<Model>> models;
+  std::map<Win64Window*, ComPtr<IDXGISwapChain1>> swapChains;
 
-  Impl(Logger& logger, Win64Window* window, Dx11InternalComponent component)
-      : logger(logger), window(window), component(move(component)) {}
+  Impl(Config& config, Logger& logger, Dx11InternalComponent component)
+      : config(config), logger(logger), component(move(component)) {}
 };
 
-Dx11Renderer::Dx11Renderer(
-    Win64Window* window,
-    Config& config,
-    Logger& logger) {
-  int width = config.get<int>("default_window_width");
-  int height = config.get<int>("default_window_height");
-  DXGI_SWAP_CHAIN_DESC swapChainDescription{};
-  swapChainDescription.BufferCount = 1;
-  swapChainDescription.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-  swapChainDescription.BufferDesc.Width = width;
-  swapChainDescription.BufferDesc.Height = height;
-  swapChainDescription.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-  swapChainDescription.OutputWindow = (HWND)window->getHandle();
-  swapChainDescription.SampleDesc.Count = 1;
-  swapChainDescription.SampleDesc.Quality = 0;
-  swapChainDescription.Windowed = TRUE;
-
-  IDXGISwapChain* swapChain;
+Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
   ID3D11Device* device;
   ID3D11DeviceContext* deviceContext;
 
-  checkResult(D3D11CreateDeviceAndSwapChain(
+  checkResult(D3D11CreateDevice(
       NULL,
       D3D_DRIVER_TYPE_HARDWARE,
       NULL,
@@ -83,51 +60,68 @@ Dx11Renderer::Dx11Renderer(
       NULL,
       NULL,
       D3D11_SDK_VERSION,
-      &swapChainDescription,
-      &swapChain,
       &device,
       NULL,
       &deviceContext));
 
   impl = make_unique<Impl>(
+      config,
       logger,
-      window,
       getDx11InternalComponent(
           Dx11Device(device), Dx11DeviceContext(deviceContext)));
-  impl->swapChain = swapChain;
   impl->device = device;
   impl->deviceContext = deviceContext;
   impl->resources = impl->component.create<unique_ptr<Dx11Resources>>();
-
-  ComPtr<ID3D11Texture2D> backBufferTexture;
-  checkResult(impl->swapChain->GetBuffer(
-      0, __uuidof(ID3D11Texture2D), (void**)backBufferTexture.GetAddressOf()));
-  impl->backbufferTarget =
-      make_unique<Dx11RenderTarget>(impl->deviceContext.Get());
-  checkResult(impl->device->CreateRenderTargetView(
-      backBufferTexture.Get(),
-      NULL,
-      impl->backbufferTarget->target.GetAddressOf()));
-  impl->deviceContext->OMSetRenderTargets(
-      1, impl->backbufferTarget->target.GetAddressOf(), NULL);
-
-  D3D11_VIEWPORT viewport{};
-  viewport.Width = width;
-  viewport.Height = height;
-  viewport.MaxDepth = 1.0f;
-
-  impl->deviceContext->RSSetViewports(1, &viewport);
 }
 
 Dx11Renderer::~Dx11Renderer() {}
 
-cubit::RenderTarget& Dx11Renderer::getBackBufferTarget() {
-  return *impl->backbufferTarget;
+void Dx11Renderer::present(Win64Window& window) {
+  impl->swapChains[&window]->Present(0, 0);
 }
 
-void Dx11Renderer::present() { impl->swapChain->Present(0, 0); }
-
 cubit::Resources& Dx11Renderer::resources() { return *(impl->resources.get()); }
+
+unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
+  IDXGISwapChain1* swapChain;
+
+  int width = window.getWidth();
+  int height = window.getHeight();
+  DXGI_SWAP_CHAIN_DESC1 swapChainDescription{};
+  swapChainDescription.BufferCount = 1;
+  swapChainDescription.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+  swapChainDescription.Width = width;
+  swapChainDescription.Height = height;
+  swapChainDescription.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+  swapChainDescription.SampleDesc.Count = 1;
+  swapChainDescription.SampleDesc.Quality = 0;
+
+  ComPtr<IDXGIFactory2> factory;
+  CreateDXGIFactory2(
+      DXGI_CREATE_FACTORY_DEBUG,
+      __uuidof(IDXGIFactory2),
+      (void**)factory.GetAddressOf());
+
+  checkResult(factory->CreateSwapChainForHwnd(
+      impl->device.Get(),
+      (HWND)window.getHandle(),
+      &swapChainDescription,
+      nullptr,
+      nullptr,
+      &swapChain));
+
+  auto texture = make_shared<Dx11Texture2D>(width, height);
+  checkResult(swapChain->GetBuffer(
+      0, __uuidof(ID3D11Texture2D), (void**)texture->texture.GetAddressOf()));
+
+  Dx11RenderTargetFactory targetFactory =
+      impl->component.create<Dx11RenderTargetFactory>();
+
+  unique_ptr<Dx11RenderTarget> target = targetFactory(texture);
+
+  impl->swapChains[&window] = swapChain;
+  return target;
+}
 
 }  // namespace impl
 }  // namespace cubit

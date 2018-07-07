@@ -8,6 +8,7 @@
 #include <cubit/graphics/Instance.h>
 #include <cubit/graphics/Material.h>
 #include <cubit/graphics/Model.h>
+#include <cubit/graphics/RenderTarget.h>
 
 using namespace std;
 
@@ -48,6 +49,8 @@ cubit::Instance* Scene::addInstance(const Model& model) {
 }
 
 void Scene::render(RenderTarget& renderTarget) {
+  renderTarget.bind();
+
   map<const Model*, ActiveModel> models;
   for (auto& instance : impl->instances) {
     const Model* model = instance->getModel();

@@ -9,12 +9,11 @@ namespace di = boost::di;
 namespace cubit {
 namespace impl {
 
-boost::di::injector<Win64RendererFactory> getDx11GraphicsComponent() {
+boost::di::injector<Win64Renderer&, Renderer&> getDx11GraphicsComponent() {
   return boost::di::make_injector(
       getCommonConfigComponent(),
       getWin64OsComponent(),
-      boost::di::bind<Win64RendererFactory>().to(
-          boost::di::extension::assisted_injection<Dx11Renderer>{}));
+      boost::di::bind<Renderer, Win64Renderer>().to<Dx11Renderer>());
 }
 
 }  // namespace impl
