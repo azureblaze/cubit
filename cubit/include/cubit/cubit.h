@@ -12,8 +12,9 @@ namespace cubit {
 class Application;
 class Logger;
 class Renderer;
+class Input;
 
-boost::di::injector<Application&, Logger&, Renderer&> getCubitInjector(
+boost::di::injector<Application&, Logger&, Renderer&, Input&> getCubitInjector(
     intptr_t instance,
     std::string_view commandLine);
 }  // namespace cubit

@@ -7,9 +7,12 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#undef near
+#undef far
 
 #include "Win64Application.h"
 #include "win64/graphics/Win64Renderer.h "
+#include "win64/input/Win64Input.h"
 #include "win64/os/Win64Util.h"
 
 using namespace std;
@@ -19,8 +22,9 @@ namespace impl {
 Win64Window::Win64Window(
     const Spec& spec,
     Config& config,
-    Win64Renderer& renderer)
-    : spec(spec), renderer(renderer) {
+    Win64Renderer& renderer,
+    Win64Input& input)
+    : spec(spec), renderer(renderer), input(input) {
   width = config.get<int>("default_window_width");
   height = config.get<int>("default_window_height");
 }
@@ -62,6 +66,20 @@ Win64Window::onWindowProc(uint32_t message, intptr_t wParam, intptr_t lParam) {
     case WM_DESTROY: {
       PostQuitMessage(0);
       return 0;
+      case WM_SYSKEYDOWN:
+        if (wParam == VK_F4) {
+          break;
+        }
+      case WM_KEYDOWN:
+        input.onKeyDown(wParam);
+        return 0;
+      case WM_KEYUP:
+      case WM_SYSKEYUP:
+        input.onKeyUp(wParam);
+        return 0;
+      case WM_MOUSEMOVE:
+        input.onMouseMove(lParam);
+        return 0;
     } break;
   }
   return DefWindowProc((HWND)handle, message, wParam, lParam);

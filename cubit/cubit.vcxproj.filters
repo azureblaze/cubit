@@ -105,6 +105,12 @@
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="impl\win64\Input\Win64Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impl\win64\Input\Win64InputComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cubit\cubit.h">
@@ -285,6 +291,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\input\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\input\Keys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\Input\Win64Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impl\win64\Input\Win64InputComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cubit\math\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -48,21 +48,6 @@ void Dx11Material::begin(const Scene& scene) {
   buffer.viewProjection = scene.getCamera()
                               .getViewProjection(0.1920, 0.1080, 0.1, 1000)
                               .transpose();
-  /*
-    buffer.viewProjection =
-        (Matrix4::translate(Vector3(-5, -5, -5)) *
-         (Quaternion::lookAt(Vector3(-1, -1, -1), Vector3(0, 1, 0)) *
-          Quaternion::fromAxis(Vector3(0, 1, 0), PI_2))
-             .inverse()
-             .toMatrix() *
-         Matrix4::perspectiveProjection(0.1920, 0.1080, 0.1, 1000))
-            .transpose();*/
-
-  Vector3 v0(0, 0, 0);
-  v0 = v0.transformAsPoint(buffer.viewProjection.transpose());
-
-  Vector3 v1(1, 0, 0);
-  v1 = v1.transformAsPoint(buffer.viewProjection.transpose());
 
   D3D11_MAPPED_SUBRESOURCE mappedSubresouce;
   deviceContext->Map(

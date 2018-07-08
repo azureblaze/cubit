@@ -9,6 +9,7 @@
 #include "common/config/CommonConfigComponent.h"
 #include "common/core/CommonCoreComponent.h"
 #include "win64/graphics/dx11/dx11GraphicComponent.h"
+#include "win64/input/Win64InputComponent.h"
 #include "win64/os/Win64OsComponent.h"
 
 namespace di = boost::di;
@@ -24,6 +25,7 @@ di::injector<Application&> getWin64CoreInjector(
       getCommonCoreInjector(),
       getDx11GraphicsComponent(),
       getWin64OsComponent(),
+      getWin64InputComponent(),
       di::bind<Application>().to<Win64Application>(),
       di::bind<Win64Application::Spec>().to(
           Win64Application::Spec{applicationInstance, commandLineArgs}),

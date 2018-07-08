@@ -14,6 +14,7 @@
 #include <cubit/graphics/Resources.h>
 #include <cubit/graphics/Scene.h>
 
+#include <cubit/input/Input.h>
 #include <cubit/math/math.h>
 #include <cubit/os/logger.h>
 using namespace cubit;
@@ -23,6 +24,7 @@ namespace di = boost::di;
 class Game {
   Logger &logger;
   Renderer &renderer;
+  Input &input;
   int i = 0;
   unique_ptr<Window> window;
 
@@ -32,23 +34,73 @@ class Game {
   Instance *instance;
 
  public:
-  Game(Application &application, Logger &logger, Renderer &renderer)
-      : logger(logger), renderer(renderer) {
+  Game(
+      Application &application,
+      Logger &logger,
+      Renderer &renderer,
+      Input &input)
+      : logger(logger), renderer(renderer), input(input) {
     window = application.createWindow();
     window->show();
 
     const Model *model = renderer.resources().getModel("debug:axis");
     instance = scene.addInstance(*model);
+
+    camera.getTransform().setPosition(Vector3(5, 5, 5));
+    camera.getTransform().setRotation(
+        Quaternion::lookAt(Vector3(-1, -1, -1), Vector3(0, 1, 0)));
+    input.setCaptureMouse(window.get());
   }
   void update() {
     window->getRenderTarget().clear(Color{0, 0, 0, 0});
 
-    float t = (1.0f * PI * i / 60.0f);
-    Vector3 p(5.0f * sinf(t), 5, 5.0f * cos(t));
+    float v = 0.05;
+
+    Vector3 cameraForward =
+        Vector3(1, 0, 0).rotate(camera.getTransform().getRotation());
+
+    Vector3 cameraRight = Vector3(0, 1, 0).cross(cameraForward);
+    cameraRight[1] = 0;
+    cameraRight = cameraRight.normalize();
+
+    logger.stream() << cameraRight[1] << "\n";
+
+    Vector2 mouseDelta = input.getMousePosition();
+    float t = 200.f;
+
+    if (i > 0) {
+      camera.getTransform()
+          .getRotation()
+          .rotateSelf(Quaternion::fromAxis(Vector3(0, 1, 0), mouseDelta[0] / t))
+          .rotateSelf(Quaternion::fromAxis(cameraRight, mouseDelta[1] / t));
+    }
+
+    Vector3 p = camera.getTransform().getPosition();
+    if (input.getKeyState(Keys::W)) {
+      p += cameraForward * v;
+    }
+
+    if (input.getKeyState(Keys::S)) {
+      p -= cameraForward * v;
+    }
+
+    if (input.getKeyState(Keys::D)) {
+      p += cameraRight * v;
+    }
+
+    if (input.getKeyState(Keys::A)) {
+      p -= cameraRight * v;
+    }
+
+    if (input.getKeyState(Keys::SPACE)) {
+      p += Vector3(0, 1, 0) * v;
+    }
+
+    if (input.getKeyState(Keys::SHIFT)) {
+      p -= Vector3(0, 1, 0) * v;
+    }
 
     camera.getTransform().setPosition(p);
-    camera.getTransform().setRotation(Quaternion::lookAt(
-        -p + Vector3(0, 2 * sinf(t / 3), 0), Vector3(0, 1, 0)));
 
     scene.setCamera(camera);
 

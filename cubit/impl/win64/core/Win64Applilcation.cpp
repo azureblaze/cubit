@@ -7,11 +7,16 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#undef near
+#undef far
+#undef DELETE
 
 #include <Mmsystem.h>
 
 #include <cubit/core/Exception.h>
+#include <cubit/input/Input.h>
 #include <cubit/os/Logger.h>
+
 #include "win64/os/Win64Util.h"
 
 using namespace std;
@@ -30,12 +35,14 @@ Win64Application::Win64Application(
     Win64WindowFactory windowFactory,
     Config& config,
     Logger& logger,
+    Input& input,
     const TimerFactory& timerFactory,
     std::unique_ptr<FrameRateGovernor> frameRateGovernor)
     : spec(spec),
       windowFactory(windowFactory),
       config(config),
       logger(logger),
+      input(input),
       timerFactory(timerFactory),
       frameRateGovernor(move(frameRateGovernor)) {}
 
@@ -75,6 +82,7 @@ int Win64Application::start(std::function<void()> update) {
   frameRateGovernor->start();
   try {
     while (isRunning) {
+      input.resetFrame();
       while (PeekMessage(&message, 0, 0, 0, PM_REMOVE)) {
         TranslateMessage(&message);
         DispatchMessage(&message);

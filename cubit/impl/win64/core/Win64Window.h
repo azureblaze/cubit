@@ -18,6 +18,7 @@ class Config;
 class Win64Renderer;
 namespace impl {
 class Win64Application;
+class Win64Input;
 class Win64Window : public Window {
  public:
   struct Spec {
@@ -30,7 +31,8 @@ class Win64Window : public Window {
       Win64Window,
       (named = boost::di::extension::assisted) const Spec& spec,
       Config& config,
-      Win64Renderer& renderer);
+      Win64Renderer& renderer,
+      Win64Input& input);
   ~Win64Window();
 
   virtual void setSize(int width, int height) override {
@@ -53,6 +55,7 @@ class Win64Window : public Window {
   const Spec spec;
 
   Win64Renderer& renderer;
+  Win64Input& input;
 
   intptr_t handle;
 

@@ -13,6 +13,7 @@
 
 namespace cubit {
 class Logger;
+class Input;
 namespace impl {
 class Win64Application : public Application {
  public:
@@ -26,6 +27,7 @@ class Win64Application : public Application {
       Win64WindowFactory windowFactory,
       Config& config,
       Logger& logger,
+      Input& input,
       const cubit::TimerFactory& timerFactory,
       std::unique_ptr<FrameRateGovernor> frameRateGovernor);
   void initialize() override;
@@ -40,6 +42,7 @@ class Win64Application : public Application {
   Win64WindowFactory windowFactory;
   const Config& config;
   Logger& logger;
+  Input& input;
   const cubit::TimerFactory& timerFactory;
   std::unique_ptr<FrameRateGovernor> frameRateGovernor;
 

@@ -52,6 +52,13 @@ class Quaternion {
         p.s * q.v + q.s * p.v + p.v.cross(q.v), p.s * q.s - p.v.dot(q.v));
   }
 
+  Quaternion rotate(const Quaternion& by) { return by * *this; }
+
+  Quaternion& rotateSelf(const Quaternion& by) {
+    *this = by * *this;
+    return *this;
+  }
+
   Matrix4 toMatrix() const {
     const float& x = v[0];
     const float& y = v[1];

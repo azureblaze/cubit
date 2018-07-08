@@ -165,6 +165,8 @@
     <ClInclude Include="impl\win64\graphics\dx11\Dx11VertexBuffer.h" />
     <ClInclude Include="impl\win64\graphics\dx11\models\DebugAxis.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Material.h" />
+    <ClInclude Include="impl\win64\Input\Win64Input.h" />
+    <ClInclude Include="impl\win64\Input\Win64InputComponent.h" />
     <ClInclude Include="impl\win64\os\QPCTimer.h" />
     <ClInclude Include="impl\win64\os\VCDebugLogger.h" />
     <ClInclude Include="impl\win64\os\WaitableTimerSleepFuture.h" />
@@ -191,11 +193,14 @@
     <ClInclude Include="include\cubit\graphics\Texture2D.h" />
     <ClInclude Include="include\cubit\graphics\Transform.h" />
     <ClInclude Include="include\cubit\graphics\VertexShader.h" />
+    <ClInclude Include="include\cubit\input\Input.h" />
+    <ClInclude Include="include\cubit\input\Keys.h" />
     <ClInclude Include="include\cubit\math\Constants.h" />
     <ClInclude Include="include\cubit\math\math.h" />
     <ClInclude Include="include\cubit\math\Matrix4.h" />
     <ClInclude Include="include\cubit\math\Operations.h" />
     <ClInclude Include="include\cubit\math\Quaternion.h" />
+    <ClInclude Include="include\cubit\math\Vector2.h" />
     <ClInclude Include="include\cubit\math\Vector3.h" />
     <ClInclude Include="include\cubit\math\Vector4.h" />
     <ClInclude Include="include\cubit\os\Logger.h" />
@@ -219,6 +224,8 @@
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Model.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Resources.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\models\DebugAxis.cpp" />
+    <ClCompile Include="impl\win64\Input\Win64Input.cpp" />
+    <ClCompile Include="impl\win64\Input\Win64InputComponent.cpp" />
     <ClCompile Include="include\cubit\math\Vector4.inl" />
     <ClCompile Include="impl\win64\cubit.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11InternalComponent.cpp" />
