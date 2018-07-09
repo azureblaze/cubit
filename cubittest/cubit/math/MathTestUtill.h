@@ -3,7 +3,7 @@
 
 namespace cubit {
 
-constexpr float FLOAT_COMPARISON_PERCISION = 1e-6;
+constexpr float FLOAT_COMPARISON_PERCISION = 1e-6f;
 
 inline void EXPECT_MATRIX4_EQ(const Matrix4& expected, const Matrix4& result) {
   for (int i = 0; i < 4; i++) {
@@ -24,6 +24,11 @@ inline void EXPECT_VECTOR3_EQ(const Vector3& expected, const Vector3& result) {
   EXPECT_NEAR(expected[0], result[0], FLOAT_COMPARISON_PERCISION);
   EXPECT_NEAR(expected[1], result[1], FLOAT_COMPARISON_PERCISION);
   EXPECT_NEAR(expected[2], result[2], FLOAT_COMPARISON_PERCISION);
+}
+
+inline void EXPECT_VECTOR2_EQ(const Vector2& expected, const Vector2& result) {
+  EXPECT_NEAR(expected[0], result[0], FLOAT_COMPARISON_PERCISION);
+  EXPECT_NEAR(expected[1], result[1], FLOAT_COMPARISON_PERCISION);
 }
 
 inline void EXPECT_QUATERNION_EQ(

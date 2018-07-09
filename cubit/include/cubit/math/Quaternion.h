@@ -115,6 +115,12 @@ class Quaternion {
     return fromRotationMatrix(Matrix4(
         Vector4(x, 0), Vector4(y, 0), Vector4(z, 0), Vector4(0, 0, 0, 1)));
   }
+
+  static Quaternion euler(float yaw, float pitch, float roll) {
+    return Quaternion::fromAxis(Vector3(1, 0, 0), roll)
+        .rotate(Quaternion::fromAxis(Vector3(0, 0, 1), pitch))
+        .rotate(Quaternion::fromAxis(Vector3(0, 1, 0), yaw));
+  }
 };
 
 inline Quaternion lerp(const Quaternion& a, const Quaternion& b, float beta) {

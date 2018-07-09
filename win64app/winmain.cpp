@@ -33,6 +33,9 @@ class Game {
 
   Instance *instance;
 
+  float pitch = 0;
+  float yaw = 0;
+
  public:
   Game(
       Application &application,
@@ -47,8 +50,10 @@ class Game {
     instance = scene.addInstance(*model);
 
     camera.getTransform().setPosition(Vector3(5, 5, 5));
-    camera.getTransform().setRotation(
-        Quaternion::lookAt(Vector3(-1, -1, -1), Vector3(0, 1, 0)));
+
+    yaw = Vector2(-1, 1).angle();
+    pitch = Vector2(sqrtf(2), -1).angle();
+
     input.setCaptureMouse(window.get());
   }
   void update() {
@@ -63,16 +68,15 @@ class Game {
     cameraRight[1] = 0;
     cameraRight = cameraRight.normalize();
 
-    logger.stream() << cameraRight[1] << "\n";
+    logger.stream() << yaw << "," << pitch << "\n";
 
     Vector2 mouseDelta = input.getMousePosition();
     float t = 200.f;
 
     if (i > 0) {
-      camera.getTransform()
-          .getRotation()
-          .rotateSelf(Quaternion::fromAxis(Vector3(0, 1, 0), mouseDelta[0] / t))
-          .rotateSelf(Quaternion::fromAxis(cameraRight, mouseDelta[1] / t));
+      yaw = normalizeAngle(yaw + mouseDelta[0] / t);
+      pitch = clamp(pitch - mouseDelta[1] / t, -PI_2, PI_2);
+      camera.getTransform().setRotation(Quaternion::euler(yaw, pitch, 0));
     }
 
     Vector3 p = camera.getTransform().getPosition();

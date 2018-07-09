@@ -49,17 +49,21 @@ class alignas(16) Vector2 {
   Vector2& operator*=(float k) { return *this = *this * k; }
   Vector2& operator/=(float k) { return *this = *this / k; }
 
-  float dot(const Vector2& v) const {
-    return u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
-  }
+  float dot(const Vector2& v) const { return u[0] * v[0] + u[1] * v[1]; }
 
-  Vector2 cross(const Vector2& v) const {
-    return Vector2(u[0] * v[1] - u[1] * v[0], u[1] * v[0] - u[0] * v[1]);
-  }
+  float cross(const Vector2& v) const { return u[0] * v[1] - u[1] * v[0]; }
   float length() const { return std::sqrtf(this->dot(*this)); }
   float length2() const { return this->dot(*this); }
 
   Vector2 normalize() const { return *this / length(); }
+
+  float angle() const { return atan2f(u[1], u[0]); }
+
+  Vector2 rotate(float theta) const {
+    return Vector2(
+        cosf(theta) * u[0] - sinf(theta) * u[1],
+        sinf(theta) * u[0] + cosf(theta) * u[1]);
+  }
 };  // namespace cubit
 
 inline Vector2 operator*(float scale, const Vector2& v) { return v * scale; }

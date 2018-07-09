@@ -51,6 +51,7 @@
     <ClCompile Include="cubit\math\Matrix4Test.cpp" />
     <ClCompile Include="cubit\math\OperationsTest.cpp" />
     <ClCompile Include="cubit\math\QuaternionTest.cpp" />
+    <ClCompile Include="cubit\math\Vector2Test.cpp" />
     <ClCompile Include="cubit\math\Vector3Test.cpp" />
     <ClCompile Include="cubit\math\Vector4Test.cpp" />
     <ClCompile Include="test.cpp" />

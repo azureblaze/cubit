@@ -81,3 +81,11 @@ TEST(QuaternionTest, lookAt) {
   Vector3 v = Vector3(1, 0, 0).rotate(q);
   EXPECT_VECTOR3_EQ(Vector3(1, 2, 3).normalize(), v);
 }
+
+TEST(QuaternionTest, euler) {
+  Quaternion q = Quaternion::euler(1, 2, 3);
+
+  EXPECT_MATRIX4_EQ(
+      Matrix4::rotateX(3) * Matrix4::rotateZ(2) * Matrix4::rotateY(1),
+      q.toMatrix());
+}

@@ -136,7 +136,7 @@ TEST(Vector3Test, length2) {
 TEST(Vector3Test, normalize) {
   Vector3 v = Vector3(1, 2, 3).normalize();
 
-  EXPECT_VECTOR3_EQ(Vector3(1 / sqrt(14), 2 / sqrt(14), 3 / sqrt(14)), v);
+  EXPECT_VECTOR3_EQ(Vector3(1 / sqrtf(14), 2 / sqrtf(14), 3 / sqrtf(14)), v);
 }
 
 TEST(Vector3Test, transformAsVector) {

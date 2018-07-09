@@ -161,7 +161,7 @@ TEST(Vector4Test, dot) {
 TEST(Vector4Test, length) {
   Vector4 v(1, 2, 3, 4);
 
-  EXPECT_FLOAT_EQ(sqrt(1 * 1 + 2 * 2 + 3 * 3 + 4 * 4), v.length());
+  EXPECT_FLOAT_EQ(sqrtf(1 * 1 + 2 * 2 + 3 * 3 + 4 * 4), v.length());
 }
 
 TEST(Vector4Test, length2) {
@@ -189,7 +189,7 @@ TEST(Vector4Test, transform) {
   EXPECT_FLOAT_EQ(18, r[0]);
   EXPECT_FLOAT_EQ(2, r[1]);
   EXPECT_FLOAT_EQ(1, r[2]);
-  EXPECT_FLOAT_EQ(1.2, r[3]);
+  EXPECT_FLOAT_EQ(1.2f, r[3]);
 }
 
 TEST(Vector4Test, convertToVector3) {

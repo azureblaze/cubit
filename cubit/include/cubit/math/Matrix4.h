@@ -29,6 +29,7 @@ class alignas(16) Matrix4 {
     for (int i = 0; i < 4; i++) {
       r[i] = other[i];
     }
+    return *this;
   }
 
   Vector4& operator[](size_t index) { return r[index]; }
