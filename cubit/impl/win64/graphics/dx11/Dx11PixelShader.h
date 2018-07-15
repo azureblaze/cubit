@@ -9,6 +9,8 @@
 #include <boost/di.hpp>
 #include <boost/di/extension/injections/assisted_injection.hpp>
 
+#include <cubit/inject/Factory.h>
+
 #include "Dx11Device.h"
 
 struct ID3D11PixelShader;
@@ -24,13 +26,12 @@ class Dx11PixelShader : public PixelShader {
       Dx11PixelShader,
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      (named = boost::di::extension::assisted) const Shader::Spec& spec);
+      (named = boost::di::extension::assisted) const ShaderSpec& spec);
   ~Dx11PixelShader();
 
-  virtual void activate() override;
+  virtual void activate() const override;
 };
 
-using Dx11PixelShaderFactory =
-    std::function<std::unique_ptr<Dx11PixelShader>(const Shader::Spec&)>;
+using Dx11PixelShaderFactory = Factory<Dx11PixelShader, const ShaderSpec&>;
 }  // namespace impl
 }  // namespace cubit

@@ -13,7 +13,7 @@ namespace impl {
 Dx11PixelShader::Dx11PixelShader(
     Dx11Device device,
     Dx11DeviceContext deviceContext,
-    const Shader::Spec& spec)
+    const ShaderSpec& spec)
     : device(device), deviceContext(deviceContext) {
   ComPtr<ID3DBlob> blob =
       Dx11ShaderCompiler::compile(spec.file, spec.entryPoint, "ps_4_0");
@@ -27,7 +27,7 @@ Dx11PixelShader::Dx11PixelShader(
 
 Dx11PixelShader::~Dx11PixelShader() {}
 
-void Dx11PixelShader::activate() {
+void Dx11PixelShader::activate() const {
   deviceContext->PSSetShader(shader.Get(), 0, 0);
 }
 

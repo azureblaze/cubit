@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include <cubit/inject/Factory.h>
+
 #include "../Dx11VertexBuffer.h"
 
 namespace cubit {
@@ -14,15 +16,15 @@ class Dx11Resources;
 class DebugAxis : public Dx11Model {
   Dx11Device device;
   Dx11DeviceContext deviceContext;
-  std::unique_ptr<Dx11Material> material;
+  Dx11Material* material;
 
  public:
   BOOST_DI_INJECT(
       DebugAxis,
+      Dx11Resources& resources,
       Dx11VertexBufferFactory vertexBufferfactory,
       Dx11Device device,
-      Dx11DeviceContext deviceContext,
-      std::unique_ptr<Dx11Material> material);
+      Dx11DeviceContext deviceContext);
 
   ~DebugAxis();
 
@@ -34,6 +36,6 @@ class DebugAxis : public Dx11Model {
   virtual std::unique_ptr<Instance> createInstance() const override;
 };
 
-using DebugAxisFactory = std::function<std::unique_ptr<DebugAxis>()>;
+using DebugAxisFactory = Factory<DebugAxis>;
 }  // namespace impl
 }  // namespace cubit

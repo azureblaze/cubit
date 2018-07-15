@@ -13,6 +13,8 @@
 #include <cubit/graphics/Scene.h>
 #include <cubit/math/math.h>
 
+#include "Dx11Resources.h"
+
 namespace cubit {
 namespace impl {
 
@@ -25,14 +27,13 @@ static ID3D11Buffer* constBuffer;
 Dx11Material::Dx11Material(
     Dx11Device device,
     Dx11DeviceContext deviceContext,
-    Dx11VertexShaderFactory vertexShaderFactory,
-    Dx11PixelShaderFactory pixelShaderFactory)
-    : device(device), deviceContext(deviceContext) {
-  vertexShader =
-      vertexShaderFactory(Shader::Spec{"data/debug.hlsl", "vertexMain"});
+    Dx11Resources& resources)
+    : device(device), deviceContext(deviceContext), resources(resources) {
+  vertexShader = (Dx11VertexShader*)resources.getVertexShader(
+      ShaderSpec{"data/debug.hlsl", "vertexMain"});
 
-  pixelShader =
-      pixelShaderFactory(Shader::Spec{"data/debug.hlsl", "pixelMain"});
+  pixelShader = (Dx11PixelShader*)resources.getPixelShader(
+      ShaderSpec{"data/debug.hlsl", "pixelMain"});
 
   D3D11_BUFFER_DESC constBufferDesc{};
   constBufferDesc.ByteWidth = sizeof(ConstBuffer);
@@ -46,7 +47,7 @@ Dx11Material::Dx11Material(
 void Dx11Material::begin(const Scene& scene) {
   ConstBuffer buffer;
   buffer.viewProjection = scene.getCamera()
-                              .getViewProjection(0.1920, 0.1080, 0.1, 1000)
+                              .getViewProjection(0.1920f, 0.1080f, 0.1f, 1000)
                               .transpose();
 
   D3D11_MAPPED_SUBRESOURCE mappedSubresouce;

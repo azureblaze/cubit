@@ -9,6 +9,8 @@
 #include <boost/di.hpp>
 #include <boost/di/extension/injections/assisted_injection.hpp>
 
+#include <cubit/inject/Factory.h>
+
 #include "Dx11Device.h"
 
 struct ID3D11VertexShader;
@@ -29,15 +31,14 @@ class Dx11VertexShader : public VertexShader {
       Dx11VertexShader,
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      (named = boost::di::extension::assisted) const Shader::Spec& spec);
+      (named = boost::di::extension::assisted) const ShaderSpec& spec);
 
   ~Dx11VertexShader();
 
-  virtual void activate() override;
+  virtual void activate() const override;
 };
 
-using Dx11VertexShaderFactory =
-    std::function<std::unique_ptr<Dx11VertexShader>(const Shader::Spec&)>;
+using Dx11VertexShaderFactory = Factory<Dx11VertexShader, const ShaderSpec&>;
 
 }  // namespace impl
 }  // namespace cubit

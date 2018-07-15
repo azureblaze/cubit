@@ -8,6 +8,8 @@
 
 #include <wrl/client.h>
 
+#include <cubit/inject/Factory.h>
+
 #include "Dx11Device.h"
 
 struct ID3D11Buffer;
@@ -57,7 +59,6 @@ class Dx11VertexBuffer {
   void map();
 };
 
-using Dx11VertexBufferFactory =
-    std::function<std::unique_ptr<Dx11VertexBuffer>(size_t)>;
+using Dx11VertexBufferFactory = Factory<Dx11VertexBuffer, size_t>;
 }  // namespace impl
 }  // namespace cubit

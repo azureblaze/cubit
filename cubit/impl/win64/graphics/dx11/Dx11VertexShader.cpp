@@ -18,7 +18,7 @@ namespace impl {
 Dx11VertexShader::Dx11VertexShader(
     Dx11Device device,
     Dx11DeviceContext deviceContext,
-    const Shader::Spec& spec)
+    const ShaderSpec& spec)
     : device(device), deviceContext(deviceContext) {
   ComPtr<ID3DBlob> blob =
       Dx11ShaderCompiler::compile(spec.file, spec.entryPoint, "vs_4_0");
@@ -38,7 +38,7 @@ Dx11VertexShader::Dx11VertexShader(
       layout.GetAddressOf());
 }
 
-void Dx11VertexShader::activate() {
+void Dx11VertexShader::activate() const {
   deviceContext->VSSetShader(shader.Get(), 0, 0);
 
   deviceContext->IASetInputLayout(layout.Get());

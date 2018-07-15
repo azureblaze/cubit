@@ -9,6 +9,8 @@
 
 #include <wrl/client.h>
 
+#include <cubit/inject/Factory.h>
+
 #include "Dx11Device.h"
 #include "Dx11Texture2D.h"
 
@@ -41,8 +43,8 @@ class Dx11RenderTarget : public RenderTarget {
   virtual void bind() override;
 };
 
-using Dx11RenderTargetFactory = std::function<std::unique_ptr<Dx11RenderTarget>(
-    std::shared_ptr<Dx11Texture2D>)>;
+using Dx11RenderTargetFactory =
+    Factory<Dx11RenderTarget, std::shared_ptr<Dx11Texture2D>>;
 
 }  // namespace impl
 }  // namespace cubit

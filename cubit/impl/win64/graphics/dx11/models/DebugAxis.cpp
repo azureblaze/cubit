@@ -13,11 +13,12 @@ namespace cubit {
 namespace impl {
 
 DebugAxis::DebugAxis(
+    Dx11Resources& resources,
     Dx11VertexBufferFactory vertexBufferfactory,
     Dx11Device device,
-    Dx11DeviceContext deviceContext,
-    std::unique_ptr<Dx11Material> material)
-    : device(device), deviceContext(deviceContext), material(move(material)) {
+    Dx11DeviceContext deviceContext)
+    : device(device), deviceContext(deviceContext) {
+  material = (Dx11Material*)resources.getMaterial("");
   vertices = vertexBufferfactory(18);
   vertices->set(0, {{0, 0, 0}, {1, 0, 0, 1}});
   vertices->set(1, {{1, 0, 0}, {1, 0, 0, 1}});
@@ -44,7 +45,7 @@ DebugAxis::DebugAxis(
 
 DebugAxis::~DebugAxis() {}
 
-cubit::Material* DebugAxis::getMaterial() const { return material.get(); }
+cubit::Material* DebugAxis::getMaterial() const { return material; }
 
 void DebugAxis::drawPrimitives(const std::set<Instance*>& instances) const {
   ID3D11Buffer* d3dBuffer = vertices->getBuffer();

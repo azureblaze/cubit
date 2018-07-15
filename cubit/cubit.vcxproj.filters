@@ -308,6 +308,9 @@
     <ClInclude Include="include\cubit\math\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cubit\inject\Factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\build\Debug\data\default.hlsl" />
