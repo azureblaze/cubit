@@ -48,6 +48,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cubit\Inject\EagerSingletonsTest.cpp" />
     <ClCompile Include="cubit\math\Matrix4Test.cpp" />
     <ClCompile Include="cubit\math\OperationsTest.cpp" />
     <ClCompile Include="cubit\math\QuaternionTest.cpp" />

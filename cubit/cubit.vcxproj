@@ -193,6 +193,7 @@
     <ClInclude Include="include\cubit\graphics\Texture2D.h" />
     <ClInclude Include="include\cubit\graphics\Transform.h" />
     <ClInclude Include="include\cubit\graphics\VertexShader.h" />
+    <ClInclude Include="include\cubit\inject\EagerSingleton.h" />
     <ClInclude Include="include\cubit\inject\Factory.h" />
     <ClInclude Include="include\cubit\input\Input.h" />
     <ClInclude Include="include\cubit\input\Keys.h" />

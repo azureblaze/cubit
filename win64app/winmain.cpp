@@ -68,8 +68,6 @@ class Game {
     cameraRight[1] = 0;
     cameraRight = cameraRight.normalize();
 
-    logger.stream() << yaw << "," << pitch << "\n";
-
     Vector2 mouseDelta = input.getMousePosition();
     float t = 200.f;
 
