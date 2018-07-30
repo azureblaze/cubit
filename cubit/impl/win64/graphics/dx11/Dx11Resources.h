@@ -7,8 +7,8 @@
 #include <cubit/inject/Factory.h>
 
 namespace cubit {
+class FactoryRegistry;
 namespace impl {
-
 struct Dx11Device;
 struct Dx11DeviceContext;
 class Dx11Material;
@@ -16,8 +16,6 @@ class Dx11Material;
 class Dx11VertexShader;
 class Dx11PixelShader;
 
-class DebugAxis;
-using DebugAxisFactory = std::function<std::unique_ptr<DebugAxis>()>;
 using Dx11MaterialFactory = std::function<std::unique_ptr<Dx11Material>()>;
 
 class Dx11Resources : public Resources {
@@ -29,10 +27,10 @@ class Dx11Resources : public Resources {
   Dx11Resources(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
+      std::shared_ptr<FactoryRegistry> factoryRegistry,
       Factory<Dx11VertexShader, const ShaderSpec&> vertexShaderFactory,
       Factory<Dx11PixelShader, const ShaderSpec&> pixelShaderFactory,
-      Dx11MaterialFactory materialFacotry,
-      DebugAxisFactory debugAxisFactory);
+      Dx11MaterialFactory materialFacotry);
   ~Dx11Resources();
 
   virtual const Model* getModel(const std::string& name) override;

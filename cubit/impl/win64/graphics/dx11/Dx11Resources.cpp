@@ -2,9 +2,11 @@
 
 #include <map>
 
+#include <cubit/Inject/FactoryRegistry.h>
+
 #include "Dx11Device.h"
 #include "Dx11Material.h"
-#include "models/DebugAxis.h"
+#include "Dx11Model.h"
 
 using namespace std;
 using namespace std::placeholders;
@@ -38,7 +40,7 @@ struct Dx11Resources::Impl {
   Dx11DeviceContext deviceContext;
   Dx11MaterialFactory materialFactory;
 
-  DebugAxisFactory debugAxisFactory;
+  std::shared_ptr<FactoryRegistry> factoryRegistry;
 
   ResourceHolder<string, Dx11Model> models;
   ResourceHolder<string, Dx11Material> materials;
@@ -46,21 +48,20 @@ struct Dx11Resources::Impl {
   ResourceHolder<ShaderSpec, Dx11PixelShader> pixelShaders;
 
   unique_ptr<Dx11Model> loadModel(const std::string& name) {
-    if (name == "debug:axis") {
-      return debugAxisFactory();
-    }
+    auto factory = factoryRegistry->get<Dx11Model>(name);
+    return (*factory)();
   }
 
   Impl(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
+      std::shared_ptr<FactoryRegistry> factoryRegistry,
       Dx11VertexShaderFactory vertexShaderFactory,
       Dx11PixelShaderFactory pixelShaderFactory,
-      DebugAxisFactory debugAxisFactory,
       Dx11MaterialFactory materialFactory)
       : device(device),
         deviceContext(deviceContext),
-        debugAxisFactory(debugAxisFactory),
+        factoryRegistry(factoryRegistry),
         materialFactory(materialFactory),
         models(bind(&Impl::loadModel, this, _1)),
         materials(bind(this->materialFactory)),
@@ -71,16 +72,16 @@ struct Dx11Resources::Impl {
 Dx11Resources::Dx11Resources(
     Dx11Device device,
     Dx11DeviceContext deviceContext,
+    std::shared_ptr<FactoryRegistry> factoryRegistry,
     Dx11VertexShaderFactory vertexShaderFactory,
     Dx11PixelShaderFactory pixelShaderFactory,
-    Dx11MaterialFactory materialFactory,
-    DebugAxisFactory debugAxisFactory)
+    Dx11MaterialFactory materialFactory)
     : impl(make_unique<Impl>(
           device,
           deviceContext,
+          factoryRegistry,
           vertexShaderFactory,
           pixelShaderFactory,
-          debugAxisFactory,
           materialFactory)) {}
 
 Dx11Resources::~Dx11Resources() {}

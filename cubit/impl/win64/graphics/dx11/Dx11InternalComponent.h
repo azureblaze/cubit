@@ -19,6 +19,7 @@ class DebugAxis;
 struct Dx11Device;
 struct Dx11DeviceContext;
 class Dx11Resources;
+class Dx11ModelsRegistry;
 
 using Dx11InternalComponent = boost::di::injector<
     Factory<Dx11VertexShader, const ShaderSpec&>,
@@ -28,11 +29,12 @@ using Dx11InternalComponent = boost::di::injector<
     Factory<Dx11Material>,
     Dx11Device,
     std::unique_ptr<Dx11Resources>,
-    Factory<DebugAxis>>;
+    Factory<DebugAxis>,
+    std::shared_ptr<Dx11ModelsRegistry>>;
 
 Dx11InternalComponent getDx11InternalComponent(
-    Dx11Device device,
-    Dx11DeviceContext deviceContext);
+    Dx11Device& device,
+    Dx11DeviceContext& deviceContext);
 
 }  // namespace impl
 }  // namespace cubit

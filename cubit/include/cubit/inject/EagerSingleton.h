@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <type_traits>
+
 #include <boost/di.hpp>
 
 namespace cubit {

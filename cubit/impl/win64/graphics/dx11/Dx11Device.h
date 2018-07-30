@@ -1,14 +1,17 @@
 ﻿#pragma once
 
+#include <boost/di.hpp>
+
 struct ID3D11Device;
 struct ID3D11DeviceContext;
 namespace cubit {
 namespace impl {
 
-struct Dx11Device {
-  Dx11Device(ID3D11Device* rd) : device(rd) {}
+static auto DevicePtr = [] {};
+static auto DeviceContextPtr = [] {};
 
-  Dx11Device(const Dx11Device& d) : device(d.device){};
+struct Dx11Device {
+  Dx11Device(ID3D11Device* device) : device(device) {}
 
   ID3D11Device* device = nullptr;
 
@@ -20,8 +23,6 @@ struct Dx11Device {
 struct Dx11DeviceContext {
   Dx11DeviceContext(ID3D11DeviceContext* deviceContext)
       : deviceContext(deviceContext) {}
-
-  Dx11DeviceContext(Dx11DeviceContext& d) : deviceContext(d.deviceContext){};
 
   ID3D11DeviceContext* deviceContext = nullptr;
 

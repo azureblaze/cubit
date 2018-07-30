@@ -7,6 +7,7 @@
 #include <dxgi1_3.h>
 
 #include <cubit/config/Config.h>
+#include <cubit/inject/EagerSingleton.h>
 #include <cubit/os/Logger.h>
 
 #include "dxresult.h"
@@ -35,17 +36,30 @@ struct Dx11Renderer::Impl {
   Logger& logger;
   Config& config;
 
-  Dx11InternalComponent component;
+  Dx11Device device;
+  Dx11DeviceContext deviceContext;
 
-  Microsoft::WRL::ComPtr<ID3D11Device> device;
-  Microsoft::WRL::ComPtr<ID3D11DeviceContext> deviceContext;
+  intptr_t devicePtr;
+  intptr_t deviceContextPtr;
+
+  Dx11InternalComponent component;
 
   std::unique_ptr<Dx11Resources> resources;
 
   std::map<Win64Window*, ComPtr<IDXGISwapChain1>> swapChains;
 
-  Impl(Config& config, Logger& logger, Dx11InternalComponent component)
-      : config(config), logger(logger), component(move(component)) {}
+  Impl(
+      Config& config,
+      Logger& logger,
+      ID3D11Device* device,
+      ID3D11DeviceContext* deviceContext)
+      : config(config),
+        logger(logger),
+        device(device),
+        deviceContext(deviceContext),
+        component(getDx11InternalComponent(this->device, this->deviceContext)) {
+    component.create<shared_ptr<Dx11ModelsRegistry>>();
+  }
 };
 
 Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
@@ -64,13 +78,7 @@ Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
       NULL,
       &deviceContext));
 
-  impl = make_unique<Impl>(
-      config,
-      logger,
-      getDx11InternalComponent(
-          Dx11Device(device), Dx11DeviceContext(deviceContext)));
-  impl->device = device;
-  impl->deviceContext = deviceContext;
+  impl = make_unique<Impl>(config, logger, device, deviceContext);
   impl->resources = impl->component.create<unique_ptr<Dx11Resources>>();
 }
 
@@ -103,7 +111,7 @@ unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
       (void**)factory.GetAddressOf());
 
   checkResult(factory->CreateSwapChainForHwnd(
-      impl->device.Get(),
+      impl->device,
       (HWND)window.getHandle(),
       &swapChainDescription,
       nullptr,

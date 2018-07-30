@@ -3,6 +3,7 @@
 #include <d3d11.h>
 
 #include "Dx11VertexShader.h"
+#include "DxResult.h"
 
 using namespace Microsoft::WRL;
 
@@ -30,8 +31,8 @@ Dx11VertexBuffer::~Dx11VertexBuffer() {}
 
 void Dx11VertexBuffer::map() {
   D3D11_MAPPED_SUBRESOURCE mappedSubresouce;
-  deviceContext->Map(
-      buffer.Get(), NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mappedSubresouce);
+  checkResult(deviceContext->Map(
+      buffer.Get(), NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mappedSubresouce));
   memcpy(mappedSubresouce.pData, vertices.data(), sizeof(Dx11Vertex) * size);
   deviceContext->Unmap(buffer.Get(), NULL);
 }
