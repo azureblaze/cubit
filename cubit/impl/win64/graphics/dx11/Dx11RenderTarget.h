@@ -6,8 +6,6 @@
 #include <functional>
 #include <memory>
 
-#include <wrl/client.h>
-
 #include <cubit/inject/Factory.h>
 
 #include "Dx11Device.h"
@@ -24,7 +22,7 @@ class Dx11RenderTarget : public RenderTarget {
   friend class Dx11Renderer;
 
   Dx11DeviceContext deviceContext;
-  Microsoft::WRL::ComPtr<ID3D11RenderTargetView> target;
+  ComPtr<ID3D11RenderTargetView> target;
 
   std::shared_ptr<Dx11Texture2D> texture;
 

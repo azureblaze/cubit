@@ -317,6 +317,9 @@
     <ClInclude Include="include\cubit\inject\InjectorFor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="impl\win64\graphics\dx11\ComPtr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\build\Debug\data\default.hlsl" />

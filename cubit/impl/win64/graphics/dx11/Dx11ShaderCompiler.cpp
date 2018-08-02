@@ -6,9 +6,9 @@
 #include <D3Dcompiler.h>
 #include <d3d11.h>
 
+#include "ComPtr.h"
 #include "DxResult.h"
 
-using namespace Microsoft::WRL;
 using namespace std;
 
 namespace cubit {
@@ -31,7 +31,7 @@ static string fileToString(const string& filename) {
   return data;
 }
 
-Microsoft::WRL::ComPtr<ID3DBlob> compile(
+ComPtr<ID3DBlob> compile(
     const string& filename,
     const string& entryPoint,
     const string& profile) {

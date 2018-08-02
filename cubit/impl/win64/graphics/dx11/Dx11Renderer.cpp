@@ -27,7 +27,6 @@
 #pragma comment(lib, "Dxgi.lib")
 
 using namespace std;
-using namespace Microsoft::WRL;
 
 namespace cubit {
 namespace impl {

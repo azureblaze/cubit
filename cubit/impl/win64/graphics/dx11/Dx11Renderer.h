@@ -3,10 +3,6 @@
 
 #include <memory>
 
-#include <wrl/client.h>
-
-#undef max
-
 #include <fruit/fruit.h>
 
 #include <cubit/graphics/Renderer.h>

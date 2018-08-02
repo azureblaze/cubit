@@ -5,12 +5,9 @@
 
 #include <fruit/fruit.h>
 
-#include <wrl/client.h>
-
-#undef max
-
 #include <cubit/inject/Factory.h>
 
+#include "ComPtr.h"
 #include "Dx11Device.h"
 
 struct ID3D11Buffer;
@@ -32,7 +29,7 @@ struct Dx11Vertex {
 };
 
 class Dx11VertexBuffer {
-  Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
+  ComPtr<ID3D11Buffer> buffer;
 
   std::vector<Dx11Vertex> vertices;
 

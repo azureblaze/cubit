@@ -8,11 +8,6 @@
 #include "DxResult.h"
 #include "win64/os/Win64Util.h"
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
-using namespace Microsoft::WRL;
-
 namespace cubit {
 namespace impl {
 Dx11VertexShader::Dx11VertexShader(

@@ -154,6 +154,7 @@
     <ClInclude Include="impl\common\config\ConstMapConfig.h" />
     <ClInclude Include="impl\common\core\FrameRateGovernor.h" />
     <ClInclude Include="impl\common\core\SleepFutureGovernor.h" />
+    <ClInclude Include="impl\win64\graphics\dx11\ComPtr.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Device.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11InternalComponent.h" />
     <ClInclude Include="impl\win64\graphics\dx11\Dx11Model.h" />

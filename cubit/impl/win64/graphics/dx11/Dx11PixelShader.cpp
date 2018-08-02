@@ -7,7 +7,6 @@
 #include "DxResult.h"
 #include "win64/os/Win64Util.h"
 
-using namespace Microsoft::WRL;
 namespace cubit {
 namespace impl {
 Dx11PixelShader::Dx11PixelShader(

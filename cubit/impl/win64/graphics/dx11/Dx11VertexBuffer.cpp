@@ -5,8 +5,6 @@
 #include "Dx11VertexShader.h"
 #include "DxResult.h"
 
-using namespace Microsoft::WRL;
-
 namespace cubit {
 namespace impl {
 Dx11VertexBuffer::Dx11VertexBuffer(
