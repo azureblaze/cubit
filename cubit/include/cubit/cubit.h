@@ -11,10 +11,8 @@ class Logger;
 class Renderer;
 class Input;
 
-using CubitComponent = fruit::Component<
-    std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>,
-    Logger,
-    Renderer,
-    Input>;
-CubitComponent getCubitInjector();
+using CubitComponent = fruit::Component<Application, Logger, Renderer, Input>;
+CubitComponent getCubitInjector(
+    intptr_t applicationInstance,
+    std::string_view commandLineArgs);
 }  // namespace cubit

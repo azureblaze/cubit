@@ -15,19 +15,14 @@ using namespace std;
 
 namespace cubit {
 namespace impl {
-Win64CoreComponent getWin64CoreInjector() {
+Win64CoreComponent getWin64CoreInjector(
+    intptr_t applicationInstance,
+    string_view commandLineArgs) {
+  static const Win64Application::Spec spec{applicationInstance,
+                                           commandLineArgs};
   return fruit::createComponent()
-      .registerFactory<std::unique_ptr<Application>(
-          fruit::Assisted<intptr_t>,
-          fruit::Assisted<string_view>,
-          Factory<Win64Application, const Win64Application::Spec&>)>(
-          [](intptr_t applicationInstance,
-             string_view commandLineArgs,
-             Factory<Win64Application, const Win64Application::Spec&>
-                 applicationFactory) {
-            return unique_ptr<Application>(applicationFactory(
-                Win64Application::Spec{applicationInstance, commandLineArgs}));
-          });
+      .bindInstance(spec)
+      .bind<Application, Win64Application>();
 }
 }  // namespace impl
 }  // namespace cubit

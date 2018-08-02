@@ -14,12 +14,14 @@
 #include "win64/os/Win64OsComponent.h"
 
 namespace cubit {
-CubitComponent getCubitInjector() {
+CubitComponent getCubitInjector(
+    intptr_t applicationInstance,
+    std::string_view commandLineArgs) {
   return fruit::createComponent()
       .install(impl::getCommonConfigComponent)
       .install(impl::getCommonCoreInjector)
       .install(impl::getWin64OsComponent)
-      .install(impl::getWin64CoreInjector)
+      .install(impl::getWin64CoreInjector, applicationInstance, commandLineArgs)
       .install(impl::getDx11GraphicsComponent)
       .install(impl::getWin64InputComponent);
 }

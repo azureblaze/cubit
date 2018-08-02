@@ -37,7 +37,7 @@ class Game {
 
  public:
   INJECT(Game(
-      ASSISTED(Application *) application,
+      Application *application,
       Logger *logger,
       Renderer *renderer,
       Input *input))
@@ -112,13 +112,9 @@ class Game {
   }
 };
 
-fruit::Component<
-    std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>,
-    std::function<std::unique_ptr<Game>(Application *)>,
-    Logger,
-    Renderer,
-    Input>
-getGameComponent() {
+fruit::Component<Application, Game> getGameComponent(
+    intptr_t applicationInstance,
+    std::string_view commandLineArgs) {
   return fruit::createComponent().install(cubit::getCubitInjector);
 }
 
@@ -129,24 +125,15 @@ int __stdcall WinMain(
     int nCmdShow) {
   int result;
   {
-    fruit::Injector<
-        std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>,
-        std::function<std::unique_ptr<Game>(Application *)>,
-        Logger,
-        Renderer,
-        Input>
-        injector(getGameComponent);
+    fruit::Injector<Application, Game> injector(
+        getGameComponent, (intptr_t)hInstance, lpCmdLine);
 
-    unique_ptr<Application> application =
-        injector.get<std::function<std::unique_ptr<Application>(
-            intptr_t, std::string_view)>>()((intptr_t)hInstance, lpCmdLine);
-    application->initialize();
+    Application &application = injector.get<Application &>();
+    application.initialize();
 
-    unique_ptr<Game> game =
-        injector.get<std::function<std::unique_ptr<Game>(Application *)>>()(
-            application.get());
+    Game &game = injector.get<Game &>();
 
-    result = application->start(std::bind(&Game::update, game.get()));
+    result = application.start(std::bind(&Game::update, &game));
   }
   return result;
 }

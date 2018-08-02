@@ -23,8 +23,10 @@ using Win64CoreComponent = fruit::Component<
         Win64Input,
         Win64Renderer,
         Factory<FrameRateGovernor>>,
-    std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>>;
+    Application>;
 
-Win64CoreComponent getWin64CoreInjector();
+Win64CoreComponent getWin64CoreInjector(
+    intptr_t applicationInstance,
+    std::string_view commandLineArgs);
 }  // namespace impl
 }  // namespace cubit

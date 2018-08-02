@@ -21,10 +21,12 @@ class Win64Application : public Application {
   struct Spec {
     intptr_t applicationInstance;
     std::string_view commandLineArgs;
+
+    INJECT(Spec()) = default;
   };
 
   INJECT(Win64Application(
-      ASSISTED(const Spec&) spec,
+      const Spec& spec,
       Win64WindowFactory windowFactory,
       Config* config,
       Logger* logger,
