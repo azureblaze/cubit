@@ -3,15 +3,14 @@
 #include <cassert>
 #include <sstream>
 
-#include <boost/di/extension/injections/factory.hpp>
-
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+
+#include <Mmsystem.h>
+
 #undef near
 #undef far
 #undef DELETE
-
-#include <Mmsystem.h>
 
 #include <cubit/core/Exception.h>
 #include <cubit/input/Input.h>
@@ -21,7 +20,6 @@
 
 using namespace std;
 using namespace cubit;
-namespace di = boost::di;
 
 static const char* windowClassName = "WindowClass1";
 static const wchar_t* windowClassNameW = L"WindowClass1";
@@ -33,18 +31,16 @@ static Win64Application* instance = nullptr;
 Win64Application::Win64Application(
     const Spec& spec,
     Win64WindowFactory windowFactory,
-    Config& config,
-    Logger& logger,
-    Input& input,
-    const TimerFactory& timerFactory,
-    std::unique_ptr<FrameRateGovernor> frameRateGovernor)
+    Config* config,
+    Logger* logger,
+    Input* input,
+    Factory<FrameRateGovernor> frameRateGovernor)
     : spec(spec),
       windowFactory(windowFactory),
-      config(config),
-      logger(logger),
-      input(input),
-      timerFactory(timerFactory),
-      frameRateGovernor(move(frameRateGovernor)) {}
+      config(*config),
+      logger(*logger),
+      input(*input),
+      frameRateGovernor(frameRateGovernor()) {}
 
 void Win64Application::initialize() {
   assert(instance == nullptr || instance == this);

@@ -1,8 +1,10 @@
 ﻿#pragma once
-#include <boost/di.hpp>
+
+#include <fruit/fruit.h>
+
 namespace cubit {
 class Config;
 namespace impl {
-boost::di::injector<Config&> getCommonConfigComponent();
+fruit::Component<Config> getCommonConfigComponent();
 }  // namespace impl
 }  // namespace cubit

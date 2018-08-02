@@ -1,6 +1,6 @@
-﻿#include <boost/di.hpp>
+﻿#include <memory>
 
-#include <memory>
+#include <fruit/fruit.h>
 
 #include <cubit/core/application.h>
 #include <cubit/core/window.h>
@@ -37,16 +37,16 @@ class Game {
   float yaw = 0;
 
  public:
-  Game(
-      Application &application,
-      Logger &logger,
-      Renderer &renderer,
-      Input &input)
-      : logger(logger), renderer(renderer), input(input) {
-    window = application.createWindow();
+  INJECT(Game(
+      ASSISTED(Application *) application,
+      Logger *logger,
+      Renderer *renderer,
+      Input *input))
+      : logger(*logger), renderer(*renderer), input(*input) {
+    window = application->createWindow();
     window->show();
 
-    const Model *model = renderer.resources().getModel("debug:axis");
+    const Model *model = renderer->resources().getModel("debug:axis");
     instance = scene.addInstance(*model);
 
     camera.getTransform().setPosition(Vector3(5, 5, 5));
@@ -54,7 +54,7 @@ class Game {
     yaw = Vector2(-1, 1).angle();
     pitch = Vector2(sqrtf(2), -1).angle();
 
-    input.setCaptureMouse(window.get());
+    input->setCaptureMouse(window.get());
   }
   void update() {
     window->getRenderTarget().clear(Color{0, 0, 0, 0});
@@ -113,21 +113,41 @@ class Game {
   }
 };
 
+fruit::Component<
+    std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>,
+    std::function<std::unique_ptr<Game>(Application *)>,
+    Logger,
+    Renderer,
+    Input>
+getGameComponent() {
+  return fruit::createComponent().install(cubit::getCubitInjector);
+}
+
 int __stdcall WinMain(
     void *hInstance,
     void *hPrevInstance,
-    const char *lpCmdLine,
+    char *lpCmdLine,
     int nCmdShow) {
   int result;
   {
-    auto cubit = di::make_injector(
-        cubit::getCubitInjector((intptr_t)hInstance, lpCmdLine));
-    Application &application = cubit.create<Application &>();
-    application.initialize();
+    fruit::Injector<
+        std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>,
+        std::function<std::unique_ptr<Game>(Application *)>,
+        Logger,
+        Renderer,
+        Input>
+        injector(getGameComponent);
 
-    Game *game = cubit.create<Game *>();
+    unique_ptr<Application> application =
+        injector.get<std::function<std::unique_ptr<Application>(
+            intptr_t, std::string_view)>>()((intptr_t)hInstance, lpCmdLine);
+    application->initialize();
 
-    result = application.start(std::bind(&Game::update, game));
+    unique_ptr<Game> game =
+        injector.get<std::function<std::unique_ptr<Game>(Application *)>>()(
+            application.get());
+
+    result = application->start(std::bind(&Game::update, game.get()));
   }
   return result;
 }

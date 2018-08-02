@@ -3,6 +3,10 @@
 
 #include <wrl/client.h>
 
+#undef max
+
+#include <fruit/fruit.h>
+
 struct ID3D11Texture2D;
 namespace cubit {
 namespace impl {

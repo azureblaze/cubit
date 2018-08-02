@@ -8,15 +8,15 @@
 namespace cubit {
 namespace impl {
 SleepFutureGovernor::SleepFutureGovernor(
-    Config& config,
-    const SleepFutureFactory& sleepFutureFactory,
-    const TimerFactory& timerFactory,
-    std::unique_ptr<FrameUpdateMetrics> metrics)
-    : config(config),
-      timer(timerFactory.create()),
-      metrics(move(metrics)),
-      nextFuture(sleepFutureFactory.create()),
-      framePeriod(1.0f / config.get<float>("max_fps")) {}
+    Config* config,
+    Factory<SleepFuture> sleepFutureFactory,
+    Factory<Timer> timerFactory,
+    Factory<FrameUpdateMetrics> metrics)
+    : config(*config),
+      timer(timerFactory()),
+      metrics(metrics()),
+      nextFuture(sleepFutureFactory()),
+      framePeriod(1.0f / config->get<float>("max_fps")) {}
 void SleepFutureGovernor::start() { queueFuture(); }
 
 static std::deque<float> runningAverage;

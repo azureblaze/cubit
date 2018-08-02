@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include <memory>
 #include <vector>
+
+#include <fruit/fruit.h>
+
 namespace cubit {
 class Config;
 class Logger;
@@ -10,7 +13,7 @@ class FrameUpdateMetrics {
     float updateTime;
     float frameTime;
   };
-  FrameUpdateMetrics(Config& config, Logger& logger);
+  INJECT(FrameUpdateMetrics(Config* config, Logger* logger));
 
   void addFrameData(const Metric& metric);
 

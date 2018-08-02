@@ -3,9 +3,8 @@
 
 namespace cubit {
 namespace impl {
-boost::di::injector<Config&> cubit::impl::getCommonConfigComponent() {
-  return boost::di::make_injector(
-      boost::di::bind<Config>().to<ConstMapConfig>());
+fruit::Component<Config> cubit::impl::getCommonConfigComponent() {
+  return fruit::createComponent().bind<Config, ConstMapConfig>();
 }
 
 }  // namespace impl

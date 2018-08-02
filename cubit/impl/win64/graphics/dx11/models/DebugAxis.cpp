@@ -13,12 +13,12 @@ namespace cubit {
 namespace impl {
 
 DebugAxis::DebugAxis(
-    Dx11Resources& resources,
+    Dx11Resources* resources,
     Dx11VertexBufferFactory vertexBufferfactory,
     Dx11Device device,
     Dx11DeviceContext deviceContext)
     : device(device), deviceContext(deviceContext) {
-  material = (Dx11Material*)resources.getMaterial("");
+  material = (Dx11Material*)resources->getMaterial("");
   vertices = vertexBufferfactory(18);
   vertices->set(0, {{0, 0, 0}, {1, 0, 0, 1}});
   vertices->set(1, {{1, 0, 0}, {1, 0, 0, 1}});

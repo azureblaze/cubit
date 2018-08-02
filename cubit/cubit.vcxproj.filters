@@ -111,15 +111,6 @@
     <ClCompile Include="impl\win64\Input\Win64InputComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="impl\common\inject\FactoryRegistryImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\common\inject\CommonInjectComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="impl\win64\graphics\dx11\models\Dx11ModelsRegistry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cubit\cubit.h">
@@ -320,19 +311,10 @@
     <ClInclude Include="include\cubit\inject\Factory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\cubit\inject\EagerSingleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\cubit\inject\FactoryRegistry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="impl\common\inject\FactoryRegistryImpl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\common\inject\CommonInjectComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="impl\win64\graphics\dx11\models\Dx11ModelsRegistry.h">
+    <ClInclude Include="include\cubit\inject\InjectorFor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

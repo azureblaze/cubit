@@ -8,6 +8,8 @@
 #include "Dx11Material.h"
 #include "Dx11Model.h"
 
+#include "models/DebugAxis.h"
+
 using namespace std;
 using namespace std::placeholders;
 
@@ -36,53 +38,59 @@ class ResourceHolder {
 };
 
 struct Dx11Resources::Impl {
+  Dx11Resources* resources;
   Dx11Device device;
   Dx11DeviceContext deviceContext;
-  Dx11MaterialFactory materialFactory;
-
-  std::shared_ptr<FactoryRegistry> factoryRegistry;
+  Factory<Dx11Material, Dx11Resources*> materialFactory;
 
   ResourceHolder<string, Dx11Model> models;
   ResourceHolder<string, Dx11Material> materials;
   ResourceHolder<ShaderSpec, Dx11VertexShader> vertexShaders;
   ResourceHolder<ShaderSpec, Dx11PixelShader> pixelShaders;
+  Factory<DebugAxis, Dx11Resources*> debugAxisFactory;
 
   unique_ptr<Dx11Model> loadModel(const std::string& name) {
-    auto factory = factoryRegistry->get<Dx11Model>(name);
-    return (*factory)();
+    return unique_ptr(debugAxisFactory(resources));
+  }
+
+  unique_ptr<Dx11Material> loadMaterial(const std::string& name) {
+    return materialFactory(resources);
   }
 
   Impl(
+      Dx11Resources* resources,
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      std::shared_ptr<FactoryRegistry> factoryRegistry,
       Dx11VertexShaderFactory vertexShaderFactory,
       Dx11PixelShaderFactory pixelShaderFactory,
-      Dx11MaterialFactory materialFactory)
-      : device(device),
+      Factory<Dx11Material, Dx11Resources*> materialFactory,
+      Factory<DebugAxis, Dx11Resources*> debugAxisFactory)
+      : resources(resources),
+        device(device),
         deviceContext(deviceContext),
-        factoryRegistry(factoryRegistry),
         materialFactory(materialFactory),
         models(bind(&Impl::loadModel, this, _1)),
-        materials(bind(this->materialFactory)),
+        materials(bind(&Impl::loadMaterial, this, _1)),
         vertexShaders(vertexShaderFactory),
-        pixelShaders(pixelShaderFactory) {}
+        pixelShaders(pixelShaderFactory),
+        debugAxisFactory(debugAxisFactory) {}
 };
 
 Dx11Resources::Dx11Resources(
     Dx11Device device,
     Dx11DeviceContext deviceContext,
-    std::shared_ptr<FactoryRegistry> factoryRegistry,
     Dx11VertexShaderFactory vertexShaderFactory,
     Dx11PixelShaderFactory pixelShaderFactory,
-    Dx11MaterialFactory materialFactory)
+    Factory<Dx11Material, Dx11Resources*> materialFactory,
+    Factory<DebugAxis, Dx11Resources*> debugAxisFactory)
     : impl(make_unique<Impl>(
+          this,
           device,
           deviceContext,
-          factoryRegistry,
           vertexShaderFactory,
           pixelShaderFactory,
-          materialFactory)) {}
+          materialFactory,
+          debugAxisFactory)) {}
 
 Dx11Resources::~Dx11Resources() {}
 

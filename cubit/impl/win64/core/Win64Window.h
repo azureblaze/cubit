@@ -5,11 +5,9 @@
 #include <memory>
 #include <string>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/assisted_injection.hpp>
+#include <fruit/fruit.h>
 
 #include "win64/graphics/Win64Renderer.h"
-#include "win64/graphics/dx11/dx11GraphicComponent.h"
 
 using namespace std;
 
@@ -27,12 +25,11 @@ class Win64Window : public Window {
     Win64Application* application;
   };
 
-  BOOST_DI_INJECT(
-      Win64Window,
-      (named = boost::di::extension::assisted) const Spec& spec,
-      Config& config,
-      Win64Renderer& renderer,
-      Win64Input& input);
+  INJECT(Win64Window(
+      ASSISTED(const Spec&) spec,
+      Config* config,
+      Win64Renderer* renderer,
+      Win64Input* input));
   ~Win64Window();
 
   virtual void setSize(int width, int height) override {
@@ -69,6 +66,6 @@ class Win64Window : public Window {
   intptr_t onWindowProc(uint32_t message, intptr_t wParam, intptr_t lParam);
 };
 using Win64WindowFactory =
-    std::function<std::unique_ptr<Win64Window>(Win64Window::Spec)>;
+    std::function<std::unique_ptr<Win64Window>(const Win64Window::Spec&)>;
 }  // namespace impl
 }  // namespace cubit

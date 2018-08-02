@@ -4,10 +4,11 @@
 #include <functional>
 #include <memory>
 
+#include <fruit/fruit.h>
+
 #include <cubit/inject/Factory.h>
 
 namespace cubit {
-class FactoryRegistry;
 namespace impl {
 struct Dx11Device;
 struct Dx11DeviceContext;
@@ -15,8 +16,7 @@ class Dx11Material;
 
 class Dx11VertexShader;
 class Dx11PixelShader;
-
-using Dx11MaterialFactory = std::function<std::unique_ptr<Dx11Material>()>;
+class DebugAxis;
 
 class Dx11Resources : public Resources {
   struct Impl;
@@ -24,13 +24,13 @@ class Dx11Resources : public Resources {
   std::unique_ptr<Impl> impl;
 
  public:
-  Dx11Resources(
+  INJECT(Dx11Resources(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      std::shared_ptr<FactoryRegistry> factoryRegistry,
       Factory<Dx11VertexShader, const ShaderSpec&> vertexShaderFactory,
       Factory<Dx11PixelShader, const ShaderSpec&> pixelShaderFactory,
-      Dx11MaterialFactory materialFacotry);
+      Factory<Dx11Material, Dx11Resources*> materialFacotry,
+      Factory<DebugAxis, Dx11Resources*> debugAxisFactory));
   ~Dx11Resources();
 
   virtual const Model* getModel(const std::string& name) override;

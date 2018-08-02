@@ -27,12 +27,12 @@ static ID3D11Buffer* constBuffer;
 Dx11Material::Dx11Material(
     Dx11Device device,
     Dx11DeviceContext deviceContext,
-    Dx11Resources& resources)
-    : device(device), deviceContext(deviceContext), resources(resources) {
-  vertexShader = (Dx11VertexShader*)resources.getVertexShader(
+    Dx11Resources* resources)
+    : device(device), deviceContext(deviceContext), resources(*resources) {
+  vertexShader = (Dx11VertexShader*)resources->getVertexShader(
       ShaderSpec{"data/debug.hlsl", "vertexMain"});
 
-  pixelShader = (Dx11PixelShader*)resources.getPixelShader(
+  pixelShader = (Dx11PixelShader*)resources->getPixelShader(
       ShaderSpec{"data/debug.hlsl", "pixelMain"});
 
   D3D11_BUFFER_DESC constBufferDesc{};

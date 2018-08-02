@@ -3,6 +3,9 @@
 
 #include <memory>
 
+#include <fruit/fruit.h>
+
+#include <cubit/Inject/Factory.h>
 #include <cubit/os/Logger.h>
 #include <cubit/os/SleepFuture.h>
 #include <cubit/os/Timer.h>
@@ -13,11 +16,11 @@ class FrameUpdateMetrics;
 namespace impl {
 class SleepFutureGovernor : public FrameRateGovernor {
  public:
-  SleepFutureGovernor(
-      Config& config,
-      const SleepFutureFactory& sleepFutureFactory,
-      const TimerFactory& timerFactory,
-      std::unique_ptr<FrameUpdateMetrics> metrics);
+  INJECT(SleepFutureGovernor(
+      Config* config,
+      Factory<SleepFuture> sleepFutureFactory,
+      Factory<Timer> timerFactory,
+      Factory<FrameUpdateMetrics> metrics));
   virtual void start();
   virtual void nextFrame();
 

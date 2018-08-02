@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2A3343E3-C388-3906-BA27-1E8279E54144}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\github\cubit\fruit\include;C:\github\cubit\fruit-msvc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\github\cubit\fruit-msvc\CMakeFiles\721d84a4cef5ee592df568cab6ca2d44\generate.stamp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HC:/github/cubit/fruit -BC:/github/cubit/fruit-msvc --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/github/cubit/fruit-msvc/Fruit.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/github/cubit/fruit-msvc/CMakeFiles/721d84a4cef5ee592df568cab6ca2d44/generate.stamp.rule;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeParseArguments.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\CheckCXXSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.12\Modules\Platform\WindowsPaths.cmake;C:\github\cubit\fruit-msvc\CMakeFiles\3.12.0\CMakeCCompiler.cmake;C:\github\cubit\fruit-msvc\CMakeFiles\3.12.0\CMakeCXXCompiler.cmake;C:\github\cubit\fruit-msvc\CMakeFiles\3.12.0\CMakeRCCompiler.cmake;C:\github\cubit\fruit-msvc\CMakeFiles\3.12.0\CMakeSystem.cmake;C:\github\cubit\fruit\CMakeLists.txt;C:\github\cubit\fruit\configuration\CMakeLists.txt;C:\github\cubit\fruit\configuration\fruit-config-base.h.in;C:\github\cubit\fruit\examples\CMakeLists.txt;C:\github\cubit\fruit\examples\annotated_injection\CMakeLists.txt;C:\github\cubit\fruit\examples\hello_world\CMakeLists.txt;C:\github\cubit\fruit\examples\multibindings\CMakeLists.txt;C:\github\cubit\fruit\examples\scaling_doubles\CMakeLists.txt;C:\github\cubit\fruit\examples\simple_injection\CMakeLists.txt;C:\github\cubit\fruit\extras\CMakeLists.txt;C:\github\cubit\fruit\extras\benchmark\CMakeLists.txt;C:\github\cubit\fruit\extras\doc\CMakeLists.txt;C:\github\cubit\fruit\extras\packaging\CMakeLists.txt;C:\github\cubit\fruit\extras\packaging\PKGBUILD;C:\github\cubit\fruit\extras\packaging\debian.compat;C:\github\cubit\fruit\extras\packaging\debian.control;C:\github\cubit\fruit\extras\packaging\debian.rules;C:\github\cubit\fruit\extras\packaging\libfruit.dsc;C:\github\cubit\fruit\extras\packaging\libfruit.install;C:\github\cubit\fruit\extras\packaging\libfruit.spec;C:\github\cubit\fruit\src\CMakeLists.txt;C:\github\cubit\fruit\tests\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\github\cubit\fruit-msvc\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\configuration\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\src\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\examples\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\examples\simple_injection\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\examples\hello_world\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\examples\multibindings\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\examples\scaling_doubles\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\examples\annotated_injection\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\tests\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\extras\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\extras\doc\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\extras\packaging\CMakeFiles\generate.stamp;C:\github\cubit\fruit-msvc\extras\benchmark\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

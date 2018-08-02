@@ -3,10 +3,11 @@
 #include <functional>
 #include <vector>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/assisted_injection.hpp>
+#include <fruit/fruit.h>
 
 #include <wrl/client.h>
+
+#undef max
 
 #include <cubit/inject/Factory.h>
 
@@ -40,11 +41,10 @@ class Dx11VertexBuffer {
   size_t size;
 
  public:
-  BOOST_DI_INJECT(
-      Dx11VertexBuffer,
+  INJECT(Dx11VertexBuffer(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      (named = boost::di::extension::assisted) size_t size);
+      ASSISTED(size_t) size));
 
   ~Dx11VertexBuffer();
 

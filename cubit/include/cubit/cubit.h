@@ -1,12 +1,9 @@
 ﻿#pragma once
-#ifdef EXPORT_CUBIT_DLL
-#define CUBIT_EXPORT __declspec(dllexport)
-#else
-#define CUBIT_EXPORT __declspec(dllimport)
-#endif
-#include <boost/di.hpp>
+
 #include <memory>
 #include <string_view>
+
+#include <fruit/fruit.h>
 
 namespace cubit {
 class Application;
@@ -14,7 +11,10 @@ class Logger;
 class Renderer;
 class Input;
 
-boost::di::injector<Application&, Logger&, Renderer&, Input&> getCubitInjector(
-    intptr_t instance,
-    std::string_view commandLine);
+using CubitComponent = fruit::Component<
+    std::function<std::unique_ptr<Application>(intptr_t, std::string_view)>,
+    Logger,
+    Renderer,
+    Input>;
+CubitComponent getCubitInjector();
 }  // namespace cubit

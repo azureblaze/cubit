@@ -5,12 +5,13 @@
     <CubitIncludeDir>$(SolutionDir)cubit/include</CubitIncludeDir>
     <BoostDi>$(SolutionDir)boost-di/</BoostDi>
     <DxSdk>C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\</DxSdk>
+    <FruitDir>$(SolutionDir)fruit-msvc/</FruitDir>
   </PropertyGroup>
   <PropertyGroup>
     <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\Intermediate\</IntDir>
-    <IncludePath>$(BoostDi)extension/include;$(BoostDi)include/;$(CubitIncludeDir);$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(FruitDir)include;$(BoostDi)extension/include;$(BoostDi)include/;$(CubitIncludeDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(FruitDir)src/$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -34,6 +35,9 @@
     </BuildMacro>
     <BuildMacro Include="DxSdk">
       <Value>$(DxSdk)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FruitDir">
+      <Value>$(FruitDir)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

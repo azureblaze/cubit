@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include <fruit/fruit.h>
+
 #include <cubit/inject/Factory.h>
 
 #include "../Dx11VertexBuffer.h"
@@ -19,12 +21,11 @@ class DebugAxis : public Dx11Model {
   Dx11Material* material;
 
  public:
-  BOOST_DI_INJECT(
-      DebugAxis,
-      Dx11Resources& resources,
+  INJECT(DebugAxis(
+      ASSISTED(Dx11Resources*) resources,
       Dx11VertexBufferFactory vertexBufferfactory,
       Dx11Device device,
-      Dx11DeviceContext deviceContext);
+      Dx11DeviceContext deviceContext));
 
   ~DebugAxis();
 

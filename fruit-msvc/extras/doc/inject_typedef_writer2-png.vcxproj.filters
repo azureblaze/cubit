@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\github\cubit\fruit-msvc\CMakeFiles\b57cbc7f3be22789826bff90cb33969a\tikz-uml.sty.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\github\cubit\fruit-msvc\CMakeFiles\b57cbc7f3be22789826bff90cb33969a\header.tex.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\github\cubit\fruit-msvc\CMakeFiles\b57cbc7f3be22789826bff90cb33969a\inject_typedef_writer2.png.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\github\cubit\fruit-msvc\CMakeFiles\f30350291037e6810a3974c51682fce6\inject_typedef_writer2-png.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\github\cubit\fruit\extras\doc\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\github\cubit\fruit-msvc\extras\doc\CMakeFiles\inject_typedef_writer2-png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{BC6A171B-F87F-3EF3-A41A-BD62C470568A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

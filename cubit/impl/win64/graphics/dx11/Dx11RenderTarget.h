@@ -1,8 +1,7 @@
 ﻿#pragma once
 #include <cubit/graphics/RenderTarget.h>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/assisted_injection.hpp>
+#include <fruit/fruit.h>
 
 #include <functional>
 #include <memory>
@@ -32,12 +31,10 @@ class Dx11RenderTarget : public RenderTarget {
   virtual void clear(Color color) override;
 
  public:
-  BOOST_DI_INJECT(
-      Dx11RenderTarget,
+  INJECT(Dx11RenderTarget(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      (named = boost::di::extension::assisted)
-          std::shared_ptr<Dx11Texture2D> texture);
+      ASSISTED(std::shared_ptr<Dx11Texture2D>) texture));
   ~Dx11RenderTarget();
 
   virtual void bind() override;

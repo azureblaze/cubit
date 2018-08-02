@@ -1,16 +1,19 @@
 ﻿#pragma once
 #include <memory>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/assisted_injection.hpp>
+#include <fruit/fruit.h>
 
 #include <cubit/graphics/Renderer.h>
 
 #include "win64/graphics/dx11/Dx11Renderer.h"
 
-struct Foo {};
 namespace cubit {
+class Config;
+class Logger;
 namespace impl {
-boost::di::injector<Win64Renderer&, Renderer&> getDx11GraphicsComponent();
+using Dx11GraphicComponent =
+    fruit::Component<fruit::Required<Config, Logger>, Renderer, Win64Renderer>;
+
+Dx11GraphicComponent getDx11GraphicsComponent();
 }  // namespace impl
 }  // namespace cubit

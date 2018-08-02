@@ -1,0 +1,9 @@
+# CMake generation dependency list for this directory.
+C:/github/cubit/fruit/extras/packaging/CMakeLists.txt
+C:/github/cubit/fruit/extras/packaging/PKGBUILD
+C:/github/cubit/fruit/extras/packaging/debian.compat
+C:/github/cubit/fruit/extras/packaging/debian.control
+C:/github/cubit/fruit/extras/packaging/debian.rules
+C:/github/cubit/fruit/extras/packaging/libfruit.dsc
+C:/github/cubit/fruit/extras/packaging/libfruit.install
+C:/github/cubit/fruit/extras/packaging/libfruit.spec

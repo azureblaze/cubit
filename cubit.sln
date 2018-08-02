@@ -4,13 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cubit", "cubit\cubit.vcxproj", "{518849C9-13A7-4ACF-99B7-962C8BA61C34}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B82525A4-30ED-30BB-B46B-5979045B91BD} = {B82525A4-30ED-30BB-B46B-5979045B91BD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "win64app", "win64app\win64app.vcxproj", "{32BFC7D1-B584-4193-B15B-5DCDA4E10432}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B82525A4-30ED-30BB-B46B-5979045B91BD} = {B82525A4-30ED-30BB-B46B-5979045B91BD}
 		{518849C9-13A7-4ACF-99B7-962C8BA61C34} = {518849C9-13A7-4ACF-99B7-962C8BA61C34}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cubittest", "cubittest\cubittest.vcxproj", "{3E3E322D-344B-4F05-8E61-B244372D5955}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fruit", "fruit-msvc\src\fruit.vcxproj", "{B82525A4-30ED-30BB-B46B-5979045B91BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +50,13 @@ Global
 		{3E3E322D-344B-4F05-8E61-B244372D5955}.Release|x64.Build.0 = Release|x64
 		{3E3E322D-344B-4F05-8E61-B244372D5955}.Release|x86.ActiveCfg = Release|Win32
 		{3E3E322D-344B-4F05-8E61-B244372D5955}.Release|x86.Build.0 = Release|Win32
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Debug|x64.ActiveCfg = Debug|x64
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Debug|x64.Build.0 = Debug|x64
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Debug|x86.ActiveCfg = Release|x64
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Debug|x86.Build.0 = Release|x64
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Release|x64.ActiveCfg = Release|x64
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Release|x64.Build.0 = Release|x64
+		{B82525A4-30ED-30BB-B46B-5979045B91BD}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

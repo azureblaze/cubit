@@ -1,7 +1,10 @@
 ﻿#pragma once
 #include <cubit/config/config.h>
+
 #include <map>
 #include <memory>
+
+#include <fruit/fruit.h>
 
 namespace cubit {
 namespace impl {
@@ -9,7 +12,7 @@ class ConstMapConfigEntry;
 
 class ConstMapConfig : public cubit::Config {
  public:
-  ConstMapConfig();
+  INJECT(ConstMapConfig());
   ~ConstMapConfig();
   virtual int getInt(std::string_view) const override;
   virtual float getFloat(std::string_view) const override;

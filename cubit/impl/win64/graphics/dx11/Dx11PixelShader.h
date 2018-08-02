@@ -6,8 +6,9 @@
 
 #include <wrl/client.h>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/assisted_injection.hpp>
+#undef max
+
+#include <fruit/fruit.h>
 
 #include <cubit/inject/Factory.h>
 
@@ -22,11 +23,10 @@ class Dx11PixelShader : public PixelShader {
   Dx11DeviceContext deviceContext;
 
  public:
-  BOOST_DI_INJECT(
-      Dx11PixelShader,
+  INJECT(Dx11PixelShader(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      (named = boost::di::extension::assisted) const ShaderSpec& spec);
+      ASSISTED(const ShaderSpec&) spec));
   ~Dx11PixelShader();
 
   virtual void activate() const override;

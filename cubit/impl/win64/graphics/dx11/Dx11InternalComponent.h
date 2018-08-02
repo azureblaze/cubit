@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <memory>
 
-#include <boost/di.hpp>
+#include <fruit/fruit.h>
 
 #include <cubit/inject/factory.h>
 
@@ -21,20 +21,18 @@ struct Dx11DeviceContext;
 class Dx11Resources;
 class Dx11ModelsRegistry;
 
-using Dx11InternalComponent = boost::di::injector<
+using Dx11InternalComponent = fruit::Component<
     Factory<Dx11VertexShader, const ShaderSpec&>,
     Factory<Dx11PixelShader, const ShaderSpec&>,
     Factory<Dx11VertexBuffer, size_t>,
     Factory<Dx11RenderTarget, std::shared_ptr<Dx11Texture2D>>,
-    Factory<Dx11Material>,
+    Factory<Dx11Material, Dx11Resources*>,
     Dx11Device,
-    std::unique_ptr<Dx11Resources>,
-    Factory<DebugAxis>,
-    std::shared_ptr<Dx11ModelsRegistry>>;
+    Dx11Resources>;
 
 Dx11InternalComponent getDx11InternalComponent(
-    Dx11Device& device,
-    Dx11DeviceContext& deviceContext);
+    Dx11Device* device,
+    Dx11DeviceContext* deviceContext);
 
 }  // namespace impl
 }  // namespace cubit

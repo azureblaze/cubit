@@ -1,6 +1,7 @@
 ﻿#pragma once
-#include <boost/di.hpp>
 #include <memory>
+
+#include <fruit/fruit.h>
 
 #include "FrameRateGovernor.h"
 #include "SleepFutureGovernor.h"
@@ -9,8 +10,13 @@
 
 namespace cubit {
 class Config;
+class Logger;
 namespace impl {
 class ConstMapConfig;
-boost::di::injector<std::unique_ptr<FrameRateGovernor>> getCommonCoreInjector();
+using CommonCoreComponent = fruit::Component<
+    fruit::Required<Config, Logger, Factory<SleepFuture>, Factory<Timer>>,
+    std::function<std::unique_ptr<FrameRateGovernor>()>>;
+
+CommonCoreComponent getCommonCoreInjector();
 }  // namespace impl
 }  // namespace cubit

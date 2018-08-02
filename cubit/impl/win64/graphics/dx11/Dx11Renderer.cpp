@@ -7,7 +7,7 @@
 #include <dxgi1_3.h>
 
 #include <cubit/config/Config.h>
-#include <cubit/inject/EagerSingleton.h>
+#include <cubit/inject/InjectorFor.h>
 #include <cubit/os/Logger.h>
 
 #include "dxresult.h"
@@ -42,9 +42,9 @@ struct Dx11Renderer::Impl {
   intptr_t devicePtr;
   intptr_t deviceContextPtr;
 
-  Dx11InternalComponent component;
+  INJECTOR_FOR(getDx11InternalComponent) injector;
 
-  std::unique_ptr<Dx11Resources> resources;
+  std::shared_ptr<Dx11Resources> resources;
 
   std::map<Win64Window*, ComPtr<IDXGISwapChain1>> swapChains;
 
@@ -57,9 +57,10 @@ struct Dx11Renderer::Impl {
         logger(logger),
         device(device),
         deviceContext(deviceContext),
-        component(getDx11InternalComponent(this->device, this->deviceContext)) {
-    component.create<shared_ptr<Dx11ModelsRegistry>>();
-  }
+        injector(
+            getDx11InternalComponent,
+            &(this->device),
+            &(this->deviceContext)) {}
 };
 
 Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
@@ -79,7 +80,7 @@ Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
       &deviceContext));
 
   impl = make_unique<Impl>(config, logger, device, deviceContext);
-  impl->resources = impl->component.create<unique_ptr<Dx11Resources>>();
+  impl->resources = impl->injector.get<shared_ptr<Dx11Resources>>();
 }
 
 Dx11Renderer::~Dx11Renderer() {}
@@ -123,7 +124,7 @@ unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
       0, __uuidof(ID3D11Texture2D), (void**)texture->texture.GetAddressOf()));
 
   Dx11RenderTargetFactory targetFactory =
-      impl->component.create<Dx11RenderTargetFactory>();
+      impl->injector.get<Dx11RenderTargetFactory>();
 
   unique_ptr<Dx11RenderTarget> target = targetFactory(texture);
 

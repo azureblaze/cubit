@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 #include <cubit/graphics/Model.h>
 
 #include <memory>

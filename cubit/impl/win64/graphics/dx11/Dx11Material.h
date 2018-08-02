@@ -4,7 +4,7 @@
 #include <functional>
 #include <memory>
 
-#include <boost/di.hpp>
+#include <fruit/fruit.h>
 
 #include "Dx11PixelShader.h"
 #include "Dx11VertexShader.h"
@@ -24,11 +24,10 @@ class Dx11Material : public Material {
   const Dx11PixelShader* pixelShader;
 
  public:
-  BOOST_DI_INJECT(
-      Dx11Material,
+  INJECT(Dx11Material(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      Dx11Resources& resources);
+      ASSISTED(Dx11Resources*) resources));
 
   virtual void begin(const Scene& scene) override;
 

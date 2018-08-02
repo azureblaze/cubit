@@ -1,18 +1,19 @@
 ﻿#pragma once
 #include "win64/graphics/Win64Renderer.h"
 
-#include <boost/di/extension/injections/assisted_injection.hpp>
 #include <memory>
 
 #include <wrl/client.h>
+
+#undef max
+
+#include <fruit/fruit.h>
 
 #include <cubit/graphics/Renderer.h>
 
 struct IDXGISwapChain;
 struct ID3D11Device;
 struct ID3D11DeviceContext;
-
-namespace di = boost::di;
 
 namespace cubit {
 
@@ -27,7 +28,7 @@ class Dx11Renderer : public Win64Renderer {
   std::unique_ptr<Impl> impl;
 
  public:
-  BOOST_DI_INJECT(Dx11Renderer, Config& config, Logger& logger);
+  INJECT(Dx11Renderer(Config& config, Logger& logger));
 
   ~Dx11Renderer();
 

@@ -4,10 +4,11 @@
 #include <functional>
 #include <memory>
 
-#include <wrl.h>
+#include <wrl/client.h>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/assisted_injection.hpp>
+#undef max
+
+#include <fruit/fruit.h>
 
 #include <cubit/inject/Factory.h>
 
@@ -27,11 +28,10 @@ class Dx11VertexShader : public VertexShader {
   Dx11DeviceContext deviceContext;
 
  public:
-  BOOST_DI_INJECT(
-      Dx11VertexShader,
+  INJECT(Dx11VertexShader(
       Dx11Device device,
       Dx11DeviceContext deviceContext,
-      (named = boost::di::extension::assisted) const ShaderSpec& spec);
+      ASSISTED(const ShaderSpec&) spec));
 
   ~Dx11VertexShader();
 

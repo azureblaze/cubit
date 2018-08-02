@@ -5,9 +5,8 @@
 namespace cubit {
 namespace impl {
 
-boost::di::injector<Input&, Win64Input&> getWin64InputComponent() {
-  return boost::di::make_injector(
-      boost::di::bind<Input, Win64Input>().to<Win64Input>());
+Win64InputComponent getWin64InputComponent() {
+  return fruit::createComponent().bind<Input, Win64Input>();
 }
 
 }  // namespace impl

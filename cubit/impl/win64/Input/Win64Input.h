@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+#include <fruit/fruit.h>
+
 #include <cubit/math/Math.h>
 
 namespace cubit {
@@ -22,7 +24,7 @@ class Win64Input : public Input {
   Win64Window* window;
 
  public:
-  Win64Input();
+  INJECT(Win64Input());
 
   virtual bool getKeyState(Keys key) override;
 

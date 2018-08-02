@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <boost/di/extension/injections/factory.hpp>
-
 #include <functional>
 #include <memory>
 #include <string>

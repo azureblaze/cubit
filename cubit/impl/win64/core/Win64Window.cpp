@@ -21,12 +21,12 @@ namespace cubit {
 namespace impl {
 Win64Window::Win64Window(
     const Spec& spec,
-    Config& config,
-    Win64Renderer& renderer,
-    Win64Input& input)
-    : spec(spec), renderer(renderer), input(input) {
-  width = config.get<int>("default_window_width");
-  height = config.get<int>("default_window_height");
+    Config* config,
+    Win64Renderer* renderer,
+    Win64Input* input)
+    : spec(spec), renderer(*renderer), input(*input) {
+  width = config->get<int>("default_window_width");
+  height = config->get<int>("default_window_height");
 }
 
 intptr_t Win64Window::initialize() {

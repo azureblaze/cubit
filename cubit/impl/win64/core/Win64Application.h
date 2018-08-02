@@ -3,11 +3,12 @@
 #include <memory>
 #include <string_view>
 
-#include <boost/di.hpp>
-#include <boost/di/extension/injections/factory.hpp>
+#include <fruit/fruit.h>
 
 #include <cubit/core/application.h>
+#include <cubit/inject/Factory.h>
 #include <cubit/os/Timer.h>
+
 #include "Win64Window.h"
 #include "common/core/FrameRateGovernor.h"
 
@@ -22,14 +23,13 @@ class Win64Application : public Application {
     std::string_view commandLineArgs;
   };
 
-  Win64Application(
-      const Spec& spec,
+  INJECT(Win64Application(
+      ASSISTED(const Spec&) spec,
       Win64WindowFactory windowFactory,
-      Config& config,
-      Logger& logger,
-      Input& input,
-      const cubit::TimerFactory& timerFactory,
-      std::unique_ptr<FrameRateGovernor> frameRateGovernor);
+      Config* config,
+      Logger* logger,
+      Input* input,
+      Factory<FrameRateGovernor> frameRateGovernor));
   void initialize() override;
   int start(std::function<void()> update) override;
   void quit() override { isRunning = false; };
@@ -43,7 +43,6 @@ class Win64Application : public Application {
   const Config& config;
   Logger& logger;
   Input& input;
-  const cubit::TimerFactory& timerFactory;
   std::unique_ptr<FrameRateGovernor> frameRateGovernor;
 
   bool isRunning = true;

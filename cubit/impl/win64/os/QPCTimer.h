@@ -1,12 +1,15 @@
 ﻿#pragma once
 #include <cubit/os/Timer.h>
 #include <stdint.h>
+
+#include <fruit/fruit.h>
+
 namespace cubit {
 namespace impl {
 
 class QPCFrequency {
  public:
-  QPCFrequency();
+  INJECT(QPCFrequency());
   operator int64_t() const { return frequency; }
 
  private:
@@ -15,7 +18,7 @@ class QPCFrequency {
 
 class QPCTimer : public cubit::Timer {
  public:
-  QPCTimer(QPCFrequency frequency) : frequency(frequency){};
+  INJECT(QPCTimer(QPCFrequency frequency)) : frequency(frequency){};
 
   virtual void start() override;
   virtual float get() override;

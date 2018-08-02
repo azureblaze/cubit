@@ -1,0 +1,4 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.12/Modules/CheckCXXSourceCompiles.cmake
+C:/github/cubit/fruit/configuration/CMakeLists.txt
+C:/github/cubit/fruit/configuration/fruit-config-base.h.in

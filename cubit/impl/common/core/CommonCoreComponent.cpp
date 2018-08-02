@@ -1,15 +1,15 @@
 ﻿#include "CommonCoreComponent.h"
 
+#include <cubit/config/config.h>
 #include <cubit/core/FrameUpdateMetrics.h>
+
+using namespace std;
 
 namespace cubit {
 namespace impl {
-boost::di::injector<std::unique_ptr<cubit::impl::FrameRateGovernor>>
-getCommonCoreInjector() {
-  return boost::di::make_injector(
-      getCommonConfigComponent(),
-      getWin64OsComponent(),
-      boost::di::bind<FrameRateGovernor>().to<SleepFutureGovernor>());
+CommonCoreComponent getCommonCoreInjector() {
+  return fruit::createComponent()
+      .bind<FrameRateGovernor, SleepFutureGovernor>();
 }
 }  // namespace impl
 }  // namespace cubit

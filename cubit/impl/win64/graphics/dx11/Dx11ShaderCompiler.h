@@ -5,6 +5,8 @@
 
 #include <d3d11.h>
 
+#undef max
+
 namespace cubit {
 namespace impl {
 namespace Dx11ShaderCompiler {

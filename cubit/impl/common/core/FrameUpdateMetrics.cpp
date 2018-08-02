@@ -6,10 +6,10 @@
 
 using namespace std;
 namespace cubit {
-FrameUpdateMetrics ::FrameUpdateMetrics(Config& config, Logger& logger)
-    : config(config),
-      logger(logger),
-      period(config.get<int>("frame_update_metrics_period")) {
+FrameUpdateMetrics ::FrameUpdateMetrics(Config* config, Logger* logger)
+    : config(*config),
+      logger(*logger),
+      period(config->get<int>("frame_update_metrics_period")) {
   metrics.reserve(period);
 }
 

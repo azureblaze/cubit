@@ -1,11 +1,13 @@
 ﻿#pragma once
 #include <cubit/os/SleepFuture.h>
 
+#include <fruit/fruit.h>
+
 namespace cubit {
 namespace impl {
 class WaitableTimerSleepFuture : public SleepFuture {
  public:
-  WaitableTimerSleepFuture();
+  INJECT(WaitableTimerSleepFuture());
   ~WaitableTimerSleepFuture();
   void start(int64_t millis);
   void get();
