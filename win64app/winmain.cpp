@@ -20,7 +20,6 @@
 using namespace cubit;
 using namespace std;
 
-namespace di = boost::di;
 class Game {
   Logger &logger;
   Renderer &renderer;
