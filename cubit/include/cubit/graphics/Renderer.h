@@ -14,7 +14,7 @@ class Renderer {
  public:
   virtual ~Renderer() = default;
 
-  virtual Resources& resources() = 0;
+  virtual Resources& getResources() = 0;
 };
 
 using RendererFactory =

@@ -7,6 +7,7 @@
 
 #include "common/config/CommonConfigComponent.h"
 #include "common/core/CommonCoreComponent.h"
+#include "common/inject/CommonInjectComponent.h"
 #include "win64/core/Win64CoreComponent.h"
 #include "win64/graphics/dx11/Dx11GraphicComponent.h"
 #include "win64/graphics/dx11/Dx11Renderer.h"
@@ -18,6 +19,7 @@ CubitComponent getCubitInjector(
     intptr_t applicationInstance,
     std::string_view commandLineArgs) {
   return fruit::createComponent()
+      .install(impl::getCommonInjectComponent)
       .install(impl::getCommonConfigComponent)
       .install(impl::getCommonCoreInjector)
       .install(impl::getWin64OsComponent)

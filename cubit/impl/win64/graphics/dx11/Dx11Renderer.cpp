@@ -32,29 +32,23 @@ namespace cubit {
 namespace impl {
 
 struct Dx11Renderer::Impl {
-  Logger& logger;
-  Config& config;
-
-  Dx11Device* device;
-
-  intptr_t devicePtr;
-  intptr_t deviceContextPtr;
-
-  INJECTOR_FOR(getDx11InternalComponent) injector;
-
-  std::shared_ptr<Dx11Resources> resources;
-
   std::map<Win64Window*, ComPtr<IDXGISwapChain1>> swapChains;
 
-  Impl(Config& config, Logger& logger)
-      : config(config), logger(logger), injector(getDx11InternalComponent) {}
+  Impl() {}
 };
 
-Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
-  impl = make_unique<Impl>(config, logger);
-  impl->device = impl->injector.get<Dx11Device*>();
-
-  impl->resources = impl->injector.get<shared_ptr<Dx11Resources>>();
+Dx11Renderer::Dx11Renderer(
+    Config& config,
+    Logger& logger,
+    Dx11Device& device,
+    Dx11Resources& resources,
+    Factory<Dx11RenderTarget, std::shared_ptr<Dx11Texture2D>> targetFactory)
+    : config(config),
+      logger(logger),
+      device(device),
+      resources(resources),
+      targetFactory(targetFactory) {
+  impl = make_unique<Impl>();
 }
 
 Dx11Renderer::~Dx11Renderer() {}
@@ -63,7 +57,7 @@ void Dx11Renderer::present(Win64Window& window) {
   impl->swapChains[&window]->Present(0, 0);
 }
 
-cubit::Resources& Dx11Renderer::resources() { return *(impl->resources.get()); }
+cubit::Resources& Dx11Renderer::getResources() { return resources; }
 
 unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
   IDXGISwapChain1* swapChain;
@@ -86,7 +80,7 @@ unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
       (void**)factory.GetAddressOf());
 
   checkResult(factory->CreateSwapChainForHwnd(
-      &impl->device->getDevice(),
+      &device.getDevice(),
       (HWND)window.getHandle(),
       &swapChainDescription,
       nullptr,
@@ -96,9 +90,6 @@ unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
   auto texture = make_shared<Dx11Texture2D>(width, height);
   checkResult(swapChain->GetBuffer(
       0, __uuidof(ID3D11Texture2D), (void**)texture->texture.GetAddressOf()));
-
-  Dx11RenderTargetFactory targetFactory =
-      impl->injector.get<Dx11RenderTargetFactory>();
 
   unique_ptr<Dx11RenderTarget> target = targetFactory(texture);
 

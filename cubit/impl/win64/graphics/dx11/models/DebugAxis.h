@@ -34,7 +34,5 @@ class DebugAxis : public Dx11Model {
 
   virtual std::unique_ptr<Instance> createInstance() const override;
 };
-
-using DebugAxisFactory = Factory<DebugAxis>;
 }  // namespace impl
 }  // namespace cubit

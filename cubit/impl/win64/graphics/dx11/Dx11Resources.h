@@ -9,6 +9,7 @@
 #include <cubit/inject/Factory.h>
 
 namespace cubit {
+class FactoryRegistry;
 namespace impl {
 class Dx11Device;
 class Dx11Material;
@@ -25,10 +26,10 @@ class Dx11Resources : public Resources {
  public:
   INJECT(Dx11Resources(
       Dx11Device* device,
+      FactoryRegistry* factoryRegistry,
       Factory<Dx11VertexShader, const ShaderSpec&> vertexShaderFactory,
       Factory<Dx11PixelShader, const ShaderSpec&> pixelShaderFactory,
-      Factory<Dx11Material, Dx11Resources*> materialFacotry,
-      Factory<DebugAxis, Dx11Resources*> debugAxisFactory));
+      Factory<Dx11Material, Dx11Resources*> materialFacotry));
   ~Dx11Resources();
 
   virtual const Model* getModel(const std::string& name) override;

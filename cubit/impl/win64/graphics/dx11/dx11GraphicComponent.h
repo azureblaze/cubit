@@ -10,9 +10,12 @@
 namespace cubit {
 class Config;
 class Logger;
+class FactoryRegistry;
 namespace impl {
-using Dx11GraphicComponent =
-    fruit::Component<fruit::Required<Config, Logger>, Renderer, Win64Renderer>;
+using Dx11GraphicComponent = fruit::Component<
+    fruit::Required<Config, Logger, FactoryRegistry>,
+    Renderer,
+    Win64Renderer>;
 
 Dx11GraphicComponent getDx11GraphicsComponent();
 }  // namespace impl

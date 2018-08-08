@@ -1,4 +1,5 @@
-﻿#include <memory>
+﻿#include <iostream>
+#include <memory>
 
 #include <fruit/fruit.h>
 
@@ -45,7 +46,7 @@ class Game {
     window = application->createWindow();
     window->show();
 
-    const Model *model = renderer->resources().getModel("debug:axis");
+    const Model *model = renderer->getResources().getModel("debug:axis");
     instance = scene.addInstance(*model);
 
     camera.getTransform().setPosition(Vector3(5, 5, 5));
@@ -112,10 +113,11 @@ class Game {
   }
 };
 
-fruit::Component<Application, Game> getGameComponent(
+fruit::Component<Application, Game, FactoryRegistry> getGameComponent(
     intptr_t applicationInstance,
     std::string_view commandLineArgs) {
-  return fruit::createComponent().install(cubit::getCubitInjector);
+  return fruit::createComponent().install(
+      cubit::getCubitInjector, applicationInstance, commandLineArgs);
 }
 
 int __stdcall WinMain(
@@ -124,9 +126,12 @@ int __stdcall WinMain(
     char *lpCmdLine,
     int nCmdShow) {
   int result;
+
   {
-    fruit::Injector<Application, Game> injector(
+    fruit::Injector<Application, Game, FactoryRegistry> injector(
         getGameComponent, (intptr_t)hInstance, lpCmdLine);
+
+    cubit::initializeInjector(injector);
 
     Application &application = injector.get<Application &>();
     application.initialize();
