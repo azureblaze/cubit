@@ -7,14 +7,8 @@
 
 namespace cubit {
 namespace impl {
-Dx11VertexBuffer::Dx11VertexBuffer(
-    Dx11Device device,
-    Dx11DeviceContext deviceContext,
-    size_t size)
-    : device(device),
-      deviceContext(deviceContext),
-      size(size),
-      vertices(size, Dx11Vertex{}) {
+Dx11VertexBuffer::Dx11VertexBuffer(Dx11Device* device, size_t size)
+    : device(device), size(size), vertices(size, Dx11Vertex{}) {
   D3D11_BUFFER_DESC bufferDescription{};
 
   bufferDescription.Usage = D3D11_USAGE_DYNAMIC;
@@ -22,17 +16,18 @@ Dx11VertexBuffer::Dx11VertexBuffer(
   bufferDescription.BindFlags = D3D11_BIND_VERTEX_BUFFER;
   bufferDescription.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-  device->CreateBuffer(&bufferDescription, NULL, buffer.GetAddressOf());
+  device->getDevice().CreateBuffer(
+      &bufferDescription, NULL, buffer.GetAddressOf());
 }
 
 Dx11VertexBuffer::~Dx11VertexBuffer() {}
 
 void Dx11VertexBuffer::map() {
   D3D11_MAPPED_SUBRESOURCE mappedSubresouce;
-  checkResult(deviceContext->Map(
+  checkResult(device->getDeviceContext().Map(
       buffer.Get(), NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mappedSubresouce));
   memcpy(mappedSubresouce.pData, vertices.data(), sizeof(Dx11Vertex) * size);
-  deviceContext->Unmap(buffer.Get(), NULL);
+  device->getDeviceContext().Unmap(buffer.Get(), NULL);
 }
 
 static D3D11_INPUT_ELEMENT_DESC desc[] = {

@@ -16,18 +16,14 @@ namespace impl {
 
 class Dx11Resources;
 class Dx11Material : public Material {
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
   Dx11Resources& resources;
 
   const Dx11VertexShader* vertexShader;
   const Dx11PixelShader* pixelShader;
 
  public:
-  INJECT(Dx11Material(
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
-      ASSISTED(Dx11Resources*) resources));
+  INJECT(Dx11Material(Dx11Device* device, ASSISTED(Dx11Resources*) resources));
 
   virtual void begin(const Scene& scene) override;
 

@@ -18,11 +18,8 @@ using namespace std;
 namespace cubit {
 namespace impl {
 
-Dx11InternalComponent getDx11InternalComponent(
-    Dx11Device* device,
-    Dx11DeviceContext* deviceContext) {
-  return fruit::createComponent().bindInstance(*device).bindInstance(
-      *deviceContext);
+Dx11InternalComponent getDx11InternalComponent() {
+  return fruit::createComponent();
 }
 }  // namespace impl
 }  // namespace cubit

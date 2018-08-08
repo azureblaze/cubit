@@ -15,9 +15,8 @@ namespace impl {
 DebugAxis::DebugAxis(
     Dx11Resources* resources,
     Dx11VertexBufferFactory vertexBufferfactory,
-    Dx11Device device,
-    Dx11DeviceContext deviceContext)
-    : device(device), deviceContext(deviceContext) {
+    Dx11Device* device)
+    : device(device) {
   material = (Dx11Material*)resources->getMaterial("");
   vertices = vertexBufferfactory(18);
   vertices->set(0, {{0, 0, 0}, {1, 0, 0, 1}});
@@ -51,9 +50,11 @@ void DebugAxis::drawPrimitives(const std::set<Instance*>& instances) const {
   ID3D11Buffer* d3dBuffer = vertices->getBuffer();
   uint32_t size = sizeof(Dx11Vertex);
   uint32_t offset = 0;
-  deviceContext->IASetVertexBuffers(0, 1, &d3dBuffer, &size, &offset);
-  deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
-  deviceContext->Draw(vertices->getSize(), 0);
+  device->getDeviceContext().IASetVertexBuffers(
+      0, 1, &d3dBuffer, &size, &offset);
+  device->getDeviceContext().IASetPrimitiveTopology(
+      D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+  device->getDeviceContext().Draw(vertices->getSize(), 0);
 }
 
 class DebugAxisInstance : public Instance {

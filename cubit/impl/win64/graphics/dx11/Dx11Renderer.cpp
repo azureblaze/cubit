@@ -35,8 +35,7 @@ struct Dx11Renderer::Impl {
   Logger& logger;
   Config& config;
 
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
 
   intptr_t devicePtr;
   intptr_t deviceContextPtr;
@@ -47,38 +46,14 @@ struct Dx11Renderer::Impl {
 
   std::map<Win64Window*, ComPtr<IDXGISwapChain1>> swapChains;
 
-  Impl(
-      Config& config,
-      Logger& logger,
-      ID3D11Device* device,
-      ID3D11DeviceContext* deviceContext)
-      : config(config),
-        logger(logger),
-        device(device),
-        deviceContext(deviceContext),
-        injector(
-            getDx11InternalComponent,
-            &(this->device),
-            &(this->deviceContext)) {}
+  Impl(Config& config, Logger& logger)
+      : config(config), logger(logger), injector(getDx11InternalComponent) {}
 };
 
 Dx11Renderer::Dx11Renderer(Config& config, Logger& logger) {
-  ID3D11Device* device;
-  ID3D11DeviceContext* deviceContext;
+  impl = make_unique<Impl>(config, logger);
+  impl->device = impl->injector.get<Dx11Device*>();
 
-  checkResult(D3D11CreateDevice(
-      NULL,
-      D3D_DRIVER_TYPE_HARDWARE,
-      NULL,
-      D3D11_CREATE_DEVICE_DEBUG,
-      NULL,
-      NULL,
-      D3D11_SDK_VERSION,
-      &device,
-      NULL,
-      &deviceContext));
-
-  impl = make_unique<Impl>(config, logger, device, deviceContext);
   impl->resources = impl->injector.get<shared_ptr<Dx11Resources>>();
 }
 
@@ -111,7 +86,7 @@ unique_ptr<RenderTarget> Dx11Renderer::createTarget(Win64Window& window) {
       (void**)factory.GetAddressOf());
 
   checkResult(factory->CreateSwapChainForHwnd(
-      impl->device,
+      &impl->device->getDevice(),
       (HWND)window.getHandle(),
       &swapChainDescription,
       nullptr,

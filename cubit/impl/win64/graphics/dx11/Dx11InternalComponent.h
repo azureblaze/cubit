@@ -16,8 +16,8 @@ class Dx11RenderTarget;
 class Dx11Texture2D;
 class Dx11Material;
 class DebugAxis;
-struct Dx11Device;
-struct Dx11DeviceContext;
+class Dx11Device;
+class Dx11DeviceContext;
 class Dx11Resources;
 class Dx11ModelsRegistry;
 
@@ -30,9 +30,7 @@ using Dx11InternalComponent = fruit::Component<
     Dx11Device,
     Dx11Resources>;
 
-Dx11InternalComponent getDx11InternalComponent(
-    Dx11Device* device,
-    Dx11DeviceContext* deviceContext);
+Dx11InternalComponent getDx11InternalComponent();
 
 }  // namespace impl
 }  // namespace cubit

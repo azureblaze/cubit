@@ -16,14 +16,10 @@ namespace cubit {
 namespace impl {
 class Dx11PixelShader : public PixelShader {
   ComPtr<ID3D11PixelShader> shader;
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
 
  public:
-  INJECT(Dx11PixelShader(
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
-      ASSISTED(const ShaderSpec&) spec));
+  INJECT(Dx11PixelShader(Dx11Device* device, ASSISTED(const ShaderSpec&) spec));
   ~Dx11PixelShader();
 
   virtual void activate() const override;

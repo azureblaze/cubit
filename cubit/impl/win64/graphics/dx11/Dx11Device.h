@@ -1,32 +1,24 @@
 ﻿#pragma once
 
+#include <fruit/fruit.h>
+
+#include "ComPtr.h"
+
 struct ID3D11Device;
 struct ID3D11DeviceContext;
 namespace cubit {
 namespace impl {
 
-static auto DevicePtr = [] {};
-static auto DeviceContextPtr = [] {};
+class Dx11Device {
+  ComPtr<ID3D11Device> device;
+  ComPtr<ID3D11DeviceContext> deviceContext;
 
-struct Dx11Device {
-  Dx11Device(ID3D11Device* device) : device(device) {}
+ public:
+  INJECT(Dx11Device());
+  ~Dx11Device();
 
-  ID3D11Device* device = nullptr;
-
-  ID3D11Device* operator->() const { return device; };
-
-  operator ID3D11Device*() const { return device; }
-};
-
-struct Dx11DeviceContext {
-  Dx11DeviceContext(ID3D11DeviceContext* deviceContext)
-      : deviceContext(deviceContext) {}
-
-  ID3D11DeviceContext* deviceContext = nullptr;
-
-  ID3D11DeviceContext* operator->() const { return deviceContext; };
-
-  operator ID3D11DeviceContext*() const { return deviceContext; }
+  ID3D11Device& getDevice() { return *device; }
+  ID3D11DeviceContext& getDeviceContext() { return *deviceContext; }
 };
 
 }  // namespace impl

@@ -16,16 +16,14 @@ class Dx11Material;
 class Dx11Resources;
 
 class DebugAxis : public Dx11Model {
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
   Dx11Material* material;
 
  public:
   INJECT(DebugAxis(
       ASSISTED(Dx11Resources*) resources,
       Dx11VertexBufferFactory vertexBufferfactory,
-      Dx11Device device,
-      Dx11DeviceContext deviceContext));
+      Dx11Device* device));
 
   ~DebugAxis();
 

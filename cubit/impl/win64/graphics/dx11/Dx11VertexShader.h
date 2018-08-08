@@ -14,21 +14,16 @@
 struct ID3D11VertexShader;
 struct ID3D11InputLayout;
 
-struct ID3D11Device;
-
 namespace cubit {
 namespace impl {
 class Dx11VertexShader : public VertexShader {
   ComPtr<ID3D11VertexShader> shader;
   ComPtr<ID3D11InputLayout> layout;
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
 
  public:
-  INJECT(Dx11VertexShader(
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
-      ASSISTED(const ShaderSpec&) spec));
+  INJECT(
+      Dx11VertexShader(Dx11Device* device, ASSISTED(const ShaderSpec&) spec));
 
   ~Dx11VertexShader();
 

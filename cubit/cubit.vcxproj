@@ -226,6 +226,7 @@
     <ClCompile Include="impl\common\core\FrameUpdateMetrics.cpp" />
     <ClCompile Include="impl\common\core\SleepFutureGovernor.cpp" />
     <ClCompile Include="impl\common\graphics\SceneImpl.cpp" />
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Device.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Material.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Model.cpp" />
     <ClCompile Include="impl\win64\graphics\dx11\Dx11Resources.cpp" />

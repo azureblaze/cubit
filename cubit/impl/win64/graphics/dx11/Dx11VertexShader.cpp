@@ -10,22 +10,19 @@
 
 namespace cubit {
 namespace impl {
-Dx11VertexShader::Dx11VertexShader(
-    Dx11Device device,
-    Dx11DeviceContext deviceContext,
-    const ShaderSpec& spec)
-    : device(device), deviceContext(deviceContext) {
+Dx11VertexShader::Dx11VertexShader(Dx11Device* device, const ShaderSpec& spec)
+    : device(device) {
   ComPtr<ID3DBlob> blob =
       Dx11ShaderCompiler::compile(spec.file, spec.entryPoint, "vs_4_0");
 
-  device->CreateVertexShader(
+  device->getDevice().CreateVertexShader(
       blob->GetBufferPointer(),
       blob->GetBufferSize(),
       NULL,
       shader.GetAddressOf());
 
   Dx11InputLayout vertexLayout = Dx11Vertex::getLayout();
-  device->CreateInputLayout(
+  device->getDevice().CreateInputLayout(
       vertexLayout.desc,
       vertexLayout.size,
       blob->GetBufferPointer(),
@@ -34,9 +31,9 @@ Dx11VertexShader::Dx11VertexShader(
 }
 
 void Dx11VertexShader::activate() const {
-  deviceContext->VSSetShader(shader.Get(), 0, 0);
+  device->getDeviceContext().VSSetShader(shader.Get(), 0, 0);
 
-  deviceContext->IASetInputLayout(layout.Get());
+  device->getDeviceContext().IASetInputLayout(layout.Get());
 }
 
 Dx11VertexShader::~Dx11VertexShader() {}

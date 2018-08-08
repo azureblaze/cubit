@@ -21,7 +21,7 @@ class Dx11RenderTarget : public RenderTarget {
  private:
   friend class Dx11Renderer;
 
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
   ComPtr<ID3D11RenderTargetView> target;
 
   std::shared_ptr<Dx11Texture2D> texture;
@@ -30,8 +30,7 @@ class Dx11RenderTarget : public RenderTarget {
 
  public:
   INJECT(Dx11RenderTarget(
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
+      Dx11Device* device,
       ASSISTED(std::shared_ptr<Dx11Texture2D>) texture));
   ~Dx11RenderTarget();
 

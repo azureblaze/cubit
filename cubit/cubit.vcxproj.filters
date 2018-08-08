@@ -111,6 +111,9 @@
     <ClCompile Include="impl\win64\Input\Win64InputComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="impl\win64\graphics\dx11\Dx11Device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cubit\cubit.h">

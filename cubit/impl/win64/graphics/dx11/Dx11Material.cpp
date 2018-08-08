@@ -24,11 +24,8 @@ struct ConstBuffer {
 
 static ID3D11Buffer* constBuffer;
 
-Dx11Material::Dx11Material(
-    Dx11Device device,
-    Dx11DeviceContext deviceContext,
-    Dx11Resources* resources)
-    : device(device), deviceContext(deviceContext), resources(*resources) {
+Dx11Material::Dx11Material(Dx11Device* device, Dx11Resources* resources)
+    : device(device), resources(*resources) {
   vertexShader = (Dx11VertexShader*)resources->getVertexShader(
       ShaderSpec{"data/debug.hlsl", "vertexMain"});
 
@@ -41,7 +38,8 @@ Dx11Material::Dx11Material(
   constBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
   constBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-  checkResult(device->CreateBuffer(&constBufferDesc, NULL, &constBuffer));
+  checkResult(
+      device->getDevice().CreateBuffer(&constBufferDesc, NULL, &constBuffer));
 }
 
 void Dx11Material::begin(const Scene& scene) {
@@ -51,12 +49,12 @@ void Dx11Material::begin(const Scene& scene) {
                               .transpose();
 
   D3D11_MAPPED_SUBRESOURCE mappedSubresouce;
-  deviceContext->Map(
+  device->getDeviceContext().Map(
       constBuffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mappedSubresouce);
   memcpy(mappedSubresouce.pData, &buffer, sizeof(ConstBuffer));
-  deviceContext->Unmap(constBuffer, NULL);
+  device->getDeviceContext().Unmap(constBuffer, NULL);
 
-  deviceContext->VSSetConstantBuffers(0, 1, &constBuffer);
+  device->getDeviceContext().VSSetConstantBuffers(0, 1, &constBuffer);
 
   vertexShader->activate();
   pixelShader->activate();

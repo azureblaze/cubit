@@ -33,15 +33,11 @@ class Dx11VertexBuffer {
 
   std::vector<Dx11Vertex> vertices;
 
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
   size_t size;
 
  public:
-  INJECT(Dx11VertexBuffer(
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
-      ASSISTED(size_t) size));
+  INJECT(Dx11VertexBuffer(Dx11Device* device, ASSISTED(size_t) size));
 
   ~Dx11VertexBuffer();
 

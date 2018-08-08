@@ -18,6 +18,7 @@ class RenderTarget;
 class Config;
 
 namespace impl {
+class Dx11Device;
 class Dx11RenderTarget;
 class Dx11Renderer : public Win64Renderer {
   struct Impl;

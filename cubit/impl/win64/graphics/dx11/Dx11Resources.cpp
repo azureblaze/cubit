@@ -39,8 +39,7 @@ class ResourceHolder {
 
 struct Dx11Resources::Impl {
   Dx11Resources* resources;
-  Dx11Device device;
-  Dx11DeviceContext deviceContext;
+  Dx11Device* device;
   Factory<Dx11Material, Dx11Resources*> materialFactory;
 
   ResourceHolder<string, Dx11Model> models;
@@ -59,15 +58,13 @@ struct Dx11Resources::Impl {
 
   Impl(
       Dx11Resources* resources,
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
+      Dx11Device* device,
       Dx11VertexShaderFactory vertexShaderFactory,
       Dx11PixelShaderFactory pixelShaderFactory,
       Factory<Dx11Material, Dx11Resources*> materialFactory,
       Factory<DebugAxis, Dx11Resources*> debugAxisFactory)
       : resources(resources),
         device(device),
-        deviceContext(deviceContext),
         materialFactory(materialFactory),
         models(bind(&Impl::loadModel, this, _1)),
         materials(bind(&Impl::loadMaterial, this, _1)),
@@ -77,8 +74,7 @@ struct Dx11Resources::Impl {
 };
 
 Dx11Resources::Dx11Resources(
-    Dx11Device device,
-    Dx11DeviceContext deviceContext,
+    Dx11Device* device,
     Dx11VertexShaderFactory vertexShaderFactory,
     Dx11PixelShaderFactory pixelShaderFactory,
     Factory<Dx11Material, Dx11Resources*> materialFactory,
@@ -86,7 +82,6 @@ Dx11Resources::Dx11Resources(
     : impl(make_unique<Impl>(
           this,
           device,
-          deviceContext,
           vertexShaderFactory,
           pixelShaderFactory,
           materialFactory,

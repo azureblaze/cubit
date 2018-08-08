@@ -10,8 +10,7 @@
 
 namespace cubit {
 namespace impl {
-struct Dx11Device;
-struct Dx11DeviceContext;
+class Dx11Device;
 class Dx11Material;
 
 class Dx11VertexShader;
@@ -25,8 +24,7 @@ class Dx11Resources : public Resources {
 
  public:
   INJECT(Dx11Resources(
-      Dx11Device device,
-      Dx11DeviceContext deviceContext,
+      Dx11Device* device,
       Factory<Dx11VertexShader, const ShaderSpec&> vertexShaderFactory,
       Factory<Dx11PixelShader, const ShaderSpec&> pixelShaderFactory,
       Factory<Dx11Material, Dx11Resources*> materialFacotry,

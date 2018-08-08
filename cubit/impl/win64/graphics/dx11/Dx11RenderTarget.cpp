@@ -10,29 +10,29 @@
 namespace cubit {
 namespace impl {
 Dx11RenderTarget::Dx11RenderTarget(
-    Dx11Device device,
-    Dx11DeviceContext deviceContext,
+    Dx11Device* device,
     std::shared_ptr<Dx11Texture2D> texture)
-    : deviceContext(deviceContext), texture(texture) {
-  checkResult(device->CreateRenderTargetView(
+    : device(device), texture(texture) {
+  checkResult(device->getDevice().CreateRenderTargetView(
       texture->texture.Get(), NULL, target.GetAddressOf()));
 }
 
 Dx11RenderTarget::~Dx11RenderTarget() {}
 
 void Dx11RenderTarget::clear(Color color) {
-  deviceContext->ClearRenderTargetView(target.Get(), (float*)&color);
+  device->getDeviceContext().ClearRenderTargetView(
+      target.Get(), (float*)&color);
 }
 
 void Dx11RenderTarget::bind() {
-  deviceContext->OMSetRenderTargets(1, target.GetAddressOf(), NULL);
+  device->getDeviceContext().OMSetRenderTargets(1, target.GetAddressOf(), NULL);
 
   D3D11_VIEWPORT viewport{};
   viewport.Width = texture->getWidth();
   viewport.Height = texture->getHeight();
   viewport.MaxDepth = 1.0f;
 
-  deviceContext->RSSetViewports(1, &viewport);
+  device->getDeviceContext().RSSetViewports(1, &viewport);
 }
 
 }  // namespace impl
